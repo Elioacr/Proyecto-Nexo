@@ -8,6 +8,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -49,8 +52,12 @@ public class Usuario {
     @Size(min = 8)
     private String contraseña;
     
-    @OneToMany(mappedBy = "usuario", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Inscripcion> inscripciones;
+  //Uno relacion directa a eventos, para no crear el modelo de inscripciones
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "inscripciones",
+    			joinColumns = @JoinColumn(name = "usuario_id"),
+    			inverseJoinColumns = @JoinColumn(name = "event_id"))
+    private List<Evento> eventos;
     
     @Transient
 	private String confirmarContraseña;
@@ -58,7 +65,7 @@ public class Usuario {
 	public Usuario() {}
 	
 	public Usuario(Long id, Integer rut, String nombre, String apellido, String correo,
-			Integer telefono, String ciudad, String contraseña, List<Inscripcion> inscripciones, String confirmarContraseña) {
+			Integer telefono, String ciudad, String contraseña, List<Evento> eventos, String confirmarContraseña) {
 		super();
 		this.id = id;
 		this.rut = rut;
@@ -68,7 +75,7 @@ public class Usuario {
 		this.telefono = telefono;
 		this.ciudad = ciudad;
 		this.contraseña = contraseña;
-		this.inscripciones = inscripciones;
+		this.eventos = eventos;
 		this.confirmarContraseña = confirmarContraseña;
 	}
 
@@ -144,11 +151,11 @@ public class Usuario {
 		this.confirmarContraseña = confirmarContraseña;
 	}
 
-	public List<Inscripcion> getInscripciones() {
-		return inscripciones;
+	public List<Evento> getEventos() {
+		return eventos;
 	}
 
-	public void setInscripciones(List<Inscripcion> inscripciones) {
-		this.inscripciones = inscripciones;
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
 	}
 }

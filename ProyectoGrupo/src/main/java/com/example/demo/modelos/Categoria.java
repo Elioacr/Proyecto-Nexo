@@ -24,7 +24,8 @@ public class Categoria {
     @Size(min = 2, max = 50)
     private String categoria;
     
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //Relacion a eventos
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Evento> eventos;
 
 	public Categoria() {}

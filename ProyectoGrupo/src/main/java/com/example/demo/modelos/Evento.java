@@ -10,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -41,19 +43,20 @@ public class Evento {
     @ManyToOne  
     @JoinColumn(name = "organizacion_id")  
     private Organizacion organizacion;  
-
-    @ManyToOne  
-    @JoinColumn(name = "categoria_id")  
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
-
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Inscripcion> inscripciones;
+    
+    //Uno relacion directa a usuarios, para no crear el modelo de inscripciones
+    @ManyToMany(mappedBy = "eventos", fetch = FetchType.LAZY)
+    private List<Usuario> usuarios; 
     
 	public Evento() {}
 	
 	public Evento(Long id, String ciudad, String ubicacion, String descripcion,
 			LocalDateTime fechaHora, Organizacion organizacion, Categoria categoria,
-			List<Inscripcion> inscripciones) {
+			List<Usuario> usuarios) {
 		super();
 		this.id = id;
 		this.ciudad = ciudad;
@@ -62,7 +65,7 @@ public class Evento {
 		this.fechaHora = fechaHora;
 		this.organizacion = organizacion;
 		this.categoria = categoria;
-		this.inscripciones = inscripciones;
+		this.usuarios = usuarios;
 	}
 
 	public Long getId() {
@@ -113,6 +116,8 @@ public class Evento {
 		this.organizacion = organizacion;
 	}
 
+	
+
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -121,12 +126,12 @@ public class Evento {
 		this.categoria = categoria;
 	}
 
-
-	public List<Inscripcion> getInscripciones() {
-		return inscripciones;
+	public List<Usuario> getUsuarios() {
+		return usuarios;
 	}
 
-	public void setInscripciones(List<Inscripcion> inscripciones) {
-		this.inscripciones = inscripciones;
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
+	
 }  
