@@ -8,7 +8,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
@@ -44,6 +46,10 @@ public class Organizacion {
     @OneToMany(mappedBy = "organizacion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Evento> eventos;
     
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "login_id", referencedColumnName = "id")
+    private LoginUsuario loginUsuario;
+    
     @Transient
 	private String confirmarContraseña;
 
@@ -51,7 +57,7 @@ public class Organizacion {
 
 	public Organizacion(Long id, Integer rut, String organizacion, String correo,
 			String telefono, String contraseña, List<Evento> eventos,
-			String confirmarContraseña) {
+			String confirmarContraseña, LoginUsuario loginUsuario) {
 		super();
 		this.id = id;
 		this.rut = rut;
@@ -61,6 +67,7 @@ public class Organizacion {
 		this.contraseña = contraseña;
 		this.eventos = eventos;
 		this.confirmarContraseña = confirmarContraseña;
+		this.loginUsuario = loginUsuario;
 	}
 
 	public Long getId() {
@@ -125,5 +132,13 @@ public class Organizacion {
 
 	public void setConfirmarContraseña(String confirmarContraseña) {
 		this.confirmarContraseña = confirmarContraseña;
-	} 
+	}
+
+	public LoginUsuario getLoginUsuario() {
+		return loginUsuario;
+	}
+
+	public void setLoginUsuario(LoginUsuario loginUsuario) {
+		this.loginUsuario = loginUsuario;
+	}
 }

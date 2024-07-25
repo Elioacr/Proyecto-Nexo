@@ -9,9 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
@@ -52,12 +51,12 @@ public class Usuario {
     @Size(min = 8)
     private String contraseña;
     
-  //Uno relacion directa a eventos, para no crear el modelo de inscripciones
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "inscripciones",
-    			joinColumns = @JoinColumn(name = "usuario_id"),
-    			inverseJoinColumns = @JoinColumn(name = "event_id"))
-    private List<Evento> eventos;
+    @OneToMany(mappedBy = "usuario", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Inscripcion> inscripciones;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "login_id", referencedColumnName = "id")
+    private LoginUsuario loginUsuario;
     
     @Transient
 	private String confirmarContraseña;
@@ -65,7 +64,7 @@ public class Usuario {
 	public Usuario() {}
 	
 	public Usuario(Long id, Integer rut, String nombre, String apellido, String correo,
-			Integer telefono, String ciudad, String contraseña, List<Evento> eventos, String confirmarContraseña) {
+			Integer telefono, String ciudad, String contraseña, List<Inscripcion> inscripciones, String confirmarContraseña, LoginUsuario loginUsuario) {
 		super();
 		this.id = id;
 		this.rut = rut;
@@ -75,8 +74,9 @@ public class Usuario {
 		this.telefono = telefono;
 		this.ciudad = ciudad;
 		this.contraseña = contraseña;
-		this.eventos = eventos;
+		this.inscripciones = inscripciones;
 		this.confirmarContraseña = confirmarContraseña;
+		this.loginUsuario = loginUsuario;
 	}
 
 	public Long getId() {
@@ -151,11 +151,19 @@ public class Usuario {
 		this.confirmarContraseña = confirmarContraseña;
 	}
 
-	public List<Evento> getEventos() {
-		return eventos;
+	public List<Inscripcion> getInscripciones() {
+		return inscripciones;
 	}
 
-	public void setEventos(List<Evento> eventos) {
-		this.eventos = eventos;
+	public void setInscripciones(List<Inscripcion> inscripciones) {
+		this.inscripciones = inscripciones;
+	}
+
+	public LoginUsuario getLoginUsuario() {
+		return loginUsuario;
+	}
+
+	public void setLoginUsuario(LoginUsuario loginUsuario) {
+		this.loginUsuario = loginUsuario;
 	}
 }
