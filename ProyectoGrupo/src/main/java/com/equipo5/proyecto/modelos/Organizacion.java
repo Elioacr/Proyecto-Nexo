@@ -13,6 +13,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,19 +26,19 @@ public class Organizacion {
     private Long id;  
 
     @NotNull
-    @Size(min = 12)
+    @Digits(integer = 12, fraction = 0)
     private Integer rut;  
     
     @NotBlank
     @Size(min = 2, max = 50)
-    private String organizacion;  
+    private String nombreOrganizacion;  
     
     @NotBlank
     @Size(min = 2, max = 50)
     private String correo;  
     
     @NotNull
-    @Size(min = 12)
+    @Digits(integer = 12, fraction = 0)
     private String telefono;
     
     @NotBlank
@@ -52,13 +53,13 @@ public class Organizacion {
 
 	public Organizacion() {}
 
-	public Organizacion(Long id, Integer rut, String organizacion, String correo,
+	public Organizacion(Long id, Integer rut, String nombreOrganizacion, String correo,
 			String telefono, String contraseña, List<Evento> eventos,
 			String confirmarContraseña) {
 		super();
 		this.id = id;
 		this.rut = rut;
-		this.organizacion = organizacion;
+		this.nombreOrganizacion = nombreOrganizacion;
 		this.correo = correo;
 		this.telefono = telefono;
 		this.contraseña = contraseña;
@@ -82,12 +83,12 @@ public class Organizacion {
 		this.rut = rut;
 	}
 
-	public String getOrganizacion() {
-		return organizacion;
+	public String getNombreOrganizacion() {
+		return nombreOrganizacion;
 	}
 
-	public void setOrganizacion(String organizacion) {
-		this.organizacion = organizacion;
+	public void setNombreOrganizacion(String nombreOrganizacion) {
+		this.nombreOrganizacion = nombreOrganizacion;
 	}
 
 	public String getCorreo() {

@@ -33,16 +33,15 @@ public class ServicioUsuario {
 		return validaciones;
 	}
 
-	public BindingResult validarLogin(BindingResult validaciones, LoginUsuario loginUsuario) {
-		Usuario usuarioActual = this.obtenerPorCorreo(loginUsuario.getUsuarioCorreo());
-		if(usuarioActual == null) {
-			validaciones.rejectValue("usuarioCorreo", "NoExistente", "Este usuario no existe");
-		}
-		else if(! BCrypt.checkpw(loginUsuario.getUsuarioContraseña(), usuarioActual.getContraseña())) {
-			validaciones.rejectValue("usuarioContraseña", "NoExistente", "Credenciales no validas");
-		}
-		return validaciones;
-	}
+	public BindingResult validarLoginVoluntario(BindingResult validaciones, LoginUsuario loginUsuario) {
+        Usuario usuarioActual = this.obtenerPorCorreo(loginUsuario.getUsuarioCorreo());
+        if (usuarioActual == null) {
+            validaciones.rejectValue("usuarioCorreo", "NoExistente", "Este usuario no existe");
+        } else if (!BCrypt.checkpw(loginUsuario.getUsuarioContraseña(), usuarioActual.getContraseña())) {
+            validaciones.rejectValue("usuarioContraseña", "NoValida", "Credenciales no válidas");
+        }
+        return validaciones;
+    }
 
 	public Usuario insertarUsuario(Usuario usuario) {
 		String contraseñaEncriptada = BCrypt.hashpw(usuario.getContraseña(), BCrypt.gensalt());

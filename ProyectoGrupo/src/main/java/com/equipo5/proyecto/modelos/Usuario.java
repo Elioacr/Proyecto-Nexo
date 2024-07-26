@@ -12,6 +12,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,7 +25,7 @@ public class Usuario {
     private Long id;  
     
     @NotNull
-    @Size(min = 12)
+    @Digits(integer = 12, fraction = 0)
     private Integer rut;
 
     @NotBlank
@@ -40,7 +41,7 @@ public class Usuario {
     private String correo;  
     
     @NotNull
-    @Size(min = 12)
+    @Digits(integer = 12, fraction = 0)
     private Integer telefono;
     
     @NotBlank
