@@ -8,9 +8,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Digits;
@@ -52,11 +50,20 @@ public class Organizacion {
 	private String confirmarContraseña;
 
 	public Organizacion() {}
+	
+	
+	public Organizacion(Integer rut, String nombreOrganizacion, String correo, String telefono, String contraseña) {
+		this.rut = rut;
+		this.nombreOrganizacion = nombreOrganizacion;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.contraseña = contraseña;
+	}
+
 
 	public Organizacion(Long id, Integer rut, String nombreOrganizacion, String correo,
 			String telefono, String contraseña, List<Evento> eventos,
 			String confirmarContraseña) {
-		super();
 		this.id = id;
 		this.rut = rut;
 		this.nombreOrganizacion = nombreOrganizacion;

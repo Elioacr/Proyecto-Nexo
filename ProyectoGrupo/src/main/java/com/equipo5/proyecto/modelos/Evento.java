@@ -50,6 +50,18 @@ public class Evento {
     private List<Usuario> usuarios;
 	public Evento() {}
 	
+	
+	public Evento(String ciudad, String ubicacion, String descripcion, LocalDateTime fechaHora,
+			Organizacion organizacion, Categoria categoria) {
+		super();
+		this.ciudad = ciudad;
+		this.ubicacion = ubicacion;
+		this.descripcion = descripcion;
+		this.fechaHora = fechaHora;
+		this.organizacion = organizacion;
+		this.categoria = categoria;
+	}
+
 
 	public Evento(Long id, String ciudad, String ubicacion, String descripcion, LocalDateTime fechaHora, 
 			Organizacion organizacion, Categoria categoria, List<Usuario> usuarios) {
