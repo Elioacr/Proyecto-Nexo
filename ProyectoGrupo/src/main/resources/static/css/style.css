@@ -1,0 +1,17 @@
+body {
+    background-image: url('https://thumbs.dreamstime.com/z/amigos-que-se-ofrecen-voluntariamente-y-plantan-árboles-127753148.jpg?ct=jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+}
+#card {
+    background: transparent;
+    margin-top: 100px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+.mt-5{
+    color: white;
+
+}
