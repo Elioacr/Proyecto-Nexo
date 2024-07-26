@@ -1,5 +1,6 @@
 package com.equipo5.proyecto.controladores;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,8 +19,6 @@ import com.equipo5.proyecto.modelos.Usuario;
 import com.equipo5.proyecto.servicios.ServicioOrganizacion;
 import com.equipo5.proyecto.servicios.ServicioUsuario;
 
-import ch.qos.logback.core.model.Model;
-
 
 @Controller
 public class ControladorUsuario {
@@ -33,10 +32,19 @@ public class ControladorUsuario {
 		this.servicioOrganizacion = servicioOrganizacion;
 	}
 
-	@GetMapping({"/", "/login", "/registro"})
-	public String despliegaLoginRegistro(@ModelAttribute("usuario") Usuario usuario,
-										 @ModelAttribute("loginUsuario") LoginUsuario loginUsuario) {
-		return "index.jsp";
+	@GetMapping({"/registro/usuario"})
+	public String despliegaRegistroUsuario(@ModelAttribute("usuario") Usuario usuario) {
+		return "registroVoluntario.jsp";
+	}
+	
+	@GetMapping({"/login"})
+	public String despliegaLogin(@ModelAttribute("loginUsuario") LoginUsuario loginUsuario) {
+		return "login.jsp";
+	}
+	
+	@GetMapping({"/voluntario"})
+	public String despliegaVoluntario() {
+		return "voluntario.jsp";
 	}
 
 	@PostMapping("/registrar/usuario")
@@ -46,7 +54,7 @@ public class ControladorUsuario {
 										  HttpSession sesion) {
 		validaciones = this.servicioUsuario.validarRegistro(validaciones, usuario);
 		if(validaciones.hasErrors()) {
-			return "index.jsp";
+			return "registroVoluntario.jsp";
 		}
 
 		Usuario usuarioCreado = this.servicioUsuario.insertarUsuario(usuario);
@@ -60,24 +68,32 @@ public class ControladorUsuario {
 	public String procesaLogin(@Valid @ModelAttribute("loginUsuario") LoginUsuario loginUsuario,
 	                           BindingResult validaciones,
 	                           HttpSession sesion) {
-	    validaciones = this.servicioUsuario.validarLogin(validaciones, loginUsuario);
-	    if (validaciones.hasErrors()) {
-	        return "index.jsp";
-	    }
-
 	    String tipoUsuario = loginUsuario.getTipoUsuario();
+	    
 	    if ("VOLUNTARIO".equals(tipoUsuario)) {
+	        validaciones = this.servicioUsuario.validarLoginVoluntario(validaciones, loginUsuario);
+	        if (validaciones.hasErrors()) {
+	            return "login.jsp";
+	        }
+
 	        Usuario usuarioActual = servicioUsuario.obtenerPorCorreo(loginUsuario.getUsuarioCorreo());
 	        sesion.setAttribute("id_usuario", usuarioActual.getId());
 	        sesion.setAttribute("nombre_usuario", usuarioActual.getNombre());
-	        return "redirect:/voluntarioDashboard";
+	        return "redirect:/voluntario";
+	        
 	    } else if ("ORGANIZACION".equals(tipoUsuario)) {
+	        validaciones = this.servicioOrganizacion.validarLoginOrganizacion(validaciones, loginUsuario);
+	        if (validaciones.hasErrors()) {
+	            return "login.jsp";
+	        }
+
 	        Organizacion organizacionActual = servicioOrganizacion.obtenerPorCorreo(loginUsuario.getUsuarioCorreo());
 	        sesion.setAttribute("id_organizacion", organizacionActual.getId());
-	        sesion.setAttribute("nombre_organizacion", organizacionActual.getOrganizacion());
-	        return "redirect:/organizacionDashboard";
+	        sesion.setAttribute("nombreOrganizacion_organizacion", organizacionActual.getNombreOrganizacion());
+	        return "redirect:/organizacion";
 	    }
+	    
 	    // En caso de que el tipo de usuario no sea reconocido, redirigir al login
-	    return "index.jsp";
+	    return "login.jsp";
 	}
 }
