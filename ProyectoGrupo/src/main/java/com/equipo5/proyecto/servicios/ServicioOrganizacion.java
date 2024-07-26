@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
-import com.equipo5.proyecto.modelos.LoginUsuario;
+
 import com.equipo5.proyecto.modelos.Organizacion;
 import com.equipo5.proyecto.modelos.Usuario;
 import com.equipo5.proyecto.repositorios.RepositorioOrganizacion;
+import com.equipo5.proyecto.modelos.LoginUsuario;
 
 import jakarta.transaction.Transactional;
 

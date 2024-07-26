@@ -19,8 +19,6 @@ import com.equipo5.proyecto.modelos.Usuario;
 import com.equipo5.proyecto.servicios.ServicioOrganizacion;
 import com.equipo5.proyecto.servicios.ServicioUsuario;
 
-import ch.qos.logback.core.model.Model;
-
 
 @Controller
 public class ControladorUsuario {

@@ -12,13 +12,10 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.equipo5.proyecto.modelos.LoginUsuario;
 import com.equipo5.proyecto.modelos.Organizacion;
 import com.equipo5.proyecto.modelos.Usuario;
 import com.equipo5.proyecto.servicios.ServicioOrganizacion;
 import com.equipo5.proyecto.servicios.ServicioUsuario;
-
-import ch.qos.logback.core.model.Model;
 
 
 @Controller
@@ -34,8 +31,7 @@ public class ControladorOrganizacion {
 	}
 
 	@GetMapping({"/registro/organizacion"})
-	public String despliegaRegistroOrganizacion(@ModelAttribute("organizacion") Organizacion organizacion,
-										 @ModelAttribute("loginUsuario") LoginUsuario loginUsuario) {
+	public String despliegaRegistroOrganizacion(@ModelAttribute("organizacion") Organizacion organizacion) {
 		return "registroOrganizacion.jsp";
 	}
 	
@@ -47,7 +43,6 @@ public class ControladorOrganizacion {
 	@PostMapping("/registrar/organizacion")
 	public String procesaRegistrarOrganizacion(@Valid @ModelAttribute("organizacion") Organizacion organizacion,
 										  BindingResult validaciones,
-										  @ModelAttribute("loginUsuario") LoginUsuario loginUsuario,
 										  HttpSession sesion) {
 		validaciones = this.servicioOrganizacion.validarOrganizacion(validaciones, organizacion);
 		if(validaciones.hasErrors()) {
