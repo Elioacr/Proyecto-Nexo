@@ -8,11 +8,10 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,7 +24,7 @@ public class Organizacion {
     private Long id;  
 
     @NotNull
-    @Size(min = 12)
+    @Min(1000000000)
     private Integer rut;  
     
     @NotBlank
@@ -51,11 +50,20 @@ public class Organizacion {
 	private String confirmarContraseña;
 
 	public Organizacion() {}
+	
+	
+	public Organizacion(Integer rut, String organizacion, String correo, String telefono, String contraseña) {
+		this.rut = rut;
+		this.organizacion = organizacion;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.contraseña = contraseña;
+	}
+
 
 	public Organizacion(Long id, Integer rut, String organizacion, String correo,
 			String telefono, String contraseña, List<Evento> eventos,
 			String confirmarContraseña) {
-		super();
 		this.id = id;
 		this.rut = rut;
 		this.organizacion = organizacion;

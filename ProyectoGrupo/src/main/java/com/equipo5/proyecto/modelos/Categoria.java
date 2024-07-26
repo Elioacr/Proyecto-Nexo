@@ -30,8 +30,11 @@ public class Categoria {
 
 	public Categoria() {}
 	
+	public Categoria(String categoria) {
+		this.categoria = categoria;
+	}
+
 	public Categoria(Long id, String categoria, List<Evento> eventos) {
-		super();
 		this.id = id;
 		this.categoria = categoria;
 		this.eventos = eventos;

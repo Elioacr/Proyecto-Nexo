@@ -22,4 +22,10 @@ public class ServicioCategoria {
 	public Categoria obtenerCategoriaPorId(Long id) {
 		return this.repositorioCategoria.findById(id).orElse(null);
 	}
+	public Categoria obtenerCategoriaPorNombre(String nombre) {
+		return this.repositorioCategoria.findByCategoria(nombre);
+	}
+	public Categoria insertarCategoria(Categoria categoria) {
+		return this.repositorioCategoria.save(categoria);
+	}
 }

@@ -10,4 +10,5 @@ import com.equipo5.proyecto.modelos.Categoria;
 @Repository
 public interface RepositorioCategoria extends CrudRepository<Categoria, Long>{
 	List<Categoria> findAll();
+	Categoria findByCategoria(String categoria);
 }
