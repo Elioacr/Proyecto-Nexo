@@ -32,18 +32,21 @@ public class ControladorUsuario {
 		this.servicioOrganizacion = servicioOrganizacion;
 	}
 
-	@GetMapping({"/registro/usuario"})
+	@GetMapping("/registro/usuario")
 	public String despliegaRegistroUsuario(@ModelAttribute("usuario") Usuario usuario) {
 		return "registroVoluntario.jsp";
 	}
 	
-	@GetMapping({"/login"})
+	@GetMapping("/login")
 	public String despliegaLogin(@ModelAttribute("loginUsuario") LoginUsuario loginUsuario) {
 		return "login.jsp";
 	}
 	
-	@GetMapping({"/voluntario"})
-	public String despliegaVoluntario() {
+	@GetMapping("/voluntario")
+	public String despliegaVoluntario(HttpSession sesion) {
+		if(sesion.getAttribute("id_usuario") == null) {
+			return "redirect:/registro/usuario";
+		}
 		return "voluntario.jsp";
 	}
 
@@ -61,7 +64,7 @@ public class ControladorUsuario {
 		sesion.setAttribute("id_usuario", usuarioCreado.getId());
 		sesion.setAttribute("nombre_usuario", usuarioCreado.getNombre());
 
-		return "redirect:/canciones";
+		return "redirect:/voluntario";
 	}
 
 	@PostMapping("/procesa/login")

@@ -1,5 +1,6 @@
 package com.equipo5.proyecto.controladores;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/eventos/")
+@RequestMapping("/eventos")
 public class ControladorEvento {
 	@Autowired
 	private final ServicioEventos servicioEvento;
@@ -42,7 +43,7 @@ public class ControladorEvento {
 											Model model,
 											HttpSession sesion) {
 		if(sesion.getAttribute("id_organizacion") == null) {
-			return "redirect:/";
+			return "redirect:/registro/organizacion";
 		}
 		List<Categoria> categorias = this.servicioCategoria.obtenerCategorias();
 		model.addAttribute("categorias", categorias);
@@ -52,22 +53,43 @@ public class ControladorEvento {
 	@PostMapping("/nuevo")
 	public String agregarEvento(@Valid @ModelAttribute("evento") Evento evento,
 									BindingResult validaciones,
+									Model model,
 									HttpSession sesion) {
+		if(evento.getFechaHora() != null) {
+			if(evento.getFechaHora().isBefore(LocalDateTime.now())) {
+				validaciones.rejectValue("fechaHora", "FechaPasada", "Fecha Invalida");
+			}
+		}
 		if(validaciones.hasErrors()) {
+			List<Categoria> categorias = this.servicioCategoria.obtenerCategorias();
+			model.addAttribute("categorias", categorias);
 			return "formularioEvento.jsp";
 		}
 		Long idOrganizacion = (Long)sesion.getAttribute("id_organizacion");
 		Organizacion organizacion = this.servicioOrganizacion.obtenerPorId(idOrganizacion);
 		evento.setOrganizacion(organizacion);
 		this.servicioEvento.insertarEvento(evento);
-		return "redirect:/voluntarioDashboard";
+		return "redirect:/organizacion";
 	}
+
+	@GetMapping("/{id}")
+	public String detallesEvento(@PathVariable("id") Long eventoId,
+								Model model,
+								HttpSession sesion) {
+		if(sesion.getAttribute("id_usuario") == null && sesion.getAttribute("id_organizacion") == null) {
+			return "redirect:/registro/usuario";
+		}
+		Evento evento = this.servicioEvento.obtenerEventoPorId(eventoId);
+		model.addAttribute("evento", evento);
+		return "detallesEvento.jsp";
+	}
+	
 	@GetMapping("/filtrarCategoria/{categoria}")
 	public String filtrarPorCategoria(@PathVariable("categoria") String nombreCategoria,
 										Model model,
 										HttpSession sesion) {
 		if(sesion.getAttribute("id_usuario") == null) {
-			return "redirect:/";
+			return "redirect:/registro/usuario";
 		}
 		Categoria categoria = this.servicioCategoria.obtenerCategoriaPorNombre(nombreCategoria);
 		List<Evento> eventosFiltrados = categoria.getEventos();
@@ -75,15 +97,4 @@ public class ControladorEvento {
 		return "eventosFiltrados.jsp";
 	}
 	
-	@GetMapping("/{id}")
-	public String detallesEvento(@PathVariable("id") Long eventoId,
-								Model model,
-								HttpSession sesion) {
-		if(sesion.getAttribute("id_usuario") == null) {
-			return "redirect:/";
-		}
-		Evento evento = this.servicioEvento.obtenerEventoPorId(eventoId);
-		model.addAttribute("evento", evento);
-		return "detallesEvento.jsp";
-	}
 }
