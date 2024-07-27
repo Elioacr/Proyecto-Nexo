@@ -30,6 +30,10 @@ public class ControladorOrganizacion {
 		this.servicioUsuario = servicioUsuario;
 		this.servicioOrganizacion = servicioOrganizacion;
 	}
+	@GetMapping({"/","/inicio"})
+	public String inicio() {
+		return "index.jsp";
+	}
 
 	@GetMapping({"/registro/organizacion"})
 	public String despliegaRegistroOrganizacion(@ModelAttribute("organizacion") Organizacion organizacion) {

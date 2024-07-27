@@ -19,7 +19,7 @@
             <div class="col-md-6">
                 <div class="card" id="card">
                     <div class="card-header text-center">
-                        <h2>Registro de Voluntariado</h2>
+                        <h2>Registro de Voluntario</h2>
                     </div>
                     <div class="card-body">
                         <form:form action="/registrar/usuario" method="POST" modelAttribute="usuario">
