@@ -1,41 +1,73 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page isErrorPage="true" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-<form:form action="/procesa/login" method="post" modelAttribute="loginUsuario">
-    <div>
-        <form:label class="form-label" path="usuarioCorreo">Correo:</form:label>
-        <form:input class="form-control mb-4" path="usuarioCorreo" type="text" name="usuarioCorreo"/>
-        <div>
-            <form:errors class="alert alert-danger" path="usuarioCorreo"/>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card" id="card">
+                    <div class="card-header text-center">
+                        <h2>Inicio de Sesión</h2>
+                    </div>
+                    <div class="card-body">
+                        <form:form action="/procesa/login" method="POST" modelAttribute="loginUsuario">
+                            <div class="form-group">
+                                <form:label path="usuarioCorreo">Correo:</form:label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    </div>
+                                    <form:input path="usuarioCorreo" type="email" class="form-control" required="true" />
+                                </div>
+                                <form:errors path="usuarioCorreo" class="alert alert-danger"/>
+                            </div>
+                            <div class="form-group">
+                                <form:label path="usuarioContraseña">Contraseña:</form:label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    </div>
+                                    <form:input path="usuarioContraseña" type="password" class="form-control" required="true" id="password"/>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="togglePassword"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </div>
+                                <form:errors path="usuarioContraseña" class="alert alert-danger"/>
+                            </div>
+                            <div class="form-group">
+                                <form:label path="tipoUsuario">Tipo de Usuario:</form:label>
+                                <form:select path="tipoUsuario" class="form-control">
+                                    <option value="VOLUNTARIO">Voluntario</option>
+                                    <option value="ORGANIZACION">Organización</option>
+                                </form:select>
+                                <form:errors path="tipoUsuario" class="alert alert-danger"/>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <div class="text-center mt-3">
+                                <a href="/registrar" class="btn btn-secondary">¿No tienes cuenta? Regístrate</a>
+                            </div>
+                        </form:form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div>
-        <form:label class="form-label" path="usuarioContraseña">Contraseña:</form:label>
-        <form:input class="form-control mb-4" path="usuarioContraseña" type="password" name="usuarioContraseña"/>
-        <div>
-            <form:errors class="alert alert-danger" path="usuarioContraseña"/>
-        </div>
-    </div>
-    <div>
-        <form:label class="form-label" path="tipoUsuario">Tipo de Usuario:</form:label>
-        <form:select class="form-control mb-4" path="tipoUsuario" name="tipoUsuario">
-            <option value="VOLUNTARIO">Voluntario</option>
-            <option value="ORGANIZACION">Organización</option>
-        </form:select>
-        <div>
-            <form:errors class="alert alert-danger" path="tipoUsuario"/>
-        </div>
-    </div>
-    <button class="btn btn-success mt-4">Login</button>
-</form:form>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script src="<c:url value='/js/app.js' />"></script>
 </body>
 </html>
