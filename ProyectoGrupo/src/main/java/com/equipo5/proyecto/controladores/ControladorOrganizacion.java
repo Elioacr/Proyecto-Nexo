@@ -1,21 +1,22 @@
 package com.equipo5.proyecto.controladores;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.equipo5.proyecto.modelos.Evento;
+import com.equipo5.proyecto.modelos.Organizacion;
+import com.equipo5.proyecto.servicios.ServicioOrganizacion;
+import com.equipo5.proyecto.servicios.ServicioUsuario;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-
-import org.springframework.web.bind.annotation.PostMapping;
-
-import com.equipo5.proyecto.modelos.Organizacion;
-import com.equipo5.proyecto.modelos.Usuario;
-import com.equipo5.proyecto.servicios.ServicioOrganizacion;
-import com.equipo5.proyecto.servicios.ServicioUsuario;
 
 
 @Controller
@@ -29,6 +30,10 @@ public class ControladorOrganizacion {
 		this.servicioUsuario = servicioUsuario;
 		this.servicioOrganizacion = servicioOrganizacion;
 	}
+	@GetMapping({"/","/inicio"})
+	public String inicio() {
+		return "index.jsp";
+	}
 
 	@GetMapping({"/registro/organizacion"})
 	public String despliegaRegistroOrganizacion(@ModelAttribute("organizacion") Organizacion organizacion) {
@@ -36,7 +41,14 @@ public class ControladorOrganizacion {
 	}
 	
 	@GetMapping({"/organizacion"})
-	public String despliegaOrganizacion() {
+	public String despliegaOrganizacion(HttpSession sesion, Model model) {
+		if(sesion.getAttribute("id_organizacion") == null) {
+			return "redirect:/registro/organizacion";
+		}
+		Long organizacionId = (Long)sesion.getAttribute("id_organizacion");
+		Organizacion organizacion = this.servicioOrganizacion.obtenerPorId(organizacionId);
+		List<Evento> eventos = organizacion.getEventos();
+		model.addAttribute("eventos", eventos);
 		return "organizacion.jsp";
 	}
 
@@ -53,6 +65,6 @@ public class ControladorOrganizacion {
 		sesion.setAttribute("id_organizacion", organizacionCreado.getId());
 		sesion.setAttribute("nombreOrganizacion_organizacion", organizacionCreado.getNombreOrganizacion());
 
-		return "redirect:/canciones";
+		return "redirect:/organizacion";
 	}
 }

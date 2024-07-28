@@ -24,6 +24,10 @@ public class Evento {
     private Long id;  
 
     @NotBlank
+    @Size(min = 5)
+    private String nombre;
+    
+    @NotBlank
     @Size(min = 2, max = 50)
     private String ciudad;  
     
@@ -51,9 +55,9 @@ public class Evento {
 	public Evento() {}
 	
 	
-	public Evento(String ciudad, String ubicacion, String descripcion, LocalDateTime fechaHora,
+	public Evento(String nombre, String ciudad, String ubicacion, String descripcion, LocalDateTime fechaHora,
 			Organizacion organizacion, Categoria categoria) {
-		super();
+		this.nombre = nombre;
 		this.ciudad = ciudad;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
@@ -76,7 +80,7 @@ public class Evento {
 		this.usuarios = usuarios;
 	}
 
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -84,6 +88,17 @@ public class Evento {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 
 	public String getCiudad() {
 		return ciudad;

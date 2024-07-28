@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario</title>
     
@@ -18,7 +19,7 @@
             <div class="col-md-6">
                 <div class="card" id="card">
                     <div class="card-header text-center">
-                        <h2>Registro de Voluntariado</h2>
+                        <h2>Registro de Voluntario</h2>
                     </div>
                     <div class="card-body">
                         <form:form action="/registrar/usuario" method="POST" modelAttribute="usuario">
