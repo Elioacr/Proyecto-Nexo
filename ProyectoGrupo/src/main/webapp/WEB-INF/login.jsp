@@ -57,7 +57,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
                             <div class="text-center mt-3">
-                                <a href="/registrar" class="btn btn-secondary">¿No tienes cuenta? Regístrate</a>
+                                <a href="/registro/usuario" class="btn btn-secondary">¿No tienes cuenta? Regístrate</a>
                             </div>
                         </form:form>
                     </div>
