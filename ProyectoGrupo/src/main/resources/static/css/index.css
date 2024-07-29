@@ -1,50 +1,63 @@
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-.portada{
-	width: 1024px;
-
-}
-
-body {
-  width: 1024px;
-  margin: 0 auto;
-}
-
-.carousel-item img {
-    max-width: 100%;
-    height: auto; 
-}
-
-
-.registro-container {
-	display: flex;
-	flex-direction: column;
-	border: 1px solid #ddd;
-    border-radius: 0.25rem;
-    overflow: hidden;
-}
-	@media (min-width: 768px) {
-    	.registro-container {
-        	flex-direction: row;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            width: 100%;
+            max-width: none;
+            min-width: 0;
+        }
+
+        .portada, .carousel-item img {
+            width: 100%;
+            height: auto;
+        }
+
+        .registro-container {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            border-radius: 0.25rem;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .registro-container {
+                flex-direction: row;
+            }
+            .registro-container > div {
+                border-right: 1px solid #ddd;
+            }
+            .registro-container > div:last-child {
+                border-right: none;
+            }
+        }
+
         .registro-container > div {
-        	border-right: 1px solid #ddd;
+            flex: 1;
+            padding: 2rem;
         }
-        .registro-container > div:last-child {
-             border-right: none;
+
+        .registro-container h2 {
+            margin-bottom: 1rem;
         }
-    }
-    .registro-container > div {
-    	flex: 1;
-        padding: 2rem;
-        box-sizing: border-box;
-     }
-     .registro-container h2 {
-      	margin-bottom: 1rem;
-      }
-      .registro-container p {
-      	margin-bottom: 1.5rem;
-      }
+
+        .registro-container p {
+            margin-bottom: 1.5rem;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+        }
+
+        footer .container {
+            width: 100%;
+        }

@@ -7,16 +7,37 @@ import org.springframework.stereotype.Service;
 
 import com.equipo5.proyecto.modelos.Categoria;
 import com.equipo5.proyecto.modelos.Evento;
+import com.equipo5.proyecto.modelos.Usuario;
 import com.equipo5.proyecto.repositorios.RepositorioEvento;
+import com.equipo5.proyecto.repositorios.RepositorioUsuario;
 
 @Service
 public class ServicioEventos {
 	@Autowired
 	private final RepositorioEvento repositorioEvento;
+	private final RepositorioUsuario repositorioUsuario;
 	
-	public ServicioEventos(RepositorioEvento repositorioEvento) {
+	public ServicioEventos(RepositorioUsuario repositorioUsuario, RepositorioEvento repositorioEvento) {
+		this.repositorioUsuario = repositorioUsuario;
 		this.repositorioEvento = repositorioEvento;
 	}
+
+    public void registrarUsuarioEnEvento(Long usuarioId, Long eventoId) {
+        Usuario usuario = repositorioUsuario.findById(usuarioId)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+        Evento evento = repositorioEvento.findById(eventoId)
+                .orElseThrow(() -> new IllegalArgumentException("Evento no encontrado"));
+
+        if (!usuario.getEventos().contains(evento)) {
+            usuario.getEventos().add(evento);
+            repositorioUsuario.save(usuario);
+        }
+    }
+    
+    public List<Evento> obtenerEventosPorOrganizacion(Long organizacionId) {
+        return this.repositorioEvento.findByOrganizacionId(organizacionId);
+    }
+	    
 	public List<Evento> obtenerEventos() {
 		return this.repositorioEvento.findAll();
 	}
