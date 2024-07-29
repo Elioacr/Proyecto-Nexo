@@ -150,4 +150,11 @@ public class Usuario {
 		this.confirmarContraseña = confirmarContraseña;
 	}
 
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
+	}
 }
