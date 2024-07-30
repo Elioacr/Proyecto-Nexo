@@ -52,16 +52,9 @@
                         <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
                         <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
                         <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateda()}</p>
-                        <c:if test="${usuario.eventos.contains(evento)}">
-                        	<form action="/eventos/quitar/${evento.id}" method="post">
-	                            <button type="submit" class="btn btn-participar">Abandonar</button>
-	                        </form>
-                        </c:if>
-                        <c:if test="${!usuario.eventos.contains(evento)}">
-	                        <form action="/eventos/participar/${evento.id}" method="post">
-	                            <button type="submit" class="btn btn-participar">Participar</button>
-	                        </form>
-                        </c:if>
+                        <form action="/participar/${evento.id}" method="post">
+                            <button type="submit" class="btn btn-participar">Participar</button>
+                        </form>
                     </div>
                 </div>
             </c:forEach>
@@ -103,9 +96,11 @@
     var eventos = [];
     <c:forEach var="evento" items="${eventosUsuario}">
         eventos.push({
+            id: '${evento.id}',
             title: '${evento.nombre}',
             start: '${evento.fechaHora}',
-            url: '/eventos/${evento.id}'
+            url: '/eventos/${evento.id}',
+            hora: '${evento.fechaHora}'  // Incluye la hora en el objeto
         });
     </c:forEach>
 
@@ -120,10 +115,61 @@
                 right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
             },
             initialDate: new Date().toISOString(),
-            navLinks: true, // can click day/week names to navigate views
+            navLinks: true,
             editable: true,
-            dayMaxEvents: true, // allow "more" link when too many events
-            events: eventos
+            dayMaxEvents: false, // Mostrar todos los eventos
+            events: eventos,
+            eventContent: function(arg) {
+                var title = arg.event.title;
+                var id = arg.event.id;
+                var hora = arg.event.startStr;  // Obtener la fecha y hora
+
+                var arrayOfDomNodes = [];
+                var eventContainer = document.createElement('div');
+                var timeElement = document.createElement('span');
+                var titleElement = document.createElement('span');
+                var button = document.createElement('button');
+
+                // Configurar el contenedor
+                eventContainer.style.display = 'flex';
+	            eventContainer.style.flexDirection = 'column';
+	            eventContainer.style.alignItems = 'center'; // Centrar horizontalmente
+	            eventContainer.style.textAlign = 'center'; // Centrar texto
+                
+                // Configurar la hora
+                timeElement.innerText = formatHora(hora); // Usa una función para formatear la hora
+                timeElement.style.marginBottom = '5px';
+                timeElement.classList.add('text-muted');
+                
+                // Configurar el título
+                titleElement.innerHTML = title;
+
+                // Configurar el botón
+                button.innerText = 'Abandonar';
+                button.classList.add('btn', 'btn-participar', 'mt-2');
+
+                button.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault(); // Asegura que no se redirija al detalle
+                    if (confirm('¿Desea abandonar este evento?')) {
+                        if (id) {
+                            var form = document.createElement('form');
+                            form.method = 'POST';
+                            form.action = '/eventos/quitar/' + id;
+                            document.body.appendChild(form);
+                            form.submit();
+                        } else {
+                            alert('No se pudo identificar el evento.');
+                        }
+                    }
+                });
+
+                eventContainer.appendChild(titleElement);
+                eventContainer.appendChild(timeElement);
+                eventContainer.appendChild(button);
+
+                return { domNodes: [eventContainer] };
+            }
         });
 
         calendar.setOption('locale', 'es');
@@ -138,6 +184,18 @@
         calendar.setOption('allDaySlot', false);
         calendar.render();
     });
+
+    // Función para formatear solo la hora
+    function formatHora(fechaHora) {
+    	 var date = new Date(fechaHora);
+    	    var options = {
+    	        hour: '2-digit',
+    	        minute: '2-digit',
+    	        hour12: true // Usa formato de 12 horas
+    	    };
+        return date.toLocaleTimeString('es-ES', options); // Ajusta el locale según sea necesario
+    }
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
