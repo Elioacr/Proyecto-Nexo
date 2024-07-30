@@ -36,7 +36,7 @@
 						<form:label class="form-label" path="rut">
 							Rut:
 						</form:label>
-						<form:input class="form-control mb-4" path="rut" type="int" name="rut"/>
+						<form:input class="form-control mb-4" path="rut" placeholder="XX.XXX.XXX-X" name="rut"/>
 						<div>
 							<form:errors class="alert alert-danger" path="rut"/>
 						</div>

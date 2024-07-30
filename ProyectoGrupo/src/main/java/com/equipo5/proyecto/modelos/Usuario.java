@@ -25,8 +25,8 @@ public class Usuario {
     private Long id;  
     
     @NotNull
-    @Digits(integer = 12, fraction = 0)
-    private Integer rut;
+    @Size(min = 12, max = 12)
+    private String rut;
 
     @NotBlank
     @Size(min = 2, max = 50)
@@ -63,7 +63,7 @@ public class Usuario {
 	public Usuario() {}
 	
 
-	public Usuario(Long id, Integer rut, String nombre, String apellido, String correo, Integer telefono, String ciudad,
+	public Usuario(Long id, String rut, String nombre, String apellido, String correo, Integer telefono, String ciudad,
 			String contraseña, String confirmarContraseña, List<Evento> eventos) {
 		this.id = id;
 		this.rut = rut;
@@ -86,11 +86,11 @@ public class Usuario {
 		this.id = id;
 	}
 
-	public Integer getRut() {
+	public String getRut() {
 		return rut;
 	}
 
-	public void setRut(Integer rut) {
+	public void setRut(String rut) {
 		this.rut = rut;
 	}
 
