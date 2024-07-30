@@ -69,7 +69,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                                     </div>
-                                    <form:input path="rut" type="text" class="form-control" required="true" />
+                                    <form:input path="rut" class="form-control" placeholder="XX.XXX.XXX-X" required="true" />
                                 </div>
                                 <form:errors path="rut" class="alert alert-danger"/>
                             </div>

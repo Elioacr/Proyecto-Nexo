@@ -24,8 +24,8 @@ public class Organizacion {
     private Long id;  
 
     @NotNull
-    @Digits(integer = 12, fraction = 0)
-    private Integer rut;  
+    @Size(min = 12, max = 12)
+    private String rut;
     
     @NotBlank
     @Size(min = 2, max = 50)
@@ -52,7 +52,7 @@ public class Organizacion {
 	public Organizacion() {}
 	
 	
-	public Organizacion(Integer rut, String nombreOrganizacion, String correo, String telefono, String contraseña) {
+	public Organizacion(String rut, String nombreOrganizacion, String correo, String telefono, String contraseña) {
 		this.rut = rut;
 		this.nombreOrganizacion = nombreOrganizacion;
 		this.correo = correo;
@@ -61,7 +61,7 @@ public class Organizacion {
 	}
 
 
-	public Organizacion(Long id, Integer rut, String nombreOrganizacion, String correo,
+	public Organizacion(Long id, String rut, String nombreOrganizacion, String correo,
 			String telefono, String contraseña, List<Evento> eventos,
 			String confirmarContraseña) {
 		this.id = id;
@@ -82,11 +82,11 @@ public class Organizacion {
 		this.id = id;
 	}
 
-	public Integer getRut() {
+	public String getRut() {
 		return rut;
 	}
 
-	public void setRut(Integer rut) {
+	public void setRut(String rut) {
 		this.rut = rut;
 	}
 
