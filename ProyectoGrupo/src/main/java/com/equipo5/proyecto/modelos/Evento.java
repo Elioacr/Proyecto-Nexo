@@ -1,7 +1,10 @@
 package com.equipo5.proyecto.modelos;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -126,6 +129,11 @@ public class Evento {
 
 	public LocalDateTime getFechaHora() {
 		return fechaHora;
+	}
+	
+	public String getFechaHoraFormateda() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd 'de' MMM 'de' yyyy 'a las' hh:mm a");
+		return fechaHora.format(formatter);
 	}
 
 	public void setFechaHora(LocalDateTime fechaHora) {

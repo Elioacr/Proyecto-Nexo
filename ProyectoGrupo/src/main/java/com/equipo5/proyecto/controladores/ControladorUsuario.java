@@ -1,12 +1,7 @@
 package com.equipo5.proyecto.controladores;
 
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
-
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.equipo5.proyecto.modelos.Evento;
@@ -27,6 +18,9 @@ import com.equipo5.proyecto.modelos.Usuario;
 import com.equipo5.proyecto.servicios.ServicioEventos;
 import com.equipo5.proyecto.servicios.ServicioOrganizacion;
 import com.equipo5.proyecto.servicios.ServicioUsuario;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 
 @Controller
@@ -42,6 +36,11 @@ public class ControladorUsuario {
 		this.servicioOrganizacion = servicioOrganizacion;
 		this.servicioEventos = servicioEventos;
 	}
+	
+	@GetMapping({"/","/inicio"})
+	public String inicio() {
+		return "index.jsp";
+	}
 
 	@GetMapping("/registro/usuario")
 	public String despliegaRegistroUsuario(@ModelAttribute("usuario") Usuario usuario) {
@@ -51,6 +50,12 @@ public class ControladorUsuario {
 	@GetMapping("/login")
 	public String despliegaLogin(@ModelAttribute("loginUsuario") LoginUsuario loginUsuario) {
 		return "login.jsp";
+	}
+	
+	@PostMapping("/logout")
+	public String cerrarSesion(HttpSession sesion) {
+		sesion.invalidate();
+		return "redirect:/";
 	}
 	
 	@GetMapping("/voluntario")
@@ -63,21 +68,10 @@ public class ControladorUsuario {
 	    Usuario usuario = servicioUsuario.obtenerPorId(usuarioId);
 	    List<Evento> eventosUsuario = usuario.getEventos();
 	    List<Evento> eventosOrganizacion = servicioEventos.obtenerEventos();
-	    
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd 'de' MMM 'de' yyyy 'a las' hh:mm a");
-	    List<Map<String, Object>> eventosConFechasFormateadas = eventosOrganizacion.stream().map(evento -> {
-	        Map<String, Object> eventoMap = new HashMap<>();
-	        eventoMap.put("id", evento.getId());
-	        eventoMap.put("nombre", evento.getNombre());
-	        eventoMap.put("descripcion", evento.getDescripcion());
-	        eventoMap.put("ciudad", evento.getCiudad());
-	        eventoMap.put("categoria", evento.getCategoria().getCategoria());
-	        eventoMap.put("fechaHora", evento.getFechaHora().format(formatter)); // Formatear la fecha
-	        return eventoMap;
-	    }).collect(Collectors.toList());
 
 	    model.addAttribute("eventosUsuario", eventosUsuario);
-	    model.addAttribute("eventosConFechasFormateadas", eventosConFechasFormateadas);
+	    model.addAttribute("eventosConFechasFormateadas", eventosOrganizacion);
+	    model.addAttribute("usuario", usuario);
 	    return "voluntario.jsp";
 	}
 

@@ -48,6 +48,10 @@ public class ServicioUsuario {
 		usuario.setContraseña(contraseñaEncriptada);
 		return this.resRepositorioUsuario.save(usuario);
 	}
+	
+	public Usuario actualizarUsuario(Usuario usuario) {
+		return this.resRepositorioUsuario.save(usuario);
+	}
 
 	public Usuario obtenerPorCorreo(String correo) {
 		return this.resRepositorioUsuario.getByCorreo(correo);

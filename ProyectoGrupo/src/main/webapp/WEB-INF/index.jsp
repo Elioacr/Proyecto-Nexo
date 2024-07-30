@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -15,7 +16,15 @@
             <a class="navbar-brand" href="/inicio">
                 <img src="/images/minilogo.png" alt="Bootstrap" width="50" height="">
             </a>
-            <a class="navbar-brand" href="/login">Ingresar</a>
+            <c:if test="${id_usuario == null}">
+	            <a class="navbar-brand" href="/login">Ingresar</a>
+            </c:if>
+            <c:if test="${id_usuario != null}">
+            	<a class="navbar-brand" href="/voluntario">Perfil</a>
+            </c:if>
+            <c:if test="${id_organizacion != null}">
+            	<a class="navbar-brand" href="organizacion">Perfil</a>
+            </c:if>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,11 +37,18 @@
                         <a class="nav-link" href="#">Top voluntarios</a>
                     </li>
                 </ul>
-                <a class="navbar-brand" href="/registro/organizacion">Quiero ser Empresa aliada</a>
+                <c:if test="${id_organizacion == null && id_usuario == null}">
+	                <a class="navbar-brand" href="/registro/organizacion">Quiero ser Empresa aliada</a>
+                </c:if>
+                <c:if test="${id_usuario != null || id_organizacion != null}">
+	                <form action="/logout" method="post">
+	                	<button type="submit" class="navbar-brand btn btn-link">Cerrar Sesión</button>
+					</form>
+                </c:if>
             </div>
         </div>
     </nav>
-    <div class="container-fluid mt-3">
+    <div class="container mt-3">
         <div class="row">
             <div class="col-md-12 mb-4">
                 <div class="p-4 border rounded">
@@ -41,33 +57,33 @@
                 </div>
             </div>
         </div>
+	    <div id="carouselExampleIndicators" class="carousel slide portada" data-bs-ride="carousel">
+		    <div class="carousel-indicators">
+		        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+		        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+		        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+		    </div>
+		    <div class="carousel-inner">
+		        <div class="carousel-item active">
+		            <img src="/images/Designer (1).jpeg" class="d-block w-100" alt="...">
+		        </div>
+		        <div class="carousel-item">
+		            <img src="/images/Designer (2).jpeg" class="d-block w-100" alt="...">
+		        </div>
+		        <div class="carousel-item">
+		            <img src="/images/Designer (3).jpeg" class="d-block w-100" alt="...">
+		        </div>
+		    </div>
+		    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+		        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		        <span class="visually-hidden">Previous</span>
+		    </button>
+		    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+		        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		        <span class="visually-hidden">Next</span>
+		    </button>
+		</div>
     </div>
-    <div id="carouselExampleIndicators" class="carousel slide portada" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="/images/Designer (1).jpeg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="/images/Designer (2).jpeg" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="/images/Designer (3).jpeg" class="d-block w-100" alt="...">
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
     <div class="container mt-5">
         <div class="registro-container">
             <div>
