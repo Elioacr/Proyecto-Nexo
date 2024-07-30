@@ -36,6 +36,9 @@ public class ServicioUsuario {
 		return validaciones;
 	}
 	public boolean rutValido(String rut) {
+		if(rut.length() != 12) {
+			return false;
+		}
 		StringBuilder sb = new StringBuilder(rut);
 		sb.deleteCharAt(sb.length() - 1);
 		sb.deleteCharAt(sb.length() - 1);

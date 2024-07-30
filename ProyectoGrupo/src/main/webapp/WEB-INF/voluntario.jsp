@@ -45,7 +45,6 @@
         <h2 class="my-4">Eventos Disponibles</h2>
         <div class="row eventosDisponibles">
             <c:forEach var="evento" items="${eventosConFechasFormateadas}">
-            	<% for (int i = 0; i < 4; i++) { %>
                 <div class="col-12 col-sm-6 col-md-4 mb-2">
                     <div class="event-card p-3 border rounded">
                         <h5><a href="/eventos/${evento.id}" class="text-decoration-none">${evento.nombre}</a></h5>
@@ -65,7 +64,6 @@
                         </c:if>
                     </div>
                 </div>
-                <%} %>
             </c:forEach>
         </div>
 	    <div class="calendar-container mt-5 list-group-item event-card">

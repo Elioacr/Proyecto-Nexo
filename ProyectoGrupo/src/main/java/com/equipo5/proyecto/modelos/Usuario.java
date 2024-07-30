@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,32 +25,32 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private Long id;  
     
-    @NotNull
-    @Size(min = 12, max = 12)
+    @NotBlank
     private String rut;
 
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Size(min = 2, max = 20, message = "El nombre tiene que tener al menos 2 dígitos")
     private String nombre;  
     
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Size(min = 2, max = 20, message = "El apellido tiene que tener al menos 2 dígitos")
     private String apellido;  
     
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Size(min = 6, max = 30, message = "El correo tiene que tener al menos 6 dígitos")
     private String correo;  
     
     @NotNull
-    @Digits(integer = 12, fraction = 0)
+    @Min(value = 10000000, message = "Telefono Invalido")
+    @Digits(integer = 12, fraction = 0, message = "Telefono Invalido")
     private Integer telefono;
     
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Size(min = 2, max = 30, message = "La ciudad tiene que tener al menos 6 dígitos")
     private String ciudad;
     
     @NotBlank
-    @Size(min = 8)
+    @Size(min = 8, message = "La contraseña tiene que tener al menos 8 caracteres")
     private String contraseña;
     
     @Transient
