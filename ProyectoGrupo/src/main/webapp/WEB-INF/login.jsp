@@ -26,17 +26,19 @@
                         <form:form action="/procesa/login" method="POST" modelAttribute="loginUsuario">
                             <div class="form-group">
                                 <form:label path="usuarioCorreo">Correo:</form:label>
-                                <div class="input-group">
+                                <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                     </div>
                                     <form:input path="usuarioCorreo" type="email" class="form-control" required="true" />
                                 </div>
-                                <form:errors path="usuarioCorreo" class="alert alert-danger"/>
+                                <div>
+                                	<form:errors path="usuarioCorreo" class="alert alert-danger"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <form:label path="usuarioContraseña">Contraseña:</form:label>
-                                <div class="input-group">
+                                <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                     </div>
@@ -45,15 +47,21 @@
                                         <button class="btn btn-outline-secondary" type="button" id="togglePassword"><i class="fas fa-eye"></i></button>
                                     </div>
                                 </div>
-                                <form:errors path="usuarioContraseña" class="alert alert-danger"/>
+                                <div>
+	                                <form:errors path="usuarioContraseña" class="alert alert-danger"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <form:label path="tipoUsuario">Tipo de Usuario:</form:label>
-                                <form:select path="tipoUsuario" class="form-control">
-                                    <option value="VOLUNTARIO">Voluntario</option>
-                                    <option value="ORGANIZACION">Organización</option>
-                                </form:select>
-                                <form:errors path="tipoUsuario" class="alert alert-danger"/>
+                                <div class="input-group mb-4">
+	                                <form:select path="tipoUsuario" class="form-control">
+	                                    <option value="VOLUNTARIO">Voluntario</option>
+	                                    <option value="ORGANIZACION">Organización</option>
+	                                </form:select>
+                                </div>
+                                <div>
+	                                <form:errors path="tipoUsuario" class="alert alert-danger"/>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
                             <div class="text-center mt-3">
