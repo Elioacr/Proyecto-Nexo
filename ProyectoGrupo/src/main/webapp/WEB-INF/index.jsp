@@ -9,6 +9,7 @@
         <title>Voluntariado</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="shortcut icon" href="/images/logo.jpeg" type="image/x-icon">
+        <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="/css/normalize.css">
         <link rel="stylesheet" href="/css/estilos.css">
     </head>
@@ -79,29 +80,29 @@
         
 
         <main>
-            <section class="container about">
+            <section class="container about" data-aos="fade-up">
                 <h2 class="subtitle">¿Por qué ser voluntario?</h2>
                 <p class="about__paragraph">Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, itaque perspiciatis! Quibusdam</p>
                 <div class="about__main">
-                    <article class="about__icons">
+                    <article class="about__icons" data-aos="fade-right">
                         <img src="/images/dog.svg" class="about__icon">
                         <h3 class="about__title">Ayudarás a animales</h3>
                         <p class="about__paragrah">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae tempore porro eius facilis?</p>
                     </article>
-                    <article class="about__icons">
+                    <article class="about__icons" data-aos="fade-right">
                         <img src="/images/radiactive.svg" class="about__icon">
                         <h3 class="about__title">Ayudarás a reducir la contaminación</h3>
                         <p class="about__paragrah">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae tempore porro eius facilis?</p>
                     </article>
-                    <article class="about__icons">
+                    <article class="about__icons" data-aos="fade-right">
                         <img src="/images/body.svg" class="about__icon">
                         <h3 class="about__title">Ayudarás a las personas más necesitadas</h3>
                         <p class="about__paragrah">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae tempore porro eius facilis?</p>
                     </article>
                 </div>
             </section>
-
-            <section class="knowledge">
+        
+            <section class="knowledge" data-aos="fade-up">
                 <div class="knowledge__container container">
                     <div class="knowledege__texts">
                         <h2 class="subtitle">Sé parte de todos nosotros y ayúdanos a hacer del mundo un lugar mejor</h2>
@@ -136,9 +137,9 @@
                     </div>
                 </div>
             </section>
-            
-
-            <section class="price container">
+        
+            <section class="price container" data-aos="fade-up">
+                <style></style>
                 <h2 class="subtitle">Sé parte de nosotros</h2>
                 <div class="price__table">
                     <div class="price__element">
@@ -159,8 +160,8 @@
                     </div>
                 </div>
             </section>
-
-            <section class="questions container">
+        
+            <section class="questions container" data-aos="fade-up">
                 <h2 class="subtitle">Preguntas frecuentes</h2>
                 <p class="questions__paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea, porro doloribus neque perspiciatis sapiente fuga.</p>
                 <section class="questions__container">
@@ -202,6 +203,7 @@
                 </section>
             </section>
         </main>
+        
 
         <footer class="footer">
             <section class="footer__container container">
@@ -240,5 +242,9 @@
         <script src="/js/questions.js"></script>
         <script src="/js/menu.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
     </body>
 </html>
