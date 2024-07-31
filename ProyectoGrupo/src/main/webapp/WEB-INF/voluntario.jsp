@@ -42,9 +42,19 @@
 	<br>
 
     <div class="container">
-        <h2 class="my-4">Eventos Disponibles</h2>
+        <div class="row">
+	    <h2 class="my-4 col-12 col-sm-9">Eventos Disponibles</h2>
+	    <div class="ms-auto col-12 col-sm-3">
+		<select class="form-select my-4" id="selectFiltro">
+		    <option value="Todos" selected>Todos</option>
+		    <c:forEach var="categoria" items="${categorias}">
+			<option value="${categoria.categoria}">${categoria.categoria}</option>
+		    </c:forEach>
+		</select>
+	    </div>
+	</div>
         <div class="row eventosDisponibles">
-            <c:forEach var="evento" items="${eventosConFechasFormateadas}">
+            <c:forEach var="evento" items="${eventos}">
 			    <c:if test="${!eventosUsuario.contains(evento)}">
 			        <div class="col-12 col-sm-6 col-md-4 mb-2">
 			            <div class="event-card p-3 border rounded">
