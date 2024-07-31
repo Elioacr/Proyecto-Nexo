@@ -81,24 +81,6 @@ public class ControladorUsuario {
 	    return "voluntario.jsp";
 	}
 
-	@PostMapping("/participar/{eventoId}")
-	public String participarEnEvento(@PathVariable Long eventoId, HttpSession sesion, Model model) {
-	    Long usuarioId = (Long) sesion.getAttribute("id_usuario");
-	    Evento evento = servicioEventos.obtenerEventoPorId(eventoId);
-	    
-	    if (evento.getVoluntariosRegistrados() < Integer.parseInt(evento.getLimiteVoluntarios())) {
-	        Usuario usuario = servicioUsuario.obtenerPorId(usuarioId);
-	        evento.getUsuarios().add(usuario);
-	        servicioEventos.actualizarEvento(evento);
-	        usuario.getEventos().add(evento);
-	        servicioUsuario.actualizarUsuario(usuario);
-	        return "redirect:/voluntario";
-	    } else {
-	        model.addAttribute("error", "El límite de voluntarios ha sido alcanzado para este evento.");
-	        return "redirect:/eventos/" + eventoId;
-	    }
-	}
-
 	@PostMapping("/registrar/usuario")
 	public String procesaRegistrarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario,
 										  BindingResult validaciones,

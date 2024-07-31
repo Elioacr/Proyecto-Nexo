@@ -43,16 +43,16 @@
 
     <div class="container">
         <div class="row">
-	    <h2 class="my-4 col-12 col-sm-9">Eventos Disponibles</h2>
-	    <div class="ms-auto col-12 col-sm-3">
-		<select class="form-select my-4" id="selectFiltro">
-		    <option value="Todos" selected>Todos</option>
-		    <c:forEach var="categoria" items="${categorias}">
-			<option value="${categoria.categoria}">${categoria.categoria}</option>
-		    </c:forEach>
-		</select>
-	    </div>
-	</div>
+		    <h2 class="my-4 col-12 col-sm-9">Eventos Disponibles</h2>
+		    <div class="ms-auto col-12 col-sm-3">
+				<select class="form-select my-4" id="selectFiltro">
+				    <option value="Todos" selected>Todos</option>
+				    <c:forEach var="categoria" items="${categorias}">
+					<option value="${categoria.categoria}">${categoria.categoria}</option>
+				    </c:forEach>
+				</select>
+		    </div>
+		</div>
         <div class="row eventosDisponibles">
             <c:forEach var="evento" items="${eventos}">
 			    <c:if test="${!eventosUsuario.contains(evento)}">
@@ -63,18 +63,13 @@
 			                <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
 			                <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
 			                <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
-			                <p><strong>Voluntarios:</strong> ${evento.voluntariosRegistrados}/${evento.limiteVoluntarios}</p>
-							<c:if test="${not empty error}">
-							    <div class="alert alert-danger" role="alert">
-							        ${error}
-							    </div>
-							</c:if>
+			                <p><strong>Voluntarios:</strong> ${evento.getVoluntariosRegistrados()}/${evento.limiteVoluntarios}</p>
 							
-							<form action="/participar/${evento.id}" method="post">
-							    <c:if test="${evento.voluntariosRegistrados lt evento.limiteVoluntarios}">
+							<form action="/eventos/participar/${evento.id}" method="post">
+							    <c:if test="${evento.getVoluntariosRegistrados() lt evento.limiteVoluntarios}">
 							        <button type="submit" class="btn btn-participar">Participar</button>
 							    </c:if>
-							    <c:if test="${evento.voluntariosRegistrados ge evento.limiteVoluntarios}">
+							    <c:if test="${evento.getVoluntariosRegistrados() ge evento.limiteVoluntarios}">
 							        <p>El máximo de voluntarios ha sido alcanzado.</p>
 							    </c:if>
 							</form>
@@ -223,5 +218,6 @@
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/voluntario.js"></script>
 </body>
 </html>
