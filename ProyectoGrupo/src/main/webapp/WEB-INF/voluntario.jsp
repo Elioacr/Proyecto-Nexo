@@ -42,9 +42,19 @@
 	<br>
 
     <div class="container">
-        <h2 class="my-4">Eventos Disponibles</h2>
+    	<div class="row">
+	        <h2 class="my-4 col-12 col-sm-9">Eventos Disponibles</h2>
+	        <div class="ms-auto col-12 col-sm-3">
+		        <select class="form-select my-4" id="selectFiltro">
+				    <option value="Todos" selected>Todos</option>
+				    <c:forEach var="categoria" items="${categorias}">
+				  		<option value="${categoria.categoria}">${categoria.categoria}</option>
+					</c:forEach>
+				</select>
+	        </div>
+    	</div>
         <div class="row eventosDisponibles">
-            <c:forEach var="evento" items="${eventosConFechasFormateadas}">
+            <c:forEach var="evento" items="${eventos}">
                 <div class="col-12 col-sm-6 col-md-4 mb-2">
                     <div class="event-card p-3 border rounded">
                         <h5><a href="/eventos/${evento.id}" class="text-decoration-none">${evento.nombre}</a></h5>
@@ -52,9 +62,16 @@
                         <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
                         <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
                         <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateda()}</p>
-                        <form action="/participar/${evento.id}" method="post">
-                            <button type="submit" class="btn btn-participar">Participar</button>
-                        </form>
+                        <c:if test="${usuario.eventos.contains(evento)}">
+                        	<form action="/eventos/quitar/${evento.id}" method="post">
+	                            <button type="submit" class="btn btn-participar">Abandonar</button>
+	                        </form>
+                        </c:if>
+                        <c:if test="${!usuario.eventos.contains(evento)}">
+	                        <form action="/eventos/participar/${evento.id}" method="post">
+	                            <button type="submit" class="btn btn-participar">Participar</button>
+	                        </form>
+                        </c:if>
                     </div>
                 </div>
             </c:forEach>
@@ -197,6 +214,7 @@
     }
 
     </script>
+    <script src="/js/voluntario.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
