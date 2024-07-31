@@ -45,20 +45,24 @@
         <h2 class="my-4">Eventos Disponibles</h2>
         <div class="row eventosDisponibles">
             <c:forEach var="evento" items="${eventosConFechasFormateadas}">
-                <div class="col-12 col-sm-6 col-md-4 mb-2">
-                    <div class="event-card p-3 border rounded">
-                        <h5><a href="/eventos/${evento.id}" class="text-decoration-none">${evento.nombre}</a></h5>
-                        <p>${evento.descripcion}</p>
-                        <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
-                        <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
-                        <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateda()}</p>
-                        <form action="/participar/${evento.id}" method="post">
-                            <button type="submit" class="btn btn-participar">Participar</button>
-                        </form>
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
+			    <c:if test="${!eventosUsuario.contains(evento)}">
+			        <div class="col-12 col-sm-6 col-md-4 mb-2">
+			            <div class="event-card p-3 border rounded">
+			                <h5><a href="/eventos/${evento.id}" class="text-decoration-none">${evento.nombre}</a></h5>
+			                <p>${evento.descripcion}</p>
+			                <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
+			                <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
+			                <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
+			                <form action="/participar/${evento.id}" method="post">
+			                    <button type="submit" class="btn btn-participar">Participar</button>
+			                </form>
+			            </div>
+			        </div>
+			    </c:if>
+			</c:forEach>
+		</div>
+		
+        <h2 class="my-4">Eventos a Participar</h2>
 	    <div class="calendar-container mt-5 list-group-item event-card">
 	        <div id="calendar"></div>
 	    </div>
