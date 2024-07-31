@@ -28,7 +28,7 @@ h1, h2 {
 }
 
 .eventosDisponibles {
-    max-height: calc(100vh - 200px); /* Ajusta este valor según la altura del header y otros elementos */
+    max-height: calc(100vh - 200px); /* Ajusta este valor segï¿½n la altura del header y otros elementos */
     overflow-y: auto;
     padding: 5px;
 }

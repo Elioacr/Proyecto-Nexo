@@ -131,7 +131,7 @@ public class Evento {
 		return fechaHora;
 	}
 	
-	public String getFechaHoraFormateda() {
+	public String getFechaHoraFormateada() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd 'de' MMM 'de' yyyy 'a las' hh:mm a");
 		return fechaHora.format(formatter);
 	}
