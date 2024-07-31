@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.equipo5.proyecto.modelos.Categoria;
 import com.equipo5.proyecto.modelos.Evento;
 import com.equipo5.proyecto.modelos.LoginUsuario;
 import com.equipo5.proyecto.modelos.Organizacion;
 import com.equipo5.proyecto.modelos.Usuario;
+import com.equipo5.proyecto.servicios.ServicioCategoria;
 import com.equipo5.proyecto.servicios.ServicioEventos;
 import com.equipo5.proyecto.servicios.ServicioOrganizacion;
 import com.equipo5.proyecto.servicios.ServicioUsuario;
@@ -30,11 +32,13 @@ public class ControladorUsuario {
 	private final ServicioUsuario servicioUsuario;
 	private final ServicioOrganizacion servicioOrganizacion;
 	private final ServicioEventos servicioEventos;
+	private final ServicioCategoria servicioCategoria;
 
-	public ControladorUsuario(ServicioUsuario servicioUsuario, ServicioOrganizacion servicioOrganizacion,ServicioEventos servicioEventos) {
+	public ControladorUsuario(ServicioUsuario servicioUsuario, ServicioOrganizacion servicioOrganizacion,ServicioEventos servicioEventos,  ServicioCategoria servicioCategoria) {
 		this.servicioUsuario = servicioUsuario;
 		this.servicioOrganizacion = servicioOrganizacion;
 		this.servicioEventos = servicioEventos;
+		this.servicioCategoria = servicioCategoria;
 	}
 	
 	@GetMapping({"/","/inicio"})
@@ -67,10 +71,12 @@ public class ControladorUsuario {
 	    Long usuarioId = (Long) sesion.getAttribute("id_usuario");
 	    Usuario usuario = servicioUsuario.obtenerPorId(usuarioId);
 	    List<Evento> eventosUsuario = usuario.getEventos();
-	    List<Evento> eventosOrganizacion = servicioEventos.obtenerEventos();
+	    List<Evento> eventos = servicioEventos.obtenerEventos();
+	    List<Categoria> categorias = servicioCategoria.obtenerCategorias();
 
 	    model.addAttribute("eventosUsuario", eventosUsuario);
-	    model.addAttribute("eventosConFechasFormateadas", eventosOrganizacion);
+	    model.addAttribute("eventos", eventos);
+	    model.addAttribute("categorias", categorias);
 	    model.addAttribute("usuario", usuario);
 	    return "voluntario.jsp";
 	}
