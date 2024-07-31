@@ -15,6 +15,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -45,6 +47,10 @@ public class Evento {
     @NotNull
     private LocalDateTime fechaHora; // Usamos LocalDateTime para manejar fecha y hora
     
+    @NotBlank
+    @Size(min = 1, max = 1000, message = "Al menos un Voluntario debe participar en tu Evento")
+    private String limiteVoluntarios;  
+    
     @ManyToOne  
     @JoinColumn(name = "organizacion_id")  
     private Organizacion organizacion;  
@@ -59,7 +65,7 @@ public class Evento {
 	
 	
 	public Evento(String nombre, String ciudad, String ubicacion, String descripcion, LocalDateTime fechaHora,
-			Organizacion organizacion, Categoria categoria) {
+			Organizacion organizacion, Categoria categoria, String limiteVoluntarios) {
 		this.nombre = nombre;
 		this.ciudad = ciudad;
 		this.ubicacion = ubicacion;
@@ -67,11 +73,12 @@ public class Evento {
 		this.fechaHora = fechaHora;
 		this.organizacion = organizacion;
 		this.categoria = categoria;
+		this.limiteVoluntarios = limiteVoluntarios;
 	}
 
 
 	public Evento(Long id, String ciudad, String ubicacion, String descripcion, LocalDateTime fechaHora, 
-			Organizacion organizacion, Categoria categoria, List<Usuario> usuarios) {
+			Organizacion organizacion, Categoria categoria, List<Usuario> usuarios, String limiteVoluntarios) {
 		super();
 		this.id = id;
 		this.ciudad = ciudad;
@@ -81,6 +88,7 @@ public class Evento {
 		this.organizacion = organizacion;
 		this.categoria = categoria;
 		this.usuarios = usuarios;
+		this.limiteVoluntarios = limiteVoluntarios;
 	}
 
 	
@@ -135,6 +143,10 @@ public class Evento {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd 'de' MMM 'de' yyyy 'a las' hh:mm a");
 		return fechaHora.format(formatter);
 	}
+	
+	public int getVoluntariosRegistrados() {
+	    return usuarios != null ? usuarios.size() : 0;
+	}
 
 	public void setFechaHora(LocalDateTime fechaHora) {
 		this.fechaHora = fechaHora;
@@ -166,5 +178,13 @@ public class Evento {
 		this.usuarios = usuarios;
 	}
 
-	
+
+	public String getLimiteVoluntarios() {
+		return limiteVoluntarios;
+	}
+
+
+	public void setLimiteVoluntarios(String limiteVoluntarios) {
+		this.limiteVoluntarios = limiteVoluntarios;
+	}
 }  

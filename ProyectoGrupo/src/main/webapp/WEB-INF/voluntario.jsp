@@ -53,15 +53,26 @@
 			                <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
 			                <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
 			                <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
-			                <form action="/participar/${evento.id}" method="post">
-			                    <button type="submit" class="btn btn-participar">Participar</button>
-			                </form>
+			                <p><strong>Voluntarios:</strong> ${evento.voluntariosRegistrados}/${evento.limiteVoluntarios}</p>
+							<c:if test="${not empty error}">
+							    <div class="alert alert-danger" role="alert">
+							        ${error}
+							    </div>
+							</c:if>
+							
+							<form action="/participar/${evento.id}" method="post">
+							    <c:if test="${evento.voluntariosRegistrados lt evento.limiteVoluntarios}">
+							        <button type="submit" class="btn btn-participar">Participar</button>
+							    </c:if>
+							    <c:if test="${evento.voluntariosRegistrados ge evento.limiteVoluntarios}">
+							        <p>El máximo de voluntarios ha sido alcanzado.</p>
+							    </c:if>
+							</form>
 			            </div>
 			        </div>
 			    </c:if>
 			</c:forEach>
 		</div>
-		
         <h2 class="my-4">Eventos a Participar</h2>
 	    <div class="calendar-container mt-5 list-group-item event-card">
 	        <div id="calendar"></div>
