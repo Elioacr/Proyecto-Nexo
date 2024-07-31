@@ -12,6 +12,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -23,24 +24,24 @@ public class Organizacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private Long id;  
 
-    @NotNull
-    @Digits(integer = 12, fraction = 0)
-    private Integer rut;  
+    @NotBlank
+    private String rut;
     
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Size(min = 2, max = 30, message = "El nombre tiene que tener al menos 2 dígitos")
     private String nombreOrganizacion;  
     
     @NotBlank
-    @Size(min = 2, max = 50)
+    @Size(min = 6, max = 30, message = "El correo tiene que tener al menos 6 dígitos")
     private String correo;  
     
     @NotNull
-    @Digits(integer = 12, fraction = 0)
+    @Min(value = 10000000, message = "Telefono Invalido")
+    @Digits(integer = 12, fraction = 0, message = "Telefono Invalido")
     private String telefono;
     
     @NotBlank
-    @Size(min = 8)
+    @Size(min = 8, message = "La contraseña tiene que tener al menos 8 dígitos")
     private String contraseña;
     
     @OneToMany(mappedBy = "organizacion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -52,7 +53,7 @@ public class Organizacion {
 	public Organizacion() {}
 	
 	
-	public Organizacion(Integer rut, String nombreOrganizacion, String correo, String telefono, String contraseña) {
+	public Organizacion(String rut, String nombreOrganizacion, String correo, String telefono, String contraseña) {
 		this.rut = rut;
 		this.nombreOrganizacion = nombreOrganizacion;
 		this.correo = correo;
@@ -61,7 +62,7 @@ public class Organizacion {
 	}
 
 
-	public Organizacion(Long id, Integer rut, String nombreOrganizacion, String correo,
+	public Organizacion(Long id, String rut, String nombreOrganizacion, String correo,
 			String telefono, String contraseña, List<Evento> eventos,
 			String confirmarContraseña) {
 		this.id = id;
@@ -82,11 +83,11 @@ public class Organizacion {
 		this.id = id;
 	}
 
-	public Integer getRut() {
+	public String getRut() {
 		return rut;
 	}
 
-	public void setRut(Integer rut) {
+	public void setRut(String rut) {
 		this.rut = rut;
 	}
 

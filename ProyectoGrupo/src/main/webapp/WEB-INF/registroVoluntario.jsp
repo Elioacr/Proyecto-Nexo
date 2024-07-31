@@ -25,67 +25,79 @@
                         <form:form action="/registrar/usuario" method="POST" modelAttribute="usuario">
                             <div class="form-group">
                                 <form:label path="nombre">Nombre:</form:label>
-                                <div class="input-group">
+                                <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                     </div>
                                     <form:input path="nombre" type="text" class="form-control" required="true" />
                                 </div>
-                                <form:errors path="nombre" class="alert alert-danger"/>
+                                <div>
+	                                <form:errors path="nombre" class="alert alert-danger"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <form:label path="apellido">Apellido:</form:label>
-                                <div class="input-group">
+                                <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                     </div>
                                     <form:input path="apellido" type="text" class="form-control" required="true" />
                                 </div>
-                                <form:errors path="apellido" class="alert alert-danger"/>
+                                <div>
+	                                <form:errors path="apellido" class="alert alert-danger"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <form:label path="ciudad">Ciudad:</form:label>
-                                <div class="input-group">
+                                <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-city"></i></span>
                                     </div>
                                     <form:input path="ciudad" type="text" class="form-control" required="true" />
                                 </div>
-                                <form:errors path="ciudad" class="alert alert-danger"/>
+                                <div>
+	                                <form:errors path="ciudad" class="alert alert-danger"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <form:label path="correo">Correo:</form:label>
-                                <div class="input-group">
+                                <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                     </div>
                                     <form:input path="correo" type="email" class="form-control" required="true" />
                                 </div>
-                                <form:errors path="correo" class="alert alert-danger"/>
+                                <div>
+	                                <form:errors path="correo" class="alert alert-danger"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <form:label path="rut">Rut:</form:label>
-                                <div class="input-group">
+                                <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-id-card"></i></span>
                                     </div>
-                                    <form:input path="rut" type="text" class="form-control" required="true" />
+                                    <form:input path="rut" class="form-control" placeholder="XX.XXX.XXX-X" required="true" />
                                 </div>
-                                <form:errors path="rut" class="alert alert-danger"/>
+                                <div>
+	                                <form:errors path="rut" class="alert alert-danger"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <form:label path="telefono">Teléfono:</form:label>
-                                <div class="input-group">
+                                <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                     </div>
-                                    <form:input path="telefono" type="text" class="form-control" required="true" />
+                                    <form:input path="telefono" type="number" min="1" max="999999999" class="form-control" required="true" />
                                 </div>
-                                <form:errors path="telefono" class="alert alert-danger"/>
+                                <div>
+	                                <form:errors path="telefono" class="alert alert-danger"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <form:label path="contraseña">Contraseña:</form:label>
-                                <div class="input-group">
+                                <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                     </div>
@@ -94,11 +106,13 @@
                                         <button class="btn btn-outline-secondary" type="button" id="togglePassword"><i class="fas fa-eye"></i></button>
                                     </div>
                                 </div>
-                                <form:errors path="contraseña" class="alert alert-danger"/>
+                                <div>
+	                                <form:errors path="contraseña" class="alert alert-danger"/>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <form:label path="confirmarContraseña">Confirmar contraseña:</form:label>
-                                <div class="input-group">
+                                <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                     </div>
@@ -107,7 +121,9 @@
                                         <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword"><i class="fas fa-eye"></i></button>
                                     </div>
                                 </div>
-                                <form:errors path="confirmarContraseña" class="alert alert-danger"/>
+                                <div>
+	                                <form:errors path="confirmarContraseña" class="alert alert-danger"/>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Registrar</button>
                             <div class="text-center mt-3">
@@ -124,6 +140,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-    <script src="<c:url value='/js/app.js' />"></script>
+    <script src="/js/app.js"></script>
 </body>
 </html>

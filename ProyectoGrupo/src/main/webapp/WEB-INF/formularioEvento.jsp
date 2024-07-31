@@ -58,6 +58,15 @@
 				</div>
 			</div>
 			<div class="mt-4">
+				<form:label class="form-label" path="limiteVoluntarios">
+					Limite de Voluntarios:
+				</form:label>
+				<form:input class="form-control mb-4" path="limiteVoluntarios" name="limiteVoluntarios"/>
+				<div>
+					<form:errors class="alert alert-danger" path="limiteVoluntarios"/>
+				</div>
+			</div>
+			<div class="mt-4">
 				<form:label class="form-label" path="categoria">
 					Categoria:
 				</form:label>

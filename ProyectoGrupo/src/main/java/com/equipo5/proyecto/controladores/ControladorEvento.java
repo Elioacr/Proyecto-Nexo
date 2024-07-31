@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.equipo5.proyecto.modelos.Categoria;
 import com.equipo5.proyecto.modelos.Evento;
 import com.equipo5.proyecto.modelos.Organizacion;
+import com.equipo5.proyecto.modelos.Usuario;
 import com.equipo5.proyecto.servicios.ServicioCategoria;
 import com.equipo5.proyecto.servicios.ServicioEventos;
 import com.equipo5.proyecto.servicios.ServicioOrganizacion;
+import com.equipo5.proyecto.servicios.ServicioUsuario;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -32,10 +34,14 @@ public class ControladorEvento {
 	private final ServicioCategoria servicioCategoria;
 	@Autowired
 	private final ServicioOrganizacion servicioOrganizacion;
-	public ControladorEvento(ServicioEventos servicioEvento, ServicioCategoria servicioCategoria, ServicioOrganizacion servicioOrganizacion) {
+	@Autowired
+	private final ServicioUsuario servicioUsuario;
+	
+	public ControladorEvento(ServicioEventos servicioEvento, ServicioCategoria servicioCategoria, ServicioOrganizacion servicioOrganizacion,  ServicioUsuario servicioUsuario) {
 		this.servicioEvento = servicioEvento;
 		this.servicioCategoria = servicioCategoria;
 		this.servicioOrganizacion = servicioOrganizacion;
+		this.servicioUsuario = servicioUsuario;
 	}
 	
 	@GetMapping("/nuevo")
@@ -93,8 +99,46 @@ public class ControladorEvento {
 		}
 		Categoria categoria = this.servicioCategoria.obtenerCategoriaPorNombre(nombreCategoria);
 		List<Evento> eventosFiltrados = categoria.getEventos();
+		
+		Long usuarioId = (Long) sesion.getAttribute("id_usuario");
+		Usuario usuario = servicioUsuario.obtenerPorId(usuarioId);
+		List<Evento> eventosUsuario = usuario.getEventos();
+	    List<Categoria> categorias = servicioCategoria.obtenerCategorias();
+		
+	    model.addAttribute("eventosUsuario", eventosUsuario);
+	    model.addAttribute("eventos", eventosFiltrados);
+	    model.addAttribute("categorias", categorias);
+	    model.addAttribute("usuario", usuario);
 		model.addAttribute("eventosFiltrados", eventosFiltrados);
-		return "eventosFiltrados.jsp";
+	    return "voluntario.jsp";
 	}
 	
+	@PostMapping("/participar/{eventoId}")
+	public String participarEnEvento(@PathVariable Long eventoId, HttpSession sesion, Model model) {
+	    Long usuarioId = (Long) sesion.getAttribute("id_usuario");
+	    Evento evento = servicioEvento.obtenerEventoPorId(eventoId);
+	    
+	    if (evento.getVoluntariosRegistrados() < evento.getLimiteVoluntarios()) {
+	        Usuario usuario = servicioUsuario.obtenerPorId(usuarioId);
+	        evento.getUsuarios().add(usuario);
+	        servicioEvento.actualizarEvento(evento);
+	        usuario.getEventos().add(evento);
+	        servicioUsuario.actualizarUsuario(usuario);
+	    } 
+	    return "redirect:/voluntario";
+	}
+	
+	@PostMapping("/quitar/{id}")
+	public String quitarParticipante(@PathVariable("id") Long id,
+									HttpSession sesion) {
+		Long usuarioId = (Long)sesion.getAttribute("id_usuario");
+		Usuario usuario = this.servicioUsuario.obtenerPorId(usuarioId);
+		
+		Evento evento = this.servicioEvento.obtenerEventoPorId(id);
+		evento.getUsuarios().remove(usuario);
+		this.servicioEvento.actualizarEvento(evento);
+		usuario.getEventos().remove(evento);
+		this.servicioUsuario.actualizarUsuario(usuario);
+		return "redirect:/voluntario";
+	}
 }
