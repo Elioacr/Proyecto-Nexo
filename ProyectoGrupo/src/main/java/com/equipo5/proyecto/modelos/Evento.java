@@ -47,9 +47,10 @@ public class Evento {
     @NotNull
     private LocalDateTime fechaHora; // Usamos LocalDateTime para manejar fecha y hora
     
-    @NotBlank
-    @Size(min = 1, max = 1000, message = "Al menos un Voluntario debe participar en tu Evento")
-    private String limiteVoluntarios;  
+    @NotNull
+    @Min(value = 1, message = "Al menos un Voluntario debe participar en tu Evento")
+    @Max(1000)
+    private Integer limiteVoluntarios;  
     
     @ManyToOne  
     @JoinColumn(name = "organizacion_id")  
@@ -65,7 +66,7 @@ public class Evento {
 	
 	
 	public Evento(String nombre, String ciudad, String ubicacion, String descripcion, LocalDateTime fechaHora,
-			Organizacion organizacion, Categoria categoria, String limiteVoluntarios) {
+			Organizacion organizacion, Categoria categoria, Integer limiteVoluntarios) {
 		this.nombre = nombre;
 		this.ciudad = ciudad;
 		this.ubicacion = ubicacion;
@@ -78,7 +79,7 @@ public class Evento {
 
 
 	public Evento(Long id, String ciudad, String ubicacion, String descripcion, LocalDateTime fechaHora, 
-			Organizacion organizacion, Categoria categoria, List<Usuario> usuarios, String limiteVoluntarios) {
+			Organizacion organizacion, Categoria categoria, List<Usuario> usuarios, Integer limiteVoluntarios) {
 		super();
 		this.id = id;
 		this.ciudad = ciudad;
@@ -179,12 +180,12 @@ public class Evento {
 	}
 
 
-	public String getLimiteVoluntarios() {
+	public Integer getLimiteVoluntarios() {
 		return limiteVoluntarios;
 	}
 
 
-	public void setLimiteVoluntarios(String limiteVoluntarios) {
+	public void setLimiteVoluntarios(Integer limiteVoluntarios) {
 		this.limiteVoluntarios = limiteVoluntarios;
 	}
 }  
