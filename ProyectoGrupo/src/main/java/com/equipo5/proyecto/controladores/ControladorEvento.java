@@ -113,18 +113,19 @@ public class ControladorEvento {
 	    return "voluntario.jsp";
 	}
 	
-	@PostMapping("/participar/{id}")
-	public String agregarParticipante(@PathVariable("id") Long id,
-										HttpSession sesion) {
-		Long usuarioId = (Long)sesion.getAttribute("id_usuario");
-		Usuario usuario = this.servicioUsuario.obtenerPorId(usuarioId);
-		
-		Evento evento = this.servicioEvento.obtenerEventoPorId(id);
-		evento.getUsuarios().add(usuario);
-		this.servicioEvento.actualizarEvento(evento);
-		usuario.getEventos().add(evento);
-		this.servicioUsuario.actualizarUsuario(usuario);
-		return "redirect:/voluntario";
+	@PostMapping("/participar/{eventoId}")
+	public String participarEnEvento(@PathVariable Long eventoId, HttpSession sesion, Model model) {
+	    Long usuarioId = (Long) sesion.getAttribute("id_usuario");
+	    Evento evento = servicioEvento.obtenerEventoPorId(eventoId);
+	    
+	    if (evento.getVoluntariosRegistrados() < evento.getLimiteVoluntarios()) {
+	        Usuario usuario = servicioUsuario.obtenerPorId(usuarioId);
+	        evento.getUsuarios().add(usuario);
+	        servicioEvento.actualizarEvento(evento);
+	        usuario.getEventos().add(evento);
+	        servicioUsuario.actualizarUsuario(usuario);
+	    } 
+	    return "redirect:/voluntario";
 	}
 	
 	@PostMapping("/quitar/{id}")
