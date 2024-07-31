@@ -16,7 +16,7 @@
             <a class="navbar-brand" href="/inicio">
                 <img src="/images/minilogo.png" alt="Bootstrap" width="50" height="">
             </a>
-            <c:if test="${id_usuario == null}">
+            <c:if test="${id_usuario == null && id_organizacion == null}">
 	            <a class="navbar-brand" href="/login">Ingresar</a>
             </c:if>
             <c:if test="${id_usuario != null}">

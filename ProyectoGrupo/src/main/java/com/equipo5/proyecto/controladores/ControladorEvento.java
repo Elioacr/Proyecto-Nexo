@@ -99,8 +99,18 @@ public class ControladorEvento {
 		}
 		Categoria categoria = this.servicioCategoria.obtenerCategoriaPorNombre(nombreCategoria);
 		List<Evento> eventosFiltrados = categoria.getEventos();
+		
+		Long usuarioId = (Long) sesion.getAttribute("id_usuario");
+		Usuario usuario = servicioUsuario.obtenerPorId(usuarioId);
+		List<Evento> eventosUsuario = usuario.getEventos();
+	    List<Categoria> categorias = servicioCategoria.obtenerCategorias();
+		
+	    model.addAttribute("eventosUsuario", eventosUsuario);
+	    model.addAttribute("eventos", eventosFiltrados);
+	    model.addAttribute("categorias", categorias);
+	    model.addAttribute("usuario", usuario);
 		model.addAttribute("eventosFiltrados", eventosFiltrados);
-		return "eventosFiltrados.jsp";
+	    return "voluntario.jsp";
 	}
 	
 	@PostMapping("/participar/{id}")
