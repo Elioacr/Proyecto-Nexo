@@ -16,7 +16,7 @@
 				<form:label class="form-label" path="nombre">
 					Nombre:
 				</form:label>
-				<form:input class="form-control mb-4" path="nombre" name="nombre"/>
+				<form:input class="form-control mb-4" path="nombre" name="nombre" required="true"/>
 				<div>
 					<form:errors class="alert alert-danger" path="nombre"/>
 				</div>
@@ -25,7 +25,7 @@
 				<form:label class="form-label" path="ciudad">
 					Ciudad:
 				</form:label>
-				<form:input class="form-control mb-4" path="ciudad" name="ciudad"/>
+				<form:input class="form-control mb-4" path="ciudad" name="ciudad" required="true"/>
 				<div>
 					<form:errors class="alert alert-danger" path="ciudad"/>
 				</div>
@@ -34,7 +34,7 @@
 				<form:label class="form-label" path="ubicacion">
 					Ubicacion:
 				</form:label>
-				<form:input class="form-control mb-4" path="ubicacion" name="ubicacion"/>
+				<form:input class="form-control mb-4" path="ubicacion" name="ubicacion" required="true"/>
 				<div>
 					<form:errors class="alert alert-danger" path="ubicacion"/>
 				</div>
@@ -52,16 +52,25 @@
 				<form:label class="form-label" path="fechaHora">
 					Fecha y Hora:
 				</form:label>
-				<form:input type="datetime-local" class="form-control mb-4" path="fechaHora" name="fechaHora"/>
+				<form:input type="datetime-local" class="form-control mb-4" path="fechaHora" name="fechaHora" required="true"/>
 				<div>
 					<form:errors class="alert alert-danger" path="fechaHora"/>
+				</div>
+			</div>
+			<div class="mt-4">
+				<form:label class="form-label" path="fechaTermino">
+					Fecha de Termino:
+				</form:label>
+				<form:input type="datetime-local" class="form-control mb-4" path="fechaTermino" name="fechaTermino" required="true"/>
+				<div>
+					<form:errors class="alert alert-danger" path="fechaTermino"/>
 				</div>
 			</div>
 			<div class="mt-4">
 				<form:label class="form-label" path="limiteVoluntarios">
 					Limite de Voluntarios:
 				</form:label>
-				<form:input class="form-control mb-4" path="limiteVoluntarios" name="limiteVoluntarios"/>
+				<form:input class="form-control mb-4" path="limiteVoluntarios" name="limiteVoluntarios" required="true"/>
 				<div>
 					<form:errors class="alert alert-danger" path="limiteVoluntarios"/>
 				</div>

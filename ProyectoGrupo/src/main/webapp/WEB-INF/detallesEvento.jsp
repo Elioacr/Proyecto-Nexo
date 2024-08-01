@@ -46,15 +46,26 @@
     </nav>
 
 	<div class="container">
-	    <h2 class="my-4">Detalles del Evento</h2>
+		<div class="row">
+		    <h2 class="my-4 col12 col-sm-9">Detalles del Evento</h2>
+		    <div class="ms-auto col-12 col-sm-3 text-center">
+		    	<form action="/eventos/participar/${evento.id}" method="post">
+					<c:if test="${evento.getVoluntariosRegistrados() lt evento.limiteVoluntarios && id_organizacion == null && usuario != null && !evento.usuarios.contains(usuario)}">
+				        <button type="submit" class="btn btn-outline-secondary my-4">Participar</button>
+				    </c:if>
+			    </form>
+		    </div>
+		</div>
 	    <div class="row">
 	        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
 	            <div class="event-card p-3 border rounded">
 	                <h5>${evento.nombre}</h5>
 	                <p>${evento.descripcion}</p>
+	                <p><strong>Organización:</strong> ${evento.organizacion.nombreOrganizacion}</p>
 	                <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
 	                <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
 				    <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
+				    <p><strong>Fecha Termino:</strong> ${evento.getFechaTerminoFormateada()}</p>
 	                <p><strong>Voluntarios:</strong> ${evento.voluntariosRegistrados}/${evento.limiteVoluntarios}</p>
 	                <c:forEach var="organizacion" items="${organizaciones}">
 	                	<c:if test="${not empty organizacion.webLink}">
