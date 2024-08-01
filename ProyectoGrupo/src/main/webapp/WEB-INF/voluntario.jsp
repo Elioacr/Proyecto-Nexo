@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Voluntario - Eventos Disponibles</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-<link rel="stylesheet" href="/css/voluntario.css">
+	<meta charset="UTF-8">
+	<title>Voluntario - Eventos Disponibles</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+	<link rel="stylesheet" href="/css/voluntario.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -25,7 +25,7 @@
                         <a class="nav-link active" aria-current="page" href="/inicio">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Top Voluntarios</a>
+                        <a class="nav-link" href="/topvoluntarios">Top Voluntarios</a>
                     </li>
                 </ul>
                 <c:if test="${id_organizacion == null && id_usuario == null}">
@@ -48,7 +48,7 @@
 				<select class="form-select my-4" id="selectFiltro">
 				    <option value="Todos" selected>Todos</option>
 				    <c:forEach var="categoria" items="${categorias}">
-					<option value="${categoria.categoria}">${categoria.categoria}</option>
+						<option value="${categoria.categoria}">${categoria.categoria}</option>
 				    </c:forEach>
 				</select>
 		    </div>

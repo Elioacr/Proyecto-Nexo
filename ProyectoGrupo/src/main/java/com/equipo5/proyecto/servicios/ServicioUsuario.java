@@ -1,12 +1,14 @@
 package com.equipo5.proyecto.servicios;
 
-import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import com.equipo5.proyecto.modelos.Categoria;
 import com.equipo5.proyecto.modelos.LoginUsuario;
 import com.equipo5.proyecto.modelos.Usuario;
 import com.equipo5.proyecto.repositorios.RepositorioUsuario;
@@ -102,7 +104,24 @@ public class ServicioUsuario {
 	public Usuario actualizarUsuario(Usuario usuario) {
 		return this.resRepositorioUsuario.save(usuario);
 	}
-
+	
+	public List<Usuario> obtenerPorEventosDeCategoria(Categoria categoria) {
+		List<Usuario> usuarios = this.obtenerTodos();
+		
+		return usuarios.stream()
+	            .filter(user -> user.getEventos().stream()
+	                .anyMatch(event -> event.getCategoria().equals(categoria)))
+	            .toList();
+	}
+	
+	public int contarEventosDeCategoria(Usuario usuario, Categoria categoria) {
+		return (int)usuario.getEventos().stream()
+				.filter(e -> e.getCategoria().equals(categoria))
+				.count();
+	}
+	public List<Usuario> obtenerTodos() {
+		return this.resRepositorioUsuario.findAll();
+	}
 	public Usuario obtenerPorCorreo(String correo) {
 		return this.resRepositorioUsuario.getByCorreo(correo);
 	}

@@ -35,7 +35,7 @@
                         <a href="#" class="nav__links">Contacto</a>
                     </li>
                     <li class="nav__items">
-                        <a href="#" class="nav__links">Top Voluntarios</a>
+                        <a href="/topvoluntarios" class="nav__links">Top Voluntarios</a>
                     </li>
                     <c:if test="${id_usuario == null && id_organizacion == null}">
                         <li class="nav__items">
