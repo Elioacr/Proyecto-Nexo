@@ -43,7 +43,7 @@
 
     <div class="container">
         <div class="row">
-		    <h2 class="my-4 col-12 col-sm-9">Eventos Disponibles</h2>
+		    <h2 class="my-4 col-12 col-sm-9 text-light">Eventos Disponibles</h2>
 		    <div class="ms-auto col-12 col-sm-3">
 				<select class="form-select my-4" id="selectFiltro">
 				    <option value="Todos" selected>Todos</option>
@@ -57,7 +57,7 @@
             <c:forEach var="evento" items="${eventos}">
 			    <c:if test="${!eventosUsuario.contains(evento)}">
 			        <div class="col-12 col-sm-6 col-md-4 mb-2">
-			            <div class="event-card p-3 border rounded">
+			            <div class="event-card p-3 border rounded h-100">
 			                <h5><a href="/eventos/${evento.id}" class="text-decoration-none">${evento.nombre}</a></h5>
 			                <p>${evento.descripcion}</p>
 			                <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
@@ -83,7 +83,7 @@
 			    </c:if>
 			</c:forEach>
 		</div>
-        <h2 class="my-4">Eventos a Participar</h2>
+        <h2 class="my-4 text-light">Eventos a Participar</h2>
 	    <div class="calendar-container mt-5 list-group-item event-card">
 	        <div id="calendar"></div>
 	    </div>
@@ -95,19 +95,19 @@
             <div class="row">
                 <div class="col-md-4">
                     <h5>Sobre Nosotros</h5>
-                    <p>Somos NEXO, una plataforma que conecta organizaciones con personas dispuestas a ayudar a través del voluntariado.</p>
+                    <p class="text-light">Somos NEXO, una plataforma que conecta organizaciones con personas dispuestas a ayudar a través del voluntariado.</p>
                 </div>
                 <div class="col-md-4">
                     <h5>Enlaces</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Inicio</a></li>
+                        <li><a href="/" class="text-white">Inicio</a></li>
                         <li><a href="#" class="text-white">Contacto</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h5>Contacto</h5>
                     <address>
-                        <strong>NEXO Inc.</strong><br>
+                        <strong class="text-light">NEXO Inc.</strong><br>
                         1234 Calle Principal<br>
                         Ciudad, Estado 56789<br>
                         <span>Tel:</span> (123) 456-7890

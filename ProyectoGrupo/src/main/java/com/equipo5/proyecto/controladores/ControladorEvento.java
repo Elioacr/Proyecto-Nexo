@@ -49,7 +49,7 @@ public class ControladorEvento {
 											Model model,
 											HttpSession sesion) {
 		if(sesion.getAttribute("id_organizacion") == null) {
-			return "redirect:/registro/organizacion";
+			return "redirect:/login";
 		}
 		List<Categoria> categorias = this.servicioCategoria.obtenerCategorias();
 		model.addAttribute("categorias", categorias);
@@ -83,7 +83,7 @@ public class ControladorEvento {
 								Model model,
 								HttpSession sesion) {
 		if(sesion.getAttribute("id_usuario") == null && sesion.getAttribute("id_organizacion") == null) {
-			return "redirect:/registro/usuario";
+			return "redirect:/login";
 		}
 		Evento evento = this.servicioEvento.obtenerEventoPorId(eventoId);
 		List<Organizacion> organizaciones = servicioOrganizacion.obtenerTodos();
@@ -98,7 +98,7 @@ public class ControladorEvento {
 										Model model,
 										HttpSession sesion) {
 		if(sesion.getAttribute("id_usuario") == null) {
-			return "redirect:/registro/usuario";
+			return "redirect:/login";
 		}
 		Categoria categoria = this.servicioCategoria.obtenerCategoriaPorNombre(nombreCategoria);
 		List<Evento> eventosFiltrados = categoria.getEventos();
