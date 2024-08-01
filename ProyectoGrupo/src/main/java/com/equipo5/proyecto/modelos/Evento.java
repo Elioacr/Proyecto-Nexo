@@ -48,6 +48,9 @@ public class Evento {
     private LocalDateTime fechaHora; // Usamos LocalDateTime para manejar fecha y hora
     
     @NotNull
+    private LocalDateTime fechaTermino;
+    
+    @NotNull
     @Min(value = 1, message = "Al menos un Voluntario debe participar en tu Evento")
     @Max(1000)
     private Integer limiteVoluntarios;  
@@ -56,6 +59,7 @@ public class Evento {
     @JoinColumn(name = "organizacion_id")  
     private Organizacion organizacion;  
 
+    @NotNull
     @ManyToOne  
     @JoinColumn(name = "categoria_id")  
     private Categoria categoria;
@@ -152,6 +156,21 @@ public class Evento {
 	public void setFechaHora(LocalDateTime fechaHora) {
 		this.fechaHora = fechaHora;
 	}
+
+	public String getFechaTerminoFormateada() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd 'de' MMM 'de' yyyy 'a las' hh:mm a");
+		return fechaTermino.format(formatter);
+	}
+	
+	public LocalDateTime getFechaTermino() {
+		return fechaTermino;
+	}
+
+
+	public void setFechaTermino(LocalDateTime fechaTermino) {
+		this.fechaTermino = fechaTermino;
+	}
+
 
 	public Organizacion getOrganizacion() {
 		return organizacion;

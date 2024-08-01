@@ -21,18 +21,6 @@ public class ServicioEventos {
 		this.repositorioUsuario = repositorioUsuario;
 		this.repositorioEvento = repositorioEvento;
 	}
-
-    public void registrarUsuarioEnEvento(Long usuarioId, Long eventoId) {
-        Usuario usuario = repositorioUsuario.findById(usuarioId)
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
-        Evento evento = repositorioEvento.findById(eventoId)
-                .orElseThrow(() -> new IllegalArgumentException("Evento no encontrado"));
-
-        if (!usuario.getEventos().contains(evento)) {
-            usuario.getEventos().add(evento);
-            repositorioUsuario.save(usuario);
-        }
-    }
     
     public List<Evento> obtenerEventosPorOrganizacion(Long organizacionId) {
         return this.repositorioEvento.findByOrganizacionId(organizacionId);

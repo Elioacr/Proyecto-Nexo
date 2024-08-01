@@ -65,6 +65,9 @@ public class ControladorEvento {
 			if(evento.getFechaHora().isBefore(LocalDateTime.now())) {
 				validaciones.rejectValue("fechaHora", "FechaPasada", "Fecha Invalida");
 			}
+			if(evento.getFechaTermino() != null && evento.getFechaTermino().isBefore(evento.getFechaHora())) {
+				validaciones.rejectValue("fechaTermino", "FechaPasada", "Fecha Invalida");
+			}
 		}
 		if(validaciones.hasErrors()) {
 			List<Categoria> categorias = this.servicioCategoria.obtenerCategorias();
@@ -84,6 +87,10 @@ public class ControladorEvento {
 								HttpSession sesion) {
 		if(sesion.getAttribute("id_usuario") == null && sesion.getAttribute("id_organizacion") == null) {
 			return "redirect:/login";
+		}
+		if(sesion.getAttribute("id_usuario") != null) {
+			Usuario usuario = this.servicioUsuario.obtenerPorId((long)sesion.getAttribute("id_usuario"));
+			model.addAttribute("usuario", usuario);
 		}
 		Evento evento = this.servicioEvento.obtenerEventoPorId(eventoId);
 		List<Organizacion> organizaciones = servicioOrganizacion.obtenerTodos();
