@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Detalles Evento</title>
+	<title>Top Voluntarios</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -22,20 +22,31 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/inicio">Inicio</a>
                     </li>
-                    <c:if test="${id_usuario != null}">
-                        <li class="nav-item">
-                            <a href="/voluntario" class="nav-link">Perfil</a>
-                        </li>
-                    </c:if>
-                    <c:if test="${id_organizacion != null}">
-                        <li class="nav-item">
-                            <a href="/organizacion" class="nav-link">Perfil</a>
-                        </li>
-                    </c:if>
                     <li class="nav-item">
                         <a class="nav-link" href="/topvoluntarios">Top Voluntarios</a>
                     </li>
+	                <c:if test="${id_usuario == null && id_organizacion == null}">
+	                    <li class="nav-item">
+	                        <a href="/login" class="nav-link">Login</a>
+	                    </li>
+	                    <li class="nav-item">
+	                        <a href="/registro/usuario" class="nav-link">Registro</a>
+	                    </li>
+	                </c:if>
+	                <c:if test="${id_usuario != null}">
+	                    <li class="nav-item">
+	                        <a href="/voluntario" class="nav-link">Perfil</a>
+	                    </li>
+	                </c:if>
+	                <c:if test="${id_organizacion != null}">
+	                    <li class="nav-item">
+	                        <a href="/organizacion" class="nav-link">Perfil</a>
+	                    </li>
+	                </c:if>
                 </ul>
+                <c:if test="${id_organizacion == null && id_usuario == null}">
+	                <a class="navbar-brand" href="/registro/organizacion">Quiero ser Empresa aliada</a>
+                </c:if>
                 <c:if test="${id_usuario != null || id_organizacion != null}">
 	                <form action="/logout" method="post">
 	                	<button type="submit" class="navbar-brand btn btn-link">Cerrar Sesión</button>
@@ -44,47 +55,38 @@
             </div>
         </div>
     </nav>
-
-	<div class="container">
-	    <h2 class="my-4">Detalles del Evento</h2>
-	    <div class="row">
-	        <div class="col-12 col-sm-12 col-md-6 col-lg-6 mb-2">
-	            <div class="event-card p-3 border rounded">
-	                <h5>${evento.nombre}</h5>
-	                <p>${evento.descripcion}</p>
-	                <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
-	                <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
-				    <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
-	                <p><strong>Voluntarios:</strong> ${evento.voluntariosRegistrados}/${evento.limiteVoluntarios}</p>
-	                <c:forEach var="organizacion" items="${organizaciones}">
-	                	<c:if test="${not empty organizacion.webLink}">
-						    <p><strong>Web:</strong> <a href="${organizacion.webLink}" target="_blank">${organizacion.webLink}</a></p>
-						</c:if>
-	                </c:forEach>
-	            </div>
-	        </div>
-	        <div class="col-12 col-sm-12 col-md-4 col-lg-5 mb-2">
-	            <div class="volunteers-card p-3 border rounded">
-	                <h5>Lista de Voluntarios Registrados</h5>
-	                <c:if test="${evento.usuarios.size() == 0}">
-	                	<p>Aun no hay voluntarios registrados...</p>
-	                </c:if>
-	                <ul class="list-unstyled">
-	                    <c:forEach var="usuario" items="${evento.usuarios}">
-	                        <li>${usuario.nombre} ${usuario.apellido}</li>
-	                    </c:forEach>
-	                </ul>
-	            </div>
-	        </div>
-	    </div>
-	</div>
+	<br>
+	
+	<main class="container">
+		<div class="row">
+		    <h2 class="my-4 col-12 col-sm-9">Top Voluntarios</h2>
+		    <div class="ms-auto col-12 col-sm-3">
+				<select class="form-select my-4" id="selectFiltro">
+				    <option value="Global" selected>Global</option>
+				    <c:forEach var="categoria" items="${categorias}">
+						<option value="${categoria.categoria}">${categoria.categoria}</option>
+				    </c:forEach>
+				</select>
+		    </div>
+		</div>
+		<c:if test="${topVoluntarios.size() == 0}">
+			<p>No hay voluntarios...</p>
+		</c:if>
+		<c:if test="${topVoluntarios.size() > 0}">
+			<ol class="list-group list-group-numbered">
+				<c:forEach var="voluntario" items="${topVoluntarios}">
+				  	<li class="list-group-item">${voluntario.nombre} <span class=" ms-auto text-end">${voluntario.eventos.size()}</span></li>
+				</c:forEach>
+			</ol>
+		</c:if>
+	</main>
 	
 	<footer class="bg-dark text-white mt-5">
         <div class="container py-4">
             <div class="row">
                 <div class="col-md-4">
                     <h5>Sobre Nosotros</h5>
-                    <p>Somos NEXO, una plataforma que conecta organizaciones con personas dispuestas a ayudar a través del voluntariado.</p>
+                    <p class="text-light">Somos NEXO, una plataforma que conecta organizaciones con personas dispuestas a ayudar a través del voluntariado.</p>
                 </div>
                 <div class="col-md-4">
                     <h5>Enlaces</h5>
@@ -96,7 +98,7 @@
                 <div class="col-md-4">
                     <h5>Contacto</h5>
                     <address>
-                        <strong>NEXO Inc.</strong><br>
+                        <strong class="text-light">NEXO Inc.</strong><br>
                         1234 Calle Principal<br>
                         Ciudad, Estado 56789<br>
                         <span>Tel:</span> (123) 456-7890
@@ -105,6 +107,7 @@
             </div>
         </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/topVoluntarios.js"></script>
 </body>
 </html>

@@ -132,4 +132,50 @@ public class ControladorUsuario {
 	    // En caso de que el tipo de usuario no sea reconocido, redirigir al login
 	    return "login.jsp";
 	}
+	
+	@GetMapping("/topvoluntarios")
+	public String topVoluntarios(Model model) {
+		List<Usuario> voluntarios = this.servicioUsuario.obtenerTodos();
+		voluntarios = voluntarios.stream().filter(v -> v.getEventos().size() > 0).toList();
+		
+		if(voluntarios.size() > 1) {
+			voluntarios.sort((v1, v2) -> Integer.compare(v2.getEventos().size(), v1.getEventos().size()));
+		}
+		
+		List<Usuario> topVoluntarios;
+		if(voluntarios.size() > 10) {
+			topVoluntarios = voluntarios.subList(0, 9);
+		}
+		else {
+			topVoluntarios = voluntarios;
+		}
+		List<Categoria> categorias = this.servicioCategoria.obtenerCategorias();
+		
+		model.addAttribute("topVoluntarios", topVoluntarios);
+		model.addAttribute("categorias", categorias);
+		return "topVoluntarios.jsp";
+	}
+	@GetMapping("/topvoluntarios/{categoria}")
+	public String topVoluntariosCategoria(@PathVariable("categoria") String categoriaNombre,
+											Model model) {
+		Categoria categoria = this.servicioCategoria.obtenerCategoriaPorNombre(categoriaNombre);
+		List<Usuario> voluntarios = this.servicioUsuario.obtenerPorEventosDeCategoria(categoria);
+		
+		if(voluntarios.size() > 1) {
+			//Ordenar usuarios por la cantidad de eventos de esa categoria
+			voluntarios.sort((v1, v2) -> Integer.compare(this.servicioUsuario.contarEventosDeCategoria(v2, categoria), this.servicioUsuario.contarEventosDeCategoria(v1, categoria)));
+		}
+		List<Usuario> topVoluntarios;
+		if(voluntarios.size() > 10) {
+			topVoluntarios = voluntarios.subList(0, 9);
+		}
+		else {
+			topVoluntarios = voluntarios;
+		}
+		List<Categoria> categorias = this.servicioCategoria.obtenerCategorias();
+		
+		model.addAttribute("topVoluntarios", topVoluntarios);
+		model.addAttribute("categorias", categorias);
+		return "topVoluntarios.jsp";
+	}
 }
