@@ -1,92 +1,6 @@
 @charset "ISO-8859-1";
-
-<<<<<<< HEAD
- body {
-        background-color: #081e35;
-        color: #333;
-    }
-
-    .header {
-        background-color: #46a1c0;
-        color: #fff;
-        padding: 20px;
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
-    h1, h2 {
-        color: #ffffffdd;
-    }
-
-    .event-card {
-        background-color: #fffd;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        margin-bottom: 20px;
-        padding: 35px; /* Aumentado en 20px */
-        transition: transform 0.3s, box-shadow 0.3s; /* Mantenido el movimiento */
-    }
-
-    .event-card:hover {
-        transform: translateY(-5px); /* Mantenido el movimiento */
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    .event-card a {
-        color: #000000;
-        text-decoration: none;
-    }
-
-    .event-card a:hover {
-        text-decoration: underline;
-    }
-
-    .btn-participar {
-        background-color: #ffffff;
-        border-color: #000000;
-        color: #333;
-    }
-
-    .btn-participar:hover {
-        background-color: #1e1e1e;
-        border-color: #ffffff;
-        color: lemonchiffon;
-    }
-
-    .calendar-container {
-        margin: 50px;
-    }
-
-    footer {
-        background-color: #46a1c0;
-        color: #fff;
-        padding: 20px 0;
-    }
-
-    footer a {
-        color: #f9cc89;
-        text-decoration: none;
-    }
-
-    footer a:hover {
-        text-decoration: underline;
-    }
-    
-    p {
-    	color: #363636
-    }
-    
-    strong{
-    	color: #404040
-    }
-    
-    .fc-toolbar-title {
-        color: #000000 !important;
-    }
-=======
 body {
-	background-color: #081e35;
+	background-color: #081e35 !important;
     color: #333;
 }
 
@@ -99,7 +13,7 @@ body {
 }
 
 h1, h2 {
-    color: #ffffffdd;
+    color: #0c1536dd;
 }
 
 .event-card {
@@ -195,4 +109,3 @@ strong{
 .fc .fc-daygrid-day-events {
     height: 15vh;
 }
->>>>>>> 34915a7c1565c4d118e36d5d5fed46cda308b84f

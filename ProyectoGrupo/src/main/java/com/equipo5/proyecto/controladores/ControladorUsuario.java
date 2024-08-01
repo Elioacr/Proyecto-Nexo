@@ -73,11 +73,13 @@ public class ControladorUsuario {
 	    List<Evento> eventosUsuario = usuario.getEventos();
 	    List<Evento> eventos = servicioEventos.obtenerEventos();
 	    List<Categoria> categorias = servicioCategoria.obtenerCategorias();
+	    List<Organizacion> organizaciones = servicioOrganizacion.obtenerTodos();
 
 	    model.addAttribute("eventosUsuario", eventosUsuario);
 	    model.addAttribute("eventos", eventos);
 	    model.addAttribute("categorias", categorias);
 	    model.addAttribute("usuario", usuario);
+	    model.addAttribute("organizaciones", organizaciones);
 	    return "voluntario.jsp";
 	}
 

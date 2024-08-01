@@ -86,7 +86,10 @@ public class ControladorEvento {
 			return "redirect:/registro/usuario";
 		}
 		Evento evento = this.servicioEvento.obtenerEventoPorId(eventoId);
+		List<Organizacion> organizaciones = servicioOrganizacion.obtenerTodos();
+		
 		model.addAttribute("evento", evento);
+		model.addAttribute("organizaciones", organizaciones);
 		return "detallesEvento.jsp";
 	}
 	

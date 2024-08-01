@@ -79,6 +79,18 @@
 											</div>
 										</div>
 										<div class="form-group">
+										    <form:label path="webLink">Página web o Red Social:</form:label>
+										    <div class="input-group mb-4">
+										        <div class="input-group-prepend">
+										            <span class="input-group-text"><i class="fas fa-globe"></i></span>
+										        </div>
+										        <form:input path="webLink" type="url" class="form-control" placeholder="https://example.com" />
+										    </div>
+										    <div>
+										        <form:errors path="webLink" class="alert alert-danger" />
+										    </div>
+										</div>
+										<div class="form-group">
 											<form:label path="contraseña">Contraseña:</form:label>
 											<div class="input-group mb-4">
 												<div class="input-group-prepend">

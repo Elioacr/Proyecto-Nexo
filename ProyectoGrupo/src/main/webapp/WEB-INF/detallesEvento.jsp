@@ -50,6 +50,11 @@
                 <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
 			    <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
                 <p><strong>Voluntarios:</strong> ${evento.voluntariosRegistrados}/${evento.limiteVoluntarios}</p>
+                <c:forEach var="organizacion" items="${organizaciones}">
+                	<c:if test="${not empty organizacion.webLink}">
+					    <p><strong>Web:</strong> <a href="${organizacion.webLink}" target="_blank">${organizacion.webLink}</a></p>
+					</c:if>
+                </c:forEach>
             </div>
         </div>
         <div class="col-12 col-sm-12 col-md-4 col-lg-5 mb-2">

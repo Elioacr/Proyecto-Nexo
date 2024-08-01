@@ -2,7 +2,10 @@ package com.equipo5.proyecto.modelos;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.URL;
+
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -35,10 +38,14 @@ public class Organizacion {
     @Size(min = 6, max = 30, message = "El correo tiene que tener al menos 6 dígitos")
     private String correo;  
     
-    @NotNull
+    @NotBlank
     @Min(value = 10000000, message = "Telefono Invalido")
     @Digits(integer = 12, fraction = 0, message = "Telefono Invalido")
     private String telefono;
+    
+    @URL
+    @Column(name = "web_link", nullable = true)
+    private String webLink;
     
     @NotBlank
     @Size(min = 8, message = "La contraseña tiene que tener al menos 8 dígitos")
@@ -64,7 +71,7 @@ public class Organizacion {
 
 	public Organizacion(Long id, String rut, String nombreOrganizacion, String correo,
 			String telefono, String contraseña, List<Evento> eventos,
-			String confirmarContraseña) {
+			String confirmarContraseña, String webLink) {
 		this.id = id;
 		this.rut = rut;
 		this.nombreOrganizacion = nombreOrganizacion;
@@ -73,6 +80,7 @@ public class Organizacion {
 		this.contraseña = contraseña;
 		this.eventos = eventos;
 		this.confirmarContraseña = confirmarContraseña;
+		this.webLink = webLink;
 	}
 
 	public Long getId() {
@@ -137,5 +145,15 @@ public class Organizacion {
 
 	public void setConfirmarContraseña(String confirmarContraseña) {
 		this.confirmarContraseña = confirmarContraseña;
+	}
+
+
+	public String getWebLink() {
+		return webLink;
+	}
+
+
+	public void setWebLink(String webLink) {
+		this.webLink = webLink;
 	}
 }
