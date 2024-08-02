@@ -7,6 +7,8 @@
 	<meta charset="UTF-8">
 	<title>Detalles Evento</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="/css/detalleEvento.css">
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -63,6 +65,7 @@
 	                <p>${evento.descripcion}</p>
 	                <p><strong>Organización:</strong> ${evento.organizacion.nombreOrganizacion}</p>
 	                <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
+	                <p><strong>Ubicación:</strong> ${evento.ubicacion}</p>
 	                <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
 				    <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
 				    <p><strong>Fecha Termino:</strong> ${evento.getFechaTerminoFormateada()}</p>
@@ -75,18 +78,32 @@
 	            </div>
 	        </div>
 	        <div class="col-12 col-sm-12 col-md-4 col-lg-5 mb-2">
-	            <div class="volunteers-card p-3 border rounded">
-	                <h5>Lista de Voluntarios Registrados</h5>
-	                <c:if test="${evento.usuarios.size() == 0}">
-	                	<p>Aun no hay voluntarios registrados...</p>
-	                </c:if>
-	                <ul class="list-unstyled">
-	                    <c:forEach var="usuario" items="${evento.usuarios}">
-	                        <li>${usuario.nombre} ${usuario.apellido}</li>
-	                    </c:forEach>
-	                </ul>
-	            </div>
-	        </div>
+			    <div class="volunteers-card p-3 border rounded">
+			        <h5>Lista de Voluntarios Registrados</h5>
+			        <c:if test="${evento.usuarios.size() == 0}">
+			            <p>Aun no hay voluntarios registrados...</p>
+			        </c:if>
+						      <p>  ${usuarioNombre} ${usuarioApellido}</p>
+					<c:forEach var="usuario" items="${voluntariosConEdad}">
+				     	<c:if test="${id_organizacion != null}">
+					        <p>  ${usuario.nombre} ${usuario.apellido}</p>
+			        		<ul class="list-unstyled">
+						    	<li>
+						            <span class="eye-icon" data-usuario-id="${usuario.id}"><i class="fas fa-eye"></i></span>
+						            <div class="user-details" id="details-${usuario.id}">
+						                <p>Nombre: ${usuario.nombre}</p>
+						                <p>Apellido: ${usuario.apellido}</p>
+						                <p>Correo: ${usuario.correo}</p>
+						                <p>Teléfono: ${usuario.telefono}</p>
+						                <p>Ciudad: ${usuario.ciudad}</p>
+						                <p>Edad: ${usuario.edad}</p>
+						            </div>
+						    	</li>
+			        		</ul>
+					  </c:if>
+					</c:forEach>
+			    </div>
+			</div>
 	    </div>
 	    <a href="#" class="btn btn-danger mt-3">Eliminar</a>
 	</div>

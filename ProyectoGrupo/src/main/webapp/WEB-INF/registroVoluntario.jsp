@@ -96,6 +96,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
+							    <form:label path="fechaNacimiento">Fecha de Nacimiento:</form:label>
+							    <div class="input-group mb-4">
+							        <div class="input-group-prepend">
+							            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+							        </div>
+							        <form:input type="date" class="form-control" path="fechaNacimiento" name="fechaNacimiento" required="true"/>
+							    </div>
+							    <div>
+							        <form:errors class="alert alert-danger" path="fechaNacimiento"/>
+							    </div>
+							</div>
+                            <div class="form-group">
                                 <form:label path="contraseña">Contraseña:</form:label>
                                 <div class="input-group mb-4">
                                     <div class="input-group-prepend">

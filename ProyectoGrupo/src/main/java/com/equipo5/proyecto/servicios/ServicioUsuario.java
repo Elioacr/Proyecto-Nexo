@@ -1,5 +1,8 @@
 package com.equipo5.proyecto.servicios;
 
+
+import java.time.Period;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +15,7 @@ import com.equipo5.proyecto.modelos.Categoria;
 import com.equipo5.proyecto.modelos.LoginUsuario;
 import com.equipo5.proyecto.modelos.Usuario;
 import com.equipo5.proyecto.repositorios.RepositorioUsuario;
+
 
 
 @Service
@@ -95,11 +99,27 @@ public class ServicioUsuario {
         return validaciones;
     }
 
-	public Usuario insertarUsuario(Usuario usuario) {
-		String contraseñaEncriptada = BCrypt.hashpw(usuario.getContraseña(), BCrypt.gensalt());
-		usuario.setContraseña(contraseñaEncriptada);
-		return this.resRepositorioUsuario.save(usuario);
+	public Integer calcularEdad(LocalDate fechaNacimiento) {
+	    if (fechaNacimiento == null) {
+	        return 0;
+	    }
+	    LocalDate today = LocalDate.now();
+	    return Period.between(fechaNacimiento, today).getYears();
 	}
+
+    public Usuario registrarUsuario(Usuario usuario) {
+        if (!esMayorDeEdad(usuario.getFechaNacimiento())) {
+            throw new IllegalArgumentException("El usuario debe ser mayor de edad para registrarse.");
+        }
+        String contraseñaEncriptada = BCrypt.hashpw(usuario.getContraseña(), BCrypt.gensalt());
+        usuario.setContraseña(contraseñaEncriptada);
+        return this.resRepositorioUsuario.save(usuario);
+    }
+
+    public boolean esMayorDeEdad(LocalDate fechaNacimiento) {
+        return calcularEdad(fechaNacimiento) >= 18;
+    }
+
 	
 	public Usuario actualizarUsuario(Usuario usuario) {
 		return this.resRepositorioUsuario.save(usuario);
