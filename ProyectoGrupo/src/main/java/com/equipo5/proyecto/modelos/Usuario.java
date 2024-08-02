@@ -1,5 +1,6 @@
 package com.equipo5.proyecto.modelos;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -16,6 +17,7 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 @Entity  
@@ -49,6 +51,10 @@ public class Usuario {
     @Size(min = 2, max = 30, message = "La ciudad tiene que tener al menos 6 dígitos")
     private String ciudad;
     
+    @Past(message = "La fecha de nacimiento debe ser en el pasado")
+    @NotNull(message = "La fecha de nacimiento es obligatoria")
+    private LocalDate fechaNacimiento;
+    
     @NotBlank
     @Size(min = 8, message = "La contraseña tiene que tener al menos 8 caracteres")
     private String contraseña;
@@ -65,7 +71,7 @@ public class Usuario {
 	
 
 	public Usuario(Long id, String rut, String nombre, String apellido, String correo, Integer telefono, String ciudad,
-			String contraseña, String confirmarContraseña, List<Evento> eventos) {
+			String contraseña, String confirmarContraseña, List<Evento> eventos, LocalDate fechaNacimiento) {
 		this.id = id;
 		this.rut = rut;
 		this.nombre = nombre;
@@ -76,8 +82,8 @@ public class Usuario {
 		this.contraseña = contraseña;
 		this.confirmarContraseña = confirmarContraseña;
 		this.eventos = eventos;
+		this.fechaNacimiento = fechaNacimiento;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -157,5 +163,15 @@ public class Usuario {
 
 	public void setEventos(List<Evento> eventos) {
 		this.eventos = eventos;
+	}
+
+
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 }

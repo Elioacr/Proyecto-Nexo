@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Organización</h1>
+	<h1>Organización ${organizacion.nombreOrganizacion}</h1>
 	<ul>
 		<c:forEach var="evento" items="${eventos}">
 			<li><a href="/eventos/${evento.id}">${evento.nombre}</a> ${evento.descripcion} ${evento.ciudad} ${evento.categoria.categoria}</li>
