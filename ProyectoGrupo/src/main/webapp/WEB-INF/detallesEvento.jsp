@@ -88,7 +88,7 @@
 	            </div>
 	        </div>
 	    </div>
-	    <a href="#" class="btn btn-danger mt-3">Eliminar</a>
+	    <a href="#" class="btn btn-danger mt-3">Eliminar Evento</a>
 	</div>
 	
 	<footer class="bg-dark text-white mt-5">

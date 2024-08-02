@@ -214,7 +214,7 @@
                             <a href="/" class="nav__links">Inicio</a>
                         </li>
                         <li class="nav__items">
-                            <a href="#" class="nav__links">Acerca de</a>
+                            <a href="#" class="nav__links">Acerca de nosotros</a>
                         </li>
                         <li class="nav__items">
                             <a href="#" class="nav__links">Contacto</a>

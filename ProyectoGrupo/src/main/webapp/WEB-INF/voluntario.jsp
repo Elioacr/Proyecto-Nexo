@@ -6,9 +6,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Voluntario - Eventos Disponibles</title>
+	<link rel="shortcut icon" href="/images/minilogo.png" type="image/x-icon">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 	<link rel="stylesheet" href="/css/voluntario.css">
+	<link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -98,32 +101,38 @@
     </div>
 
 
-    <footer class="bg-dark text-white mt-5">
-        <div class="container py-4">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>Sobre Nosotros</h5>
-                    <p class="text-light">Somos NEXO, una plataforma que conecta organizaciones con personas dispuestas a ayudar a través del voluntariado.</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Enlaces</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="/" class="text-white">Inicio</a></li>
-                        <li><a href="#" class="text-white">Contacto</a></li>
+        <footer class="footer">
+            <section class="footer__container container">
+                <nav class="nav nav--footer">
+                    <h2 class="footer__title">Nexo</h2>
+                    <ul class="nav__link nav__link--footer">
+                        <li class="nav__items">
+                            <a href="/" class="nav__links">Inicio</a>
+                        </li>
+                        <li class="nav__items">
+                            <a href="#" class="nav__links">Acerca de nosotros</a>
+                        </li>
+                        <li class="nav__items">
+                            <a href="#" class="nav__links">Contacto</a>
+                        </li>
+                        <li class="nav__items">
+                            <a href="/registro/usuario" class="nav__links">Registrarse</a>
+                        </li>
+                        <li class="nav__items">
+                            <a href="/login" class="nav__links">Login</a>
+                        </li>
                     </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Contacto</h5>
-                    <address>
-                        <strong class="text-light">NEXO Inc.</strong><br>
-                        1234 Calle Principal<br>
-                        Ciudad, Estado 56789<br>
-                        <span>Tel:</span> (123) 456-7890
-                    </address>
-                </div>
-            </div>
-        </div>
-    </footer>
+                </nav>
+                <section class="footer__copy container">
+                    <div class="footer__social">
+                        <a href="#" class="footer__icons"><img src="/images/facebook.svg" class="footer__img"></a>
+                        <a href="#" class="footer__icons"><img src="/images/twitter.svg" class="footer__img"></a>
+                        <a href="#" class="footer__icons"><img src="/images/youtube.svg" class="footer__img"></a>
+                    </div>
+                    <h3 class="footer__copyright">Derechos reservados &copy; Fundación Forge grupo 5 c:</h3>
+                </section>
+            </section>
+        </footer>
 
     <script>
     var eventos = [];
