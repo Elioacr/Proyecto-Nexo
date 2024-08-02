@@ -83,26 +83,38 @@
 			        <c:if test="${evento.usuarios.size() == 0}">
 			            <p>Aun no hay voluntarios registrados...</p>
 			        </c:if>
-					<c:forEach var="voluntario" items="${voluntarios}">
-						<div class="row">
-					        <p class="col-auto">${voluntario.nombre} ${voluntario.apellido}</p>
-					     	<c:if test="${id_organizacion != null}">
-				        		<ul class="list-unstyled col-auto">
-							    	<li>
-							            <span class="eye-icon" data-usuario-id="${voluntario.id}"><i class="fas fa-eye"></i></span>
-							            <div class="user-details" id="details-${voluntario.id}">
-							                <p>Nombre: ${voluntario.nombre}</p>
-							                <p>Apellido: ${voluntario.apellido}</p>
-							                <p>Correo: ${voluntario.correo}</p>
-							                <p>Teléfono: ${voluntario.telefono}</p>
-							                <p>Ciudad: ${voluntario.ciudad}</p>
-							                <p>Edad: ${voluntario.edad}</p>
-							            </div>
-							    	</li>
-				        		</ul>
-							</c:if>
-						</div>
-					</c:forEach>
+					<table class="table">
+					    <thead>
+					        <tr>
+					            <th>Nombre</th>
+					            <th>Apellido</th>
+					            <c:if test="${id_organizacion != null}">
+					            <th>Detalles</th>
+					            </c:if>
+					        </tr>
+					    </thead>
+					    <tbody>
+					        <c:forEach var="voluntario" items="${voluntarios}">
+					            <tr>
+					                <td>${voluntario.nombre}</td>
+					                <td>${voluntario.apellido}</td>
+					                <td>
+					                    <c:if test="${id_organizacion != null}">
+					                        <div class="eye-icon" data-usuario-id="${voluntario.id}">
+					                            <i class="fas fa-eye"></i>
+					                            <div class="user-details">
+					                                <p>Correo: ${voluntario.correo}</p>
+					                                <p>Teléfono: ${voluntario.telefono}</p>
+					                                <p>Ciudad: ${voluntario.ciudad}</p>
+					                                <p>Edad: ${voluntario.edad}</p>
+					                            </div>
+					                        </div>
+					                    </c:if>
+					                </td>
+					            </tr>
+					        </c:forEach>
+					    </tbody>
+					</table>
 			    </div>
 			</div>
 	    </div>
