@@ -43,10 +43,18 @@
 
     <div class="container">
         <div class="row">
-		    <h2 class="my-4 col-12 col-sm-9 text-light">Eventos Disponibles</h2>
+		    <h2 class="my-4 col-12 col-sm-6 text-light">Eventos Disponibles</h2>
 		    <div class="ms-auto col-12 col-sm-3">
-				<select class="form-select my-4" id="selectFiltro">
-				    <option value="Todos" selected>Todos</option>
+				<select class="form-select my-4" id="selectFiltroOrganizacion">
+				    <option value="Todas las Organizaciones" selected>Todas las Organizaciones</option>
+				    <c:forEach var="organizacion" items="${organizaciones}">
+						<option value="${organizacion.id}">${organizacion.nombreOrganizacion}</option>
+				    </c:forEach>
+				</select>
+		    </div>
+		    <div class="ms-auto col-12 col-sm-3">
+				<select class="form-select my-4" id="selectFiltroCategoria">
+				    <option value="Todas las Categorias" selected>Todas las Categorias</option>
 				    <c:forEach var="categoria" items="${categorias}">
 						<option value="${categoria.categoria}">${categoria.categoria}</option>
 				    </c:forEach>

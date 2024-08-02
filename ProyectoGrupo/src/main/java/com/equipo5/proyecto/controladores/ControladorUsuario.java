@@ -65,7 +65,7 @@ public class ControladorUsuario {
 	@GetMapping("/voluntario")
 	public String despliegaVoluntario(HttpSession sesion, Model model) {
 	    if (sesion.getAttribute("id_usuario") == null) {
-	        return "redirect:/registro/usuario";
+	        return "redirect:/login";
 	    }
 
 	    Long usuarioId = (Long) sesion.getAttribute("id_usuario");
