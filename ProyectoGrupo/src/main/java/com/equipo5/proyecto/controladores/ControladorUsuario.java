@@ -24,7 +24,6 @@ import com.equipo5.proyecto.servicios.ServicioUsuario;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
-
 @Controller
 public class ControladorUsuario {
 
@@ -85,19 +84,26 @@ public class ControladorUsuario {
 
 	@PostMapping("/registrar/usuario")
 	public String procesaRegistrarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario,
-										  BindingResult validaciones,
-										  @ModelAttribute("loginUsuario") LoginUsuario loginUsuario,
-										  HttpSession sesion) {
-		validaciones = this.servicioUsuario.validarRegistro(validaciones, usuario);
-		if(validaciones.hasErrors()) {
-			return "registroVoluntario.jsp";
-		}
+	                                      BindingResult validaciones,
+	                                      @ModelAttribute("loginUsuario") LoginUsuario loginUsuario,
+	                                      HttpSession sesion) {
+	    validaciones = this.servicioUsuario.validarRegistro(validaciones, usuario);
 
-		Usuario usuarioCreado = this.servicioUsuario.insertarUsuario(usuario);
-		sesion.setAttribute("id_usuario", usuarioCreado.getId());
-		sesion.setAttribute("nombre_usuario", usuarioCreado.getNombre());
+	    if (validaciones.hasErrors()) {
+	        return "registroVoluntario.jsp";
+	    }
 
-		return "redirect:/voluntario";
+	    try {
+	        Usuario usuarioCreado = this.servicioUsuario.registrarUsuario(usuario);
+
+	        sesion.setAttribute("id_usuario", usuarioCreado.getId());
+	        sesion.setAttribute("nombre_usuario", usuarioCreado.getNombre());
+
+	        return "redirect:/voluntario";
+	    } catch (IllegalArgumentException e) {
+	        validaciones.rejectValue("fechaNacimiento", "error.usuario", e.getMessage());
+	        return "registroVoluntario.jsp";
+	    }
 	}
 
 	@PostMapping("/procesa/login")
