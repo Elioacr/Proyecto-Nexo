@@ -127,20 +127,79 @@ public class ControladorEvento {
 			return "redirect:/login";
 		}
 		Categoria categoria = this.servicioCategoria.obtenerCategoriaPorNombre(nombreCategoria);
+		if(categoria == null) return "redirect:/voluntario";
 		List<Evento> eventosFiltrados = categoria.getEventos();
 		
 		Long usuarioId = (Long) sesion.getAttribute("id_usuario");
 		Usuario usuario = servicioUsuario.obtenerPorId(usuarioId);
 		List<Evento> eventosUsuario = usuario.getEventos();
 	    List<Categoria> categorias = servicioCategoria.obtenerCategorias();
+	    List<Organizacion> organizaciones = servicioOrganizacion.obtenerTodos();
 		
 	    model.addAttribute("eventosUsuario", eventosUsuario);
 	    model.addAttribute("eventos", eventosFiltrados);
 	    model.addAttribute("categorias", categorias);
 	    model.addAttribute("usuario", usuario);
 		model.addAttribute("eventosFiltrados", eventosFiltrados);
+		model.addAttribute("organizaciones", organizaciones);
 	    return "voluntario.jsp";
 	}
+	
+	@GetMapping("/filtrarOrganizacion/{organizacionId}")
+	public String filtrarPorOrganizacion(@PathVariable("organizacionId") Long organizacionId,
+										Model model,
+										HttpSession sesion) {
+		if(sesion.getAttribute("id_usuario") == null) {
+			return "redirect:/login";
+		}
+		Organizacion organizacion = this.servicioOrganizacion.obtenerPorId(organizacionId);
+		if(organizacion == null) return "redirect:/voluntario";
+		List<Evento> eventosFiltrados = organizacion.getEventos();
+		
+		Long usuarioId = (Long) sesion.getAttribute("id_usuario");
+		Usuario usuario = servicioUsuario.obtenerPorId(usuarioId);
+		List<Evento> eventosUsuario = usuario.getEventos();
+	    List<Categoria> categorias = servicioCategoria.obtenerCategorias();
+	    List<Organizacion> organizaciones = servicioOrganizacion.obtenerTodos();
+		
+	    model.addAttribute("eventosUsuario", eventosUsuario);
+	    model.addAttribute("eventos", eventosFiltrados);
+	    model.addAttribute("categorias", categorias);
+	    model.addAttribute("usuario", usuario);
+		model.addAttribute("eventosFiltrados", eventosFiltrados);
+		model.addAttribute("organizaciones", organizaciones);
+	    return "voluntario.jsp";
+	}
+	
+	@GetMapping("/filtrar/{organizacionId}/{categoria}")
+	public String fitrarOrganizacionYCategoria(@PathVariable("organizacionId") Long organizacionId,
+												@PathVariable("categoria") String categoriaNombre,
+												Model model,
+												HttpSession sesion) {
+		if(sesion.getAttribute("id_usuario") == null) {
+			return "redirect:/login";
+		}
+		
+		Organizacion organizacion = this.servicioOrganizacion.obtenerPorId(organizacionId);
+		Categoria categoria = this.servicioCategoria.obtenerCategoriaPorNombre(categoriaNombre);
+		List<Evento> eventosFiltrados = categoria.getEventos()
+												.stream().filter(e -> e.getOrganizacion()
+																		.equals(organizacion)).toList();
+		Long usuarioId = (Long) sesion.getAttribute("id_usuario");
+		Usuario usuario = servicioUsuario.obtenerPorId(usuarioId);
+		List<Evento> eventosUsuario = usuario.getEventos();
+	    List<Categoria> categorias = servicioCategoria.obtenerCategorias();
+	    List<Organizacion> organizaciones = servicioOrganizacion.obtenerTodos();
+	    
+		model.addAttribute("eventosUsuario", eventosUsuario);
+	    model.addAttribute("eventos", eventosFiltrados);
+	    model.addAttribute("categorias", categorias);
+	    model.addAttribute("usuario", usuario);
+		model.addAttribute("eventosFiltrados", eventosFiltrados);
+		model.addAttribute("organizaciones", organizaciones);
+		return "voluntario.jsp";
+	}
+	
 	
 	@PostMapping("/participar/{eventoId}")
 	public String participarEnEvento(@PathVariable Long eventoId, HttpSession sesion, Model model) {
