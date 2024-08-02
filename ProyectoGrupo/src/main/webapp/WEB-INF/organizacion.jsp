@@ -77,5 +77,4 @@
 		
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	</body>
->>>>>>> d5d20b10290a45d98d489352ed2b2367162b34b6
 </html>
