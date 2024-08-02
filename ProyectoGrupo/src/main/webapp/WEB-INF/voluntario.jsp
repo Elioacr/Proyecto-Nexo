@@ -63,6 +63,9 @@
 		</div>
         <div class="row eventosDisponibles">
             <c:forEach var="evento" items="${eventos}">
+            	<c:if test="${eventos == null || eventos.size() == 0}">
+            		<p>No hay eventos...</p>
+            	</c:if>
 			    <c:if test="${!eventosUsuario.contains(evento)}">
 			        <div class="col-12 col-sm-6 col-md-4 mb-2">
 			            <div class="event-card p-3 border rounded h-100">
