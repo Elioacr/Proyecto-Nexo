@@ -61,6 +61,8 @@ public class Usuario {
     
     @Transient
 	private String confirmarContraseña;
+    
+    private Integer edad;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "inscripciones",
@@ -71,7 +73,7 @@ public class Usuario {
 	
 
 	public Usuario(Long id, String rut, String nombre, String apellido, String correo, Integer telefono, String ciudad,
-			String contraseña, String confirmarContraseña, List<Evento> eventos, LocalDate fechaNacimiento) {
+			String contraseña, String confirmarContraseña, List<Evento> eventos, LocalDate fechaNacimiento, Integer edad) {
 		this.id = id;
 		this.rut = rut;
 		this.nombre = nombre;
@@ -83,6 +85,7 @@ public class Usuario {
 		this.confirmarContraseña = confirmarContraseña;
 		this.eventos = eventos;
 		this.fechaNacimiento = fechaNacimiento;
+		this.edad = edad;
 	}
 
 	public Long getId() {
@@ -174,4 +177,15 @@ public class Usuario {
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+
+
+	public Integer getEdad() {
+		return edad;
+	}
+
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
+	}
+
 }

@@ -89,14 +89,16 @@ public class ControladorUsuario {
 	                                      HttpSession sesion) {
 	    validaciones = this.servicioUsuario.validarRegistro(validaciones, usuario);
 
-	    if(validaciones.hasErrors()) {
+	    if (validaciones.hasErrors()) {
 	        return "registroVoluntario.jsp";
 	    }
 
 	    try {
 	        Usuario usuarioCreado = this.servicioUsuario.registrarUsuario(usuario);
+
 	        sesion.setAttribute("id_usuario", usuarioCreado.getId());
 	        sesion.setAttribute("nombre_usuario", usuarioCreado.getNombre());
+
 	        return "redirect:/voluntario";
 	    } catch (IllegalArgumentException e) {
 	        validaciones.rejectValue("fechaNacimiento", "error.usuario", e.getMessage());

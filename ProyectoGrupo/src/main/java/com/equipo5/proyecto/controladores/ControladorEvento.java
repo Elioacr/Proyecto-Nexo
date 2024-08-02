@@ -1,6 +1,8 @@
 package com.equipo5.proyecto.controladores;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,21 +85,38 @@ public class ControladorEvento {
 
 	@GetMapping("/{id}")
 	public String detallesEvento(@PathVariable("id") Long eventoId,
-								Model model,
-								HttpSession sesion) {
-		if(sesion.getAttribute("id_usuario") == null && sesion.getAttribute("id_organizacion") == null) {
-			return "redirect:/login";
-		}
-		if(sesion.getAttribute("id_usuario") != null) {
-			Usuario usuario = this.servicioUsuario.obtenerPorId((long)sesion.getAttribute("id_usuario"));
-			model.addAttribute("usuario", usuario);
-		}
-		Evento evento = this.servicioEvento.obtenerEventoPorId(eventoId);
-		List<Organizacion> organizaciones = servicioOrganizacion.obtenerTodos();
-		
-		model.addAttribute("evento", evento);
-		model.addAttribute("organizaciones", organizaciones);
-		return "detallesEvento.jsp";
+	                             Model model,
+	                             HttpSession sesion) {
+	    Long idUsuario = (Long) sesion.getAttribute("id_usuario");
+	    Long idOrganizacion = (Long) sesion.getAttribute("id_organizacion");
+
+	    if (idUsuario == null && idOrganizacion == null) {
+	        return "redirect:/login";
+	    }
+
+	    Evento evento = this.servicioEvento.obtenerEventoPorId(eventoId);
+	    List<Organizacion> organizaciones = this.servicioOrganizacion.obtenerTodos();
+	    model.addAttribute("evento", evento);
+	    model.addAttribute("organizaciones", organizaciones);
+
+	    if (idOrganizacion != null) {
+	        // Si es una organización, agregar voluntarios con su edad
+	        List<Usuario> voluntariosEnEvento = evento.getUsuarios(); // Voluntarios registrados en el evento
+
+	        for (Usuario usuario : voluntariosEnEvento) {
+	            int edad = this.servicioUsuario.calcularEdad(usuario.getFechaNacimiento());
+	            usuario.setEdad(edad); // Asignar la edad calculada
+	        }
+
+	        model.addAttribute("voluntariosConEdad", voluntariosEnEvento);
+	    } else if (idUsuario != null) {
+	        // Si es un usuario, agregar solo su nombre y apellido
+	        Usuario usuario = this.servicioUsuario.obtenerPorId(idUsuario);
+	        model.addAttribute("usuarioNombre", usuario.getNombre());
+	        model.addAttribute("usuarioApellido", usuario.getApellido());
+	    }
+
+	    return "detallesEvento.jsp";
 	}
 	
 	@GetMapping("/filtrarCategoria/{categoria}")
