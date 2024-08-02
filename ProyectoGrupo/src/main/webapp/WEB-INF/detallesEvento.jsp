@@ -83,24 +83,25 @@
 			        <c:if test="${evento.usuarios.size() == 0}">
 			            <p>Aun no hay voluntarios registrados...</p>
 			        </c:if>
-						      <p>  ${usuarioNombre} ${usuarioApellido}</p>
-					<c:forEach var="usuario" items="${voluntariosConEdad}">
-				     	<c:if test="${id_organizacion != null}">
-					        <p>  ${usuario.nombre} ${usuario.apellido}</p>
-			        		<ul class="list-unstyled">
-						    	<li>
-						            <span class="eye-icon" data-usuario-id="${usuario.id}"><i class="fas fa-eye"></i></span>
-						            <div class="user-details" id="details-${usuario.id}">
-						                <p>Nombre: ${usuario.nombre}</p>
-						                <p>Apellido: ${usuario.apellido}</p>
-						                <p>Correo: ${usuario.correo}</p>
-						                <p>Teléfono: ${usuario.telefono}</p>
-						                <p>Ciudad: ${usuario.ciudad}</p>
-						                <p>Edad: ${usuario.edad}</p>
-						            </div>
-						    	</li>
-			        		</ul>
-					  </c:if>
+					<c:forEach var="voluntario" items="${voluntarios}">
+						<div class="row">
+					        <p class="col-auto">${voluntario.nombre} ${voluntario.apellido}</p>
+					     	<c:if test="${id_organizacion != null}">
+				        		<ul class="list-unstyled col-auto">
+							    	<li>
+							            <span class="eye-icon" data-usuario-id="${voluntario.id}"><i class="fas fa-eye"></i></span>
+							            <div class="user-details" id="details-${voluntario.id}">
+							                <p>Nombre: ${voluntario.nombre}</p>
+							                <p>Apellido: ${voluntario.apellido}</p>
+							                <p>Correo: ${voluntario.correo}</p>
+							                <p>Teléfono: ${voluntario.telefono}</p>
+							                <p>Ciudad: ${voluntario.ciudad}</p>
+							                <p>Edad: ${voluntario.edad}</p>
+							            </div>
+							    	</li>
+				        		</ul>
+							</c:if>
+						</div>
 					</c:forEach>
 			    </div>
 			</div>

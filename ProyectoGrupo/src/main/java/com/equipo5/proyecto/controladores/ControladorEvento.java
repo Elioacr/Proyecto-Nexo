@@ -93,29 +93,17 @@ public class ControladorEvento {
 	    if (idUsuario == null && idOrganizacion == null) {
 	        return "redirect:/login";
 	    }
-
+	    if(idUsuario != null) {
+	    	Usuario usuario = this.servicioUsuario.obtenerPorId(idUsuario);
+	    	model.addAttribute("usuario", usuario);
+	    }
 	    Evento evento = this.servicioEvento.obtenerEventoPorId(eventoId);
 	    List<Organizacion> organizaciones = this.servicioOrganizacion.obtenerTodos();
 	    model.addAttribute("evento", evento);
 	    model.addAttribute("organizaciones", organizaciones);
 
-	    if (idOrganizacion != null) {
-	        // Si es una organización, agregar voluntarios con su edad
-	        List<Usuario> voluntariosEnEvento = evento.getUsuarios(); // Voluntarios registrados en el evento
-
-	        for (Usuario usuario : voluntariosEnEvento) {
-	            int edad = this.servicioUsuario.calcularEdad(usuario.getFechaNacimiento());
-	            usuario.setEdad(edad); // Asignar la edad calculada
-	        }
-
-	        model.addAttribute("voluntariosConEdad", voluntariosEnEvento);
-	    } else if (idUsuario != null) {
-	        // Si es un usuario, agregar solo su nombre y apellido
-	        Usuario usuario = this.servicioUsuario.obtenerPorId(idUsuario);
-	        model.addAttribute("usuarioNombre", usuario.getNombre());
-	        model.addAttribute("usuarioApellido", usuario.getApellido());
-	    }
-
+	    List<Usuario> voluntarios = evento.getUsuarios();
+	    model.addAttribute("voluntarios", voluntarios);
 	    return "detallesEvento.jsp";
 	}
 	

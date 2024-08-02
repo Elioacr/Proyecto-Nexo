@@ -113,6 +113,7 @@ public class ServicioUsuario {
         }
         String contraseñaEncriptada = BCrypt.hashpw(usuario.getContraseña(), BCrypt.gensalt());
         usuario.setContraseña(contraseñaEncriptada);
+        usuario.setEdad(this.calcularEdad(usuario.getFechaNacimiento()));
         return this.resRepositorioUsuario.save(usuario);
     }
 
