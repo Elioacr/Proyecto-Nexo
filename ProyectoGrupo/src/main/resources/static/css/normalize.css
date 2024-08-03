@@ -13,6 +13,24 @@
     box-sizing: border-box;
 } 
 
+.noVerificado{
+	display: flex;
+    justify-content: center; 
+    align-items: center;    
+    text-align: center;   
+    margin: 20px 0; 
+    color: #0d6efd;
+}
+
+.verificado{
+	display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+    text-align: right;
+    margin: 0px 25px; 
+    color: #0d6efd;
+}
+
 html {
     line-height: 1.15;
     /* 1 */

@@ -42,8 +42,21 @@
 	            </div>
 	        </div>
     	</nav>
-	
-	
+    	<br>
+    	<c:choose>
+			<c:when test="${!organizacion.verificado}">
+				<div class="noVerificado">
+					<h5>${nombreOrganizacion} en un lapso de 24 horas tus Eventos podran ser vistos por los Voluntarios</h5>
+				</div>
+		    </c:when>
+		     <c:otherwise>
+			     <div class="verificado">
+			     	<h6>Organización Verificada</h6>
+			     </div>
+		     </c:otherwise>
+	    </c:choose>
+    
+		<br>
 		<div class="container-custom mt-2">
 			<h1>${nombreOrganizacion} - Lista de Eventos Creados </h1>
 			<div class="scrollable-container">

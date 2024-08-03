@@ -30,6 +30,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/topvoluntarios">Top Voluntarios</a>
                     </li>
+                    <c:if test="${usuario.esAdministrador == true}">
+						<li class="nav-item">
+			              	<a class="nav-link" href="/admin/organizaciones">Usuario Administrador</a>
+						</li>
+				    </c:if>
                 </ul>
                 <c:if test="${id_organizacion == null && id_usuario == null}">
 	                <a class="navbar-brand" href="/registro/organizacion">Quiero ser Empresa aliada</a>
@@ -42,8 +47,6 @@
             </div>
         </div>
     </nav>
-	<br>
-
     <div class="container">
         <div class="row">
 		    <h2 class="my-4 col-12 col-sm-6 text-light">Eventos Disponibles</h2>
@@ -51,7 +54,9 @@
 				<select class="form-select my-4" id="selectFiltroOrganizacion">
 				    <option value="Todas las Organizaciones" selected>Todas las Organizaciones</option>
 				    <c:forEach var="organizacion" items="${organizaciones}">
-						<option value="${organizacion.id}">${organizacion.nombreOrganizacion}</option>
+					    <c:if test="${organizacion.verificado}">
+							<option value="${organizacion.id}">${organizacion.nombreOrganizacion}</option>
+					    </c:if>
 				    </c:forEach>
 				</select>
 		    </div>
@@ -65,33 +70,36 @@
 		    </div>
 		</div>
         <div class="row eventosDisponibles">
+    <c:choose>
+        <c:when test="${eventos == null || eventos.size() == 0}">
+            <p>No hay eventos...</p>
+        </c:when>
+        <c:otherwise>
             <c:forEach var="evento" items="${eventos}">
-            	<c:if test="${eventos == null || eventos.size() == 0}">
-            		<p>No hay eventos...</p>
-            	</c:if>
-			    <c:if test="${!eventosUsuario.contains(evento)}">
-			        <div class="col-12 col-sm-6 col-md-4 mb-2">
-			            <div class="event-card p-3 border rounded h-100">
-			                <h5><a href="/eventos/${evento.id}" class="text-decoration-none">${evento.nombre}</a></h5>
-			                <p>${evento.descripcion}</p>
-			                <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
-			                <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
-			                <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
-			                <p><strong>Voluntarios:</strong> ${evento.getVoluntariosRegistrados()}/${evento.limiteVoluntarios}</p>
-							
-							<form action="/eventos/participar/${evento.id}" method="post">
-							    <c:if test="${evento.getVoluntariosRegistrados() lt evento.limiteVoluntarios}">
-							        <button type="submit" class="btn btn-participar">Participar</button>
-							    </c:if>
-							    <c:if test="${evento.getVoluntariosRegistrados() ge evento.limiteVoluntarios}">
-							        <p>El máximo de voluntarios ha sido alcanzado.</p>
-							    </c:if>
-							</form>
-			            </div>
-			        </div>
-			    </c:if>
-			</c:forEach>
-		</div>
+                <c:if test="${!eventosUsuario.contains(evento) && evento.organizacion.verificado}">
+                    <div class="col-12 col-sm-6 col-md-4 mb-2">
+                        <div class="event-card p-3 border rounded h-100">
+                            <h5><a href="/eventos/${evento.id}" class="text-decoration-none">${evento.nombre}</a></h5>
+                            <p>${evento.descripcion}</p>
+                            <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
+                            <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
+                            <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
+                            <p><strong>Voluntarios:</strong> ${evento.getVoluntariosRegistrados()}/${evento.limiteVoluntarios}</p>
+                            <form action="/eventos/participar/${evento.id}" method="post">
+                                <c:if test="${evento.getVoluntariosRegistrados() lt evento.limiteVoluntarios}">
+                                    <button type="submit" class="btn btn-participar">Participar</button>
+                                </c:if>
+                                <c:if test="${evento.getVoluntariosRegistrados() ge evento.limiteVoluntarios}">
+                                    <p>El máximo de voluntarios ha sido alcanzado.</p>
+                                </c:if>
+                            </form>
+                        </div>
+                    </div>
+                </c:if>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
+</div>
         <h2 class="my-4 text-light">Eventos a Participar</h2>
 	    <div class="calendar-container mt-5 list-group-item event-card">
 	        <div id="calendar"></div>

@@ -56,6 +56,8 @@ public class Organizacion {
     
     @Transient
 	private String confirmarContraseña;
+    
+    private boolean verificado;
 
 	public Organizacion() {}
 	
@@ -71,7 +73,7 @@ public class Organizacion {
 
 	public Organizacion(Long id, String rut, String nombreOrganizacion, String correo,
 			String telefono, String contraseña, List<Evento> eventos,
-			String confirmarContraseña, String webLink) {
+			String confirmarContraseña, String webLink, boolean verificado) {
 		this.id = id;
 		this.rut = rut;
 		this.nombreOrganizacion = nombreOrganizacion;
@@ -81,6 +83,7 @@ public class Organizacion {
 		this.eventos = eventos;
 		this.confirmarContraseña = confirmarContraseña;
 		this.webLink = webLink;
+		this.verificado = verificado;
 	}
 
 	public Long getId() {
@@ -155,5 +158,13 @@ public class Organizacion {
 
 	public void setWebLink(String webLink) {
 		this.webLink = webLink;
+	}
+
+	public boolean getVerificado() {
+		return verificado;
+	}
+
+	public void setVerificado(boolean verificado) {
+		this.verificado = verificado;
 	}
 }
