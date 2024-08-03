@@ -77,11 +77,6 @@
 			                <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
 			                <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
 			                <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
-				                <c:forEach var="organizacion" items="${organizaciones}">
-				                	<c:if test="${not empty organizacion.webLink}">
-									    <p><strong>Web:</strong> <a href="${organizacion.webLink}" target="_blank">${organizacion.webLink}</a></p>
-									</c:if>
-				                </c:forEach>
 			                <p><strong>Voluntarios:</strong> ${evento.getVoluntariosRegistrados()}/${evento.limiteVoluntarios}</p>
 							
 							<form action="/eventos/participar/${evento.id}" method="post">

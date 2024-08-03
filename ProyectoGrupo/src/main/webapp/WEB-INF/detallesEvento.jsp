@@ -69,19 +69,15 @@
 							<h5>${evento.nombre}</h5>
 							<p>${evento.descripcion}</p>
 							<p><strong>Organización:</strong> ${evento.organizacion.nombreOrganizacion}</p>
+							<c:if test="${not empty evento.organizacion.webLink}">
+								<p><strong>Web:</strong> <a href="${evento.organizacion.webLink}" target="_blank">${evento.organizacion.webLink}</a></p>
+							</c:if>
 							<p><strong>Ciudad:</strong> ${evento.ciudad}</p>
 							<p><strong>Ubicación:</strong> ${evento.ubicacion}</p>
 							<p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
 							<p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
 							<p><strong>Fecha Termino:</strong> ${evento.getFechaTerminoFormateada()}</p>
-							<p><strong>Voluntarios:</strong>
-								${evento.voluntariosRegistrados}/${evento.limiteVoluntarios}</p>
-							<c:forEach var="organizacion" items="${organizaciones}">
-								<c:if test="${not empty organizacion.webLink}">
-									<p><strong>Web:</strong> <a href="${organizacion.webLink}"
-											target="_blank">${organizacion.webLink}</a></p>
-								</c:if>
-							</c:forEach>
+							<p><strong>Voluntarios:</strong> ${evento.voluntariosRegistrados}/${evento.limiteVoluntarios}</p>
 						</div>
 					</div>
 					<div class="col-12 col-sm-12 col-md-4 col-lg-5 mb-2">
@@ -121,15 +117,15 @@
 													</div>
 												</td>
 											</c:if>
-											<c:if
-												test="${evento.estaActivo() && !voluntario.asistenciaConfirmada(evento)}">
-												<a href="/eventos/${evento.id}/confirmarAsistencia/${voluntario.id}"
-													class="d-block col-auto ms-auto">Confirmar</a>
+											<c:if test="${evento.estaActivo() && !voluntario.asistenciaConfirmada(evento)}">
+												<td>
+													<a href="/eventos/${evento.id}/confirmarAsistencia/${voluntario.id}" class="d-block col-auto ms-auto">Confirmar</a>
+												</td>
 											</c:if>
-											<c:if
-												test="${evento.estaActivo() && voluntario.asistenciaConfirmada(evento)}">
-												<a href="/eventos/${evento.id}/eliminarAsistencia/${voluntario.id}"
-													class="d-block col-auto ms-auto">Eliminar</a>
+											<c:if test="${evento.estaActivo() && voluntario.asistenciaConfirmada(evento)}">
+												<td>
+													<a href="/eventos/${evento.id}/negarAsistencia/${voluntario.id}" class="d-block col-auto ms-auto">Negar</a>
+												</td>
 											</c:if>
 										</tr>
 									</c:forEach>
@@ -138,7 +134,12 @@
 						</div>
 					</div>
 				</div>
-				<a href="#" class="btn btn-danger mt-3">Eliminar Evento</a>
+				<c:if test="${id_organizacion != null && id_organizacion == evento.organizacion.id}">
+					<form action="/eventos/eliminar/${evento.id}" method="Post">
+						<input type="hidden" name="_method" value="Delete">
+						<button class="btn btn-danger mt-3">Eliminar Evento</button>
+					</form>
+				</c:if>
 			</div>
 
 			<footer class="bg-dark text-white mt-5">

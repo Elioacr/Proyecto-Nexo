@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,7 +94,7 @@ public class ControladorEvento {
 	                             HttpSession sesion) {
 	    Long idUsuario = (Long) sesion.getAttribute("id_usuario");
 	    Long idOrganizacion = (Long) sesion.getAttribute("id_organizacion");
-
+	    
 	    if (idUsuario == null && idOrganizacion == null) {
 	        return "redirect:/login";
 	    }
@@ -102,13 +103,19 @@ public class ControladorEvento {
 	    	model.addAttribute("usuario", usuario);
 	    }
 	    Evento evento = this.servicioEvento.obtenerEventoPorId(eventoId);
-	    List<Organizacion> organizaciones = this.servicioOrganizacion.obtenerTodos();
 	    model.addAttribute("evento", evento);
-	    model.addAttribute("organizaciones", organizaciones);
 
 	    List<Usuario> voluntarios = evento.getUsuarios();
 	    model.addAttribute("voluntarios", voluntarios);
 	    return "detallesEvento.jsp";
+	}
+	
+	@DeleteMapping("/eliminar/{id}")
+	public String eliminarEvento(@PathVariable("id") Long eventoId,
+					            HttpSession sesion) {
+		Evento evento = this.servicioEvento.obtenerEventoPorId(eventoId);
+		this.servicioEvento.eliminarEvento(evento);
+		return "redirect:/organizacion";
 	}
 	
 	@GetMapping("/filtrarCategoria/{categoria}")
@@ -238,7 +245,7 @@ public class ControladorEvento {
 		return "redirect:/eventos/" + eventoId;
 	}
 	
-	@GetMapping("/{eventoId}/eliminarAsistencia/{voluntarioId}")
+	@GetMapping("/{eventoId}/negarAsistencia/{voluntarioId}")
 	public String eliminarAsistencia(@PathVariable("eventoId") Long eventoId,
 										@PathVariable("voluntarioId") Long usuarioId,
 										HttpSession sesion) {
