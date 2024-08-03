@@ -121,12 +121,6 @@
                         <li class="nav__items">
                             <a href="#" class="nav__links">Contacto</a>
                         </li>
-                        <li class="nav__items">
-                            <a href="/registro/usuario" class="nav__links">Registrarse</a>
-                        </li>
-                        <li class="nav__items">
-                            <a href="/login" class="nav__links">Login</a>
-                        </li>
                     </ul>
                 </nav>
                 <section class="footer__copy container">
