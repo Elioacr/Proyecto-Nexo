@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.equipo5.proyecto.modelos.Evento;
 import com.equipo5.proyecto.modelos.Organizacion;
 import com.equipo5.proyecto.servicios.ServicioOrganizacion;
-import com.equipo5.proyecto.servicios.ServicioUsuario;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -23,11 +22,9 @@ import jakarta.validation.Valid;
 public class ControladorOrganizacion {
 
 	@Autowired
-	private final ServicioUsuario servicioUsuario;
 	private final ServicioOrganizacion servicioOrganizacion;
 
-	public ControladorOrganizacion(ServicioUsuario servicioUsuario, ServicioOrganizacion servicioOrganizacion) {
-		this.servicioUsuario = servicioUsuario;
+	public ControladorOrganizacion(ServicioOrganizacion servicioOrganizacion) {
 		this.servicioOrganizacion = servicioOrganizacion;
 	}
 

@@ -1,8 +1,6 @@
 package com.equipo5.proyecto.controladores;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.equipo5.proyecto.modelos.Categoria;
 import com.equipo5.proyecto.modelos.Evento;
+import com.equipo5.proyecto.modelos.Inscripcion;
 import com.equipo5.proyecto.modelos.Organizacion;
 import com.equipo5.proyecto.modelos.Usuario;
 import com.equipo5.proyecto.servicios.ServicioCategoria;
 import com.equipo5.proyecto.servicios.ServicioEventos;
+import com.equipo5.proyecto.servicios.ServicioInscripcion;
 import com.equipo5.proyecto.servicios.ServicioOrganizacion;
 import com.equipo5.proyecto.servicios.ServicioUsuario;
 
@@ -38,12 +38,16 @@ public class ControladorEvento {
 	private final ServicioOrganizacion servicioOrganizacion;
 	@Autowired
 	private final ServicioUsuario servicioUsuario;
+	@Autowired
+	private final ServicioInscripcion servicioInscripcion;
 	
-	public ControladorEvento(ServicioEventos servicioEvento, ServicioCategoria servicioCategoria, ServicioOrganizacion servicioOrganizacion,  ServicioUsuario servicioUsuario) {
+	public ControladorEvento(ServicioEventos servicioEvento, ServicioCategoria servicioCategoria, ServicioOrganizacion servicioOrganizacion,  
+							ServicioUsuario servicioUsuario, ServicioInscripcion servicioInscripcion) {
 		this.servicioEvento = servicioEvento;
 		this.servicioCategoria = servicioCategoria;
 		this.servicioOrganizacion = servicioOrganizacion;
 		this.servicioUsuario = servicioUsuario;
+		this.servicioInscripcion = servicioInscripcion;
 	}
 	
 	@GetMapping("/nuevo")
@@ -196,10 +200,8 @@ public class ControladorEvento {
 	    
 	    if (evento.getVoluntariosRegistrados() < evento.getLimiteVoluntarios()) {
 	        Usuario usuario = servicioUsuario.obtenerPorId(usuarioId);
-	        evento.getUsuarios().add(usuario);
-	        servicioEvento.actualizarEvento(evento);
-	        usuario.getEventos().add(evento);
-	        servicioUsuario.actualizarUsuario(usuario);
+	        Inscripcion inscripcion = new Inscripcion(usuario, evento);
+	        this.servicioInscripcion.insertarInscripcion(inscripcion);
 	    } 
 	    return "redirect:/voluntario";
 	}
@@ -209,12 +211,48 @@ public class ControladorEvento {
 									HttpSession sesion) {
 		Long usuarioId = (Long)sesion.getAttribute("id_usuario");
 		Usuario usuario = this.servicioUsuario.obtenerPorId(usuarioId);
-		
 		Evento evento = this.servicioEvento.obtenerEventoPorId(id);
-		evento.getUsuarios().remove(usuario);
-		this.servicioEvento.actualizarEvento(evento);
-		usuario.getEventos().remove(evento);
-		this.servicioUsuario.actualizarUsuario(usuario);
+		
+		Inscripcion inscripcion = this.servicioInscripcion.obtenerInscripcionPorUsuarioYEvento(usuario, evento);
+		if(inscripcion != null) {
+			this.servicioInscripcion.eliminarInscripcion(inscripcion);
+		}
 		return "redirect:/voluntario";
+	}
+	
+	@GetMapping("/{eventoId}/confirmarAsistencia/{voluntarioId}")
+	public String confirmarAsistencia(@PathVariable("eventoId") Long eventoId,
+										@PathVariable("voluntarioId") Long usuarioId,
+										HttpSession sesion) {
+		if(sesion.getAttribute("id_organizacion") == null) {
+			return "redirect:/login";
+		}
+		Usuario usuario = this.servicioUsuario.obtenerPorId(usuarioId);
+		Evento evento = this.servicioEvento.obtenerEventoPorId(eventoId);
+		Inscripcion inscripcion = this.servicioInscripcion.obtenerInscripcionPorUsuarioYEvento(usuario, evento);
+		if(!evento.estaActivo() || inscripcion == null) {
+			return "redirect:/eventos/" + eventoId;
+		}
+		inscripcion.setAsistenciaConfirmada(true);
+		this.servicioInscripcion.actualizarInscripcion(inscripcion);
+		return "redirect:/eventos/" + eventoId;
+	}
+	
+	@GetMapping("/{eventoId}/eliminarAsistencia/{voluntarioId}")
+	public String eliminarAsistencia(@PathVariable("eventoId") Long eventoId,
+										@PathVariable("voluntarioId") Long usuarioId,
+										HttpSession sesion) {
+		if(sesion.getAttribute("id_organizacion") == null) {
+			return "redirect:/login";
+		}
+		Usuario usuario = this.servicioUsuario.obtenerPorId(usuarioId);
+		Evento evento = this.servicioEvento.obtenerEventoPorId(eventoId);
+		Inscripcion inscripcion = this.servicioInscripcion.obtenerInscripcionPorUsuarioYEvento(usuario, evento);
+		if(!evento.estaActivo() || evento == null) {
+			return "redirect:/eventos/" + eventoId;
+		}
+		inscripcion.setAsistenciaConfirmada(false);
+		this.servicioInscripcion.actualizarInscripcion(inscripcion);
+		return "redirect:/eventos/" + eventoId;
 	}
 }

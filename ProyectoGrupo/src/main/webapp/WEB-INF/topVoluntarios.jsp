@@ -75,7 +75,12 @@
 		<c:if test="${topVoluntarios.size() > 0}">
 			<ol class="list-group list-group-numbered">
 				<c:forEach var="voluntario" items="${topVoluntarios}">
-				  	<li class="list-group-item">${voluntario.nombre} <span class=" ms-auto text-end">${voluntario.eventos.size()}</span></li>
+					<c:if test="${categoria != null}">
+					  	<li class="list-group-item">${voluntario.nombre} <span class=" ms-auto text-end">${voluntario.obtenerAsistenciasConfirmadas(categoria)}</span></li>
+					</c:if>
+					<c:if test="${categoria == null}">
+					  	<li class="list-group-item">${voluntario.nombre} <span class=" ms-auto text-end">${voluntario.obtenerAsistenciasConfirmadas()}</span></li>
+					</c:if>
 				</c:forEach>
 			</ol>
 		</c:if>

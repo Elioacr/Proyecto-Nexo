@@ -97,9 +97,16 @@
 							                <p>Teléfono: ${voluntario.telefono}</p>
 							                <p>Ciudad: ${voluntario.ciudad}</p>
 							                <p>Edad: ${voluntario.edad}</p>
+							                <p>${evento.estaActivo()}</p>
 							            </div>
 							    	</li>
 				        		</ul>
+				        		<c:if test="${evento.estaActivo() && !voluntario.asistenciaConfirmada(evento)}">
+					        		<a href="/eventos/${evento.id}/confirmarAsistencia/${voluntario.id}" class="d-block col-auto ms-auto">Confirmar Asistencia</a>
+				        		</c:if>
+				        		<c:if test="${evento.estaActivo() && voluntario.asistenciaConfirmada(evento)}">
+					        		<a href="/eventos/${evento.id}/eliminarAsistencia/${voluntario.id}" class="d-block col-auto ms-auto">Eliminar Asistencia</a>
+				        		</c:if>
 							</c:if>
 						</div>
 					</c:forEach>

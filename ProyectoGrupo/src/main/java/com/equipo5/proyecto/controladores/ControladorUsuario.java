@@ -142,10 +142,10 @@ public class ControladorUsuario {
 	@GetMapping("/topvoluntarios")
 	public String topVoluntarios(Model model) {
 		List<Usuario> voluntarios = this.servicioUsuario.obtenerTodos();
-		voluntarios = voluntarios.stream().filter(v -> v.getEventos().size() > 0).toList();
+		voluntarios = voluntarios.stream().filter(v -> v.obtenerAsistenciasConfirmadas() > 0).toList();
 		
 		if(voluntarios.size() > 1) {
-			voluntarios.sort((v1, v2) -> Integer.compare(v2.getEventos().size(), v1.getEventos().size()));
+			voluntarios.sort((v1, v2) -> Integer.compare(v2.obtenerAsistenciasConfirmadas(), v1.obtenerAsistenciasConfirmadas()));
 		}
 		
 		List<Usuario> topVoluntarios;
@@ -166,10 +166,11 @@ public class ControladorUsuario {
 											Model model) {
 		Categoria categoria = this.servicioCategoria.obtenerCategoriaPorNombre(categoriaNombre);
 		List<Usuario> voluntarios = this.servicioUsuario.obtenerPorEventosDeCategoria(categoria);
+		voluntarios = voluntarios.stream().filter(v -> v.obtenerAsistenciasConfirmadas(categoria) > 0).toList();
 		
 		if(voluntarios.size() > 1) {
 			//Ordenar usuarios por la cantidad de eventos de esa categoria
-			voluntarios.sort((v1, v2) -> Integer.compare(this.servicioUsuario.contarEventosDeCategoria(v2, categoria), this.servicioUsuario.contarEventosDeCategoria(v1, categoria)));
+			voluntarios.sort((v1, v2) -> Integer.compare(v2.obtenerAsistenciasConfirmadas(categoria), v1.obtenerAsistenciasConfirmadas(categoria)));
 		}
 		List<Usuario> topVoluntarios;
 		if(voluntarios.size() > 10) {
@@ -182,6 +183,7 @@ public class ControladorUsuario {
 		
 		model.addAttribute("topVoluntarios", topVoluntarios);
 		model.addAttribute("categorias", categorias);
+		model.addAttribute("categoria", categoria);
 		return "topVoluntarios.jsp";
 	}
 }

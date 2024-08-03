@@ -1,10 +1,9 @@
 package com.equipo5.proyecto.servicios;
 
 
-import java.time.Period;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import com.equipo5.proyecto.modelos.Categoria;
+import com.equipo5.proyecto.modelos.Evento;
+import com.equipo5.proyecto.modelos.Inscripcion;
 import com.equipo5.proyecto.modelos.LoginUsuario;
 import com.equipo5.proyecto.modelos.Usuario;
+import com.equipo5.proyecto.repositorios.RepositorioInscripcion;
 import com.equipo5.proyecto.repositorios.RepositorioUsuario;
 
 
@@ -23,9 +25,12 @@ public class ServicioUsuario {
 
 	@Autowired
 	private final RepositorioUsuario resRepositorioUsuario;
+	@Autowired
+	private final RepositorioInscripcion repositorioInscripcion;
 
-	public ServicioUsuario(RepositorioUsuario resRepositorioUsuario) {
+	public ServicioUsuario(RepositorioUsuario resRepositorioUsuario, RepositorioInscripcion repositorioInscripcion) {
 		this.resRepositorioUsuario = resRepositorioUsuario;
+		this.repositorioInscripcion = repositorioInscripcion;
 	}
 
 	public BindingResult validarRegistro(BindingResult validaciones, Usuario usuario) {
@@ -130,15 +135,22 @@ public class ServicioUsuario {
 		List<Usuario> usuarios = this.obtenerTodos();
 		
 		return usuarios.stream()
-	            .filter(user -> user.getEventos().stream()
-	                .anyMatch(event -> event.getCategoria().equals(categoria)))
+	            .filter(usuario -> usuario.getEventos().stream()
+	                .anyMatch(evento -> evento.getCategoria().equals(categoria) && this.estaConfimado(usuario, evento)))
 	            .toList();
 	}
 	
 	public int contarEventosDeCategoria(Usuario usuario, Categoria categoria) {
 		return (int)usuario.getEventos().stream()
-				.filter(e -> e.getCategoria().equals(categoria))
+				.filter(evento -> evento.getCategoria().equals(categoria) && this.estaConfimado(usuario, evento))
 				.count();
+	}
+	public boolean estaConfimado(Usuario usuario, Evento evento) {
+		Inscripcion inscripcion = this.repositorioInscripcion.findByUsuarioAndEvento(usuario, evento);
+		return inscripcion == null ? false : inscripcion.isAsistenciaConfirmada();
+	}
+	public Inscripcion obtenerInscripcionPorEvento(Usuario usuario, Evento evento) {
+		return this.repositorioInscripcion.findByUsuarioAndEvento(usuario, evento);
 	}
 	public List<Usuario> obtenerTodos() {
 		return this.resRepositorioUsuario.findAll();
