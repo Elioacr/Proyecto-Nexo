@@ -3,6 +3,7 @@ package com.equipo5.proyecto.modelos;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Digits;
@@ -69,6 +71,10 @@ public class Usuario {
     			joinColumns = @JoinColumn(name = "usuario_id"),
     			inverseJoinColumns = @JoinColumn(name = "evento_id"))
     private List<Evento> eventos;
+    
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Inscripcion> inscripciones;
+    
 	public Usuario() {}
 	
 
@@ -188,4 +194,24 @@ public class Usuario {
 		this.edad = edad;
 	}
 
+
+	public List<Inscripcion> getInscripciones() {
+		return inscripciones;
+	}
+
+
+	public void setInscripciones(List<Inscripcion> inscripciones) {
+		this.inscripciones = inscripciones;
+	}
+	
+	public int obtenerAsistenciasConfirmadas() {
+		return (int)this.inscripciones.stream().filter(i -> this.asistenciaConfirmada(i.getEvento())).count();
+	}
+	public int obtenerAsistenciasConfirmadas(Categoria categoria) {
+		return (int)this.inscripciones.stream().filter(i -> i.getEvento().getCategoria().equals(categoria) && this.asistenciaConfirmada(i.getEvento())).count();
+	}
+	public boolean asistenciaConfirmada(Evento evento) {
+		Inscripcion inscripcion = this.inscripciones.stream().filter(i -> i.getUsuario().equals(this) && i.getEvento().equals(evento)).findFirst().orElse(null);
+		return inscripcion == null ? false : inscripcion.isAsistenciaConfirmada();
+	}
 }
