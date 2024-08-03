@@ -9,7 +9,9 @@
 		<title>Organizacion</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 		<link rel="stylesheet" href="/css/organizacion.css">
-		 <link rel="icon" type="image/png" href="/images/minilogo.png"  type="image/x-icon">
+		<link rel="icon" type="image/png" href="/images/minilogo.png"  type="image/x-icon">
+		<link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/estilos.css">
 	</head>
 	<body>
 		 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -43,7 +45,7 @@
 	
 	
 		<div class="container-custom mt-2">
-			<h1>Organizacion - Lista de Eventos Creados </h1>
+			<h1>${nombreOrganizacion} - Lista de Eventos Creados </h1>
 			<div class="scrollable-container">
 				<div class="row">
 					<c:forEach var="evento" items="${eventos}">
@@ -73,6 +75,33 @@
 			</div>
 			<a href="/eventos/nuevo" class="btn btn-primary mt-3">Crear Evento</a>
 		</div>
+	   	<footer class="footer">
+            <section class="footer__container container">
+                <nav class="nav nav--footer">
+                    <h2 class="footer__title">Nexo</h2>
+                    <ul class="nav__link nav__link--footer">
+                        <li class="nav__items">
+                            <a href="/" class="nav__links">Inicio</a>
+                        </li>
+                        <li class="nav__items">
+                            <a href="#" class="nav__links">Acerca de nosotros</a>
+                        </li>
+                        <li class="nav__items">
+                            <a href="#" class="nav__links">Contacto</a>
+                        </li>
+   
+                    </ul>
+                </nav>
+                <section class="footer__copy container">
+                    <div class="footer__social">
+                        <a href="#" class="footer__icons"><img src="/images/facebook.svg" class="footer__img"></a>
+                        <a href="#" class="footer__icons"><img src="/images/twitter.svg" class="footer__img"></a>
+                        <a href="#" class="footer__icons"><img src="/images/youtube.svg" class="footer__img"></a>
+                    </div>
+                    <h3 class="footer__copyright">Derechos reservados &copy; Fundación Forge grupo 5 c:</h3>
+                </section>
+            </section>
+        </footer>
 		
 		
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

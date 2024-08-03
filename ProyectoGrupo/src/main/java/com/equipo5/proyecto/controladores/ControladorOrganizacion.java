@@ -42,6 +42,7 @@ public class ControladorOrganizacion {
 		Organizacion organizacion = this.servicioOrganizacion.obtenerPorId(organizacionId);
 		List<Evento> eventos = organizacion.getEventos();
 		model.addAttribute("eventos", eventos);
+		model.addAttribute("nombreOrganizacion", organizacion.getNombreOrganizacion());
 		model.addAttribute("organizacion", organizacion);
 		return "organizacion.jsp";
 	}
