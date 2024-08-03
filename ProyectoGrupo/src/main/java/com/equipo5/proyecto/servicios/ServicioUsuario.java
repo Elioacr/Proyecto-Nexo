@@ -113,6 +113,12 @@ public class ServicioUsuario {
 	}
 
     public Usuario registrarUsuario(Usuario usuario) {
+    	List<Usuario> usuariosExistentes = resRepositorioUsuario.findAll();
+    	if (usuariosExistentes.isEmpty()) {
+            usuario.setEsAdministrador(true);
+        } else {
+            usuario.setEsAdministrador(false);
+        }
         if (!esMayorDeEdad(usuario.getFechaNacimiento())) {
             throw new IllegalArgumentException("El usuario debe ser mayor de edad para registrarse.");
         }

@@ -66,6 +66,8 @@ public class Usuario {
     
     private Integer edad;
 
+    private boolean esAdministrador;
+    
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "inscripciones",
     			joinColumns = @JoinColumn(name = "usuario_id"),
@@ -79,7 +81,7 @@ public class Usuario {
 	
 
 	public Usuario(Long id, String rut, String nombre, String apellido, String correo, Integer telefono, String ciudad,
-			String contraseña, String confirmarContraseña, List<Evento> eventos, LocalDate fechaNacimiento, Integer edad) {
+			String contraseña, String confirmarContraseña, List<Evento> eventos, LocalDate fechaNacimiento, Integer edad, boolean esAdministrador) {
 		this.id = id;
 		this.rut = rut;
 		this.nombre = nombre;
@@ -92,6 +94,7 @@ public class Usuario {
 		this.eventos = eventos;
 		this.fechaNacimiento = fechaNacimiento;
 		this.edad = edad;
+		this.esAdministrador = esAdministrador;
 	}
 
 	public Long getId() {
@@ -204,6 +207,14 @@ public class Usuario {
 		this.inscripciones = inscripciones;
 	}
 	
+	public boolean getEsAdministrador() {
+		return esAdministrador;
+	}
+
+	public void setEsAdministrador(boolean esAdministrador) {
+		this.esAdministrador = esAdministrador;
+	}
+
 	public int obtenerAsistenciasConfirmadas() {
 		return (int)this.inscripciones.stream().filter(i -> this.asistenciaConfirmada(i.getEvento())).count();
 	}
