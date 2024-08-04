@@ -16,6 +16,11 @@
 </head>
 <body>
     <div class="container mt-5">
+	   <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-2">
+                <img class="img-login" src="/images/minilogo.png" alt="Bootstrap" width="90">
+            </div>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card" id="card">
