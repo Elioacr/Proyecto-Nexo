@@ -63,7 +63,7 @@
 		    </nav>
 		</header>
 		
-		<main class="container">
+		<main class="container py-2 mb-3">
 			<div class="row">
 			    <h2 class="my-4 col-12 col-sm-9">Top Voluntarios</h2>
 			    <div class="ms-auto col-12 col-sm-3">
@@ -93,7 +93,7 @@
 		</main>
 		
 	    <footer class="footer">
-	        <section class="footer__container container">
+	        <section class="footer__container container py-4">
 	            <nav class="nav nav--footer">
 	                <h2 class="footer__title">Nexo</h2>
 	                <ul class="nav__link nav__link--footer">

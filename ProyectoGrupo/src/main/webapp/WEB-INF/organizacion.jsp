@@ -10,6 +10,7 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 		<link rel="stylesheet" href="/css/organizacion.css">
 		<link rel="icon" type="image/png" href="/images/minilogo.png"  type="image/x-icon">
+		<link rel="stylesheet" href="/css/voluntario.css">
 		<link rel="stylesheet" href="/css/normalize.css">
         <link rel="stylesheet" href="/css/estilos.css">
 		<link rel="stylesheet" href="/css/footer.css">
@@ -48,39 +49,40 @@
 		    	<c:choose>
 					<c:when test="${!organizacion.verificado}">
 						<div class="noVerificado">
-							<h5>${nombreOrganizacion} en un lapso de 24 horas tus Eventos podran ser vistos por los Voluntarios</h5>
+							<h5 class="mt-2">${nombreOrganizacion} en un lapso de 24 horas tus Eventos podran ser vistos por los Voluntarios</h5>
 						</div>
 				    </c:when>
 				     <c:otherwise>
 					     <div class="verificado">
-					     	<h6>Organización Verificada</h6>
+					     	<h6 class="mt-4">Organización Verificada</h6>
 					     </div>
 				     </c:otherwise>
 			    </c:choose>
 			</header>
 			
-			<main class="container-custom mt-2">
-				<h1>${nombreOrganizacion} - Lista de Eventos Creados </h1>
-				<div class="scrollable-container">
+			<main class="container py-2 mb-4">
+				<h1 class="text-light py-2">${nombreOrganizacion} - Lista de Eventos Creados </h1>
+				<div class="row eventosDisponibles">
 					<div class="row">
 						<c:forEach var="evento" items="${eventos}">
-							<div class="col-sm-6 mb-3">
-								<div class="card">
+							<div class="col-12 col-sm-6 col-md-4 mb-2">
+								<div class="event-card p-3 border rounded h-100">
+									<h4 class="card-title">${evento.nombre}</h4>
+									<p class="card-text">
+										<c:choose>
+                                        <c:when test="${fn:length(evento.descripcion) > 40}">
+                                            ${fn:substring(evento.descripcion, 0, 40)}...
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${evento.descripcion}
+                                        </c:otherwise>
+                                    </c:choose>
+									 </p>
+									<p class="card-text"><strong>Ciudad:</strong> ${evento.ciudad}</p>
+									<p class="card-text"><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
+									<p class="card-text"><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
+									<a href="/eventos/${evento.id}" class="btn btn-primary">Ver Detalles</a>
 									<div class="card-body">
-										<h4 class="card-title">${evento.nombre}</h4>
-										<p class="card-text">
-											<c:choose>
-	                                        <c:when test="${fn:length(evento.descripcion) > 40}">
-	                                            ${fn:substring(evento.descripcion, 0, 40)}...
-	                                        </c:when>
-	                                        <c:otherwise>
-	                                            ${evento.descripcion}
-	                                        </c:otherwise>
-	                                    </c:choose>
-										 </p>
-										<p class="card-text"><strong>Ciudad:</strong>${evento.ciudad}</p>
-										<p class="card-text"><strong>Categoría:</strong>${evento.categoria.categoria}</p>
-										<a href="/eventos/${evento.id}" class="btn btn-primary">Ver Detalles</a>
 									</div>
 								</div>
 							</div>
@@ -92,7 +94,7 @@
 			</main>
 			
 		   	<footer class="footer">
-	            <section class="footer__container container">
+	            <section class="footer__container container py-2">
 	                <nav class="nav nav--footer">
 	                    <h2 class="footer__title">Nexo</h2>
 	                    <ul class="nav__link nav__link--footer">
