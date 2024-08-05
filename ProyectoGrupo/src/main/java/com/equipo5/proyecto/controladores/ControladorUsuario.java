@@ -55,6 +55,16 @@ public class ControladorUsuario {
 		return "login.jsp";
 	}
 	
+	@GetMapping("/nosotros")
+	public String despliegaNosotros() {
+		return "acercaDeNosotros.jsp";
+	}
+	
+	@GetMapping("/contacto")
+	public String despliegaContacto() {
+		return "contacto.jsp";
+	}
+	
 	@PostMapping("/logout")
 	public String cerrarSesion(HttpSession sesion) {
 		sesion.invalidate();
