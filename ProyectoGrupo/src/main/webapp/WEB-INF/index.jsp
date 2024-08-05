@@ -206,7 +206,7 @@
         
 
         <footer class="footer">
-            <section class="footer__container container">
+            <section class="footer__container container py-3">
                 <nav class="nav nav--footer">
                     <h2 class="footer__title">Nexo</h2>
                     <ul class="nav__link nav__link--footer">
