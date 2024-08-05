@@ -29,10 +29,10 @@
                         <a href="/inicio" class="nav__links">Inicio</a>
                     </li>
                     <li class="nav__items">
-                        <a href="#" class="nav__links">Acerca de nosotros</a>
+                        <a href="/nosotros" class="nav__links">Acerca de nosotros</a>
                     </li>
                     <li class="nav__items">
-                        <a href="#" class="nav__links">Contacto</a>
+                        <a href="/contacto" class="nav__links">Contacto</a>
                     </li>
                     <li class="nav__items">
                         <a href="/topvoluntarios" class="nav__links">Top Voluntarios</a>
@@ -82,22 +82,22 @@
         <main>
             <section class="container about" data-aos="fade-up">
                 <h2 class="subtitle">¿Por qué ser voluntario?</h2>
-                <p class="about__paragraph">Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, itaque perspiciatis! Quibusdam</p>
+                <p class="about__paragraph">Ser voluntario permite ayudar a los demás, aprender nuevas habilidades, conocer gente, y contribuir positivamente a la comunidad.</p>
                 <div class="about__main">
                     <article class="about__icons" data-aos="fade-right">
                         <img src="/images/dog.svg" class="about__icon">
                         <h3 class="about__title">Ayudarás a animales</h3>
-                        <p class="about__paragrah">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae tempore porro eius facilis?</p>
+                        <p class="about__paragrah">Ser voluntario también permite ayudar a animales necesitados, mejorar su bienestar y contribuir a la protección y conservación de la fauna.</p>
                     </article>
                     <article class="about__icons" data-aos="fade-right">
                         <img src="/images/radiactive.svg" class="about__icon">
                         <h3 class="about__title">Ayudarás a reducir la contaminación</h3>
-                        <p class="about__paragrah">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae tempore porro eius facilis?</p>
+                        <p class="about__paragrah">El voluntariado puede incluir actividades para reducir la contaminación, como limpiezas de playas y parques, plantación de árboles, y campañas de concienciación ambiental.</p>
                     </article>
                     <article class="about__icons" data-aos="fade-right">
                         <img src="/images/body.svg" class="about__icon">
                         <h3 class="about__title">Ayudarás a las personas más necesitadas</h3>
-                        <p class="about__paragrah">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae tempore porro eius facilis?</p>
+                        <p class="about__paragrah">Ser voluntario permite ayudar a personas necesitadas proporcionando apoyo, recursos y servicios esenciales, mejorando así su calidad de vida y bienestar.</p>
                     </article>
                 </div>
             </section>
@@ -106,7 +106,7 @@
                 <div class="knowledge__container container">
                     <div class="knowledege__texts">
                         <h2 class="subtitle">Sé parte de todos nosotros y ayúdanos a hacer del mundo un lugar mejor</h2>
-                        <p class="knowledge__paragraph">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, aliquam nemo in facere suscipit at delectus unde labore ad officia iste accusantium eaque aperiam laborum est voluptate totam? Modi, obcaecati?</p>
+                        <p class="knowledge__paragraph">Únete como voluntario y contribuye a causas importantes, desde ayudar a personas necesitadas hasta proteger el medio ambiente y los animales. Juntos, podemos marcar la diferencia.</p>
                         <a href="/registro/usuario" class="cta">Regístrate</a>  
                     </div>
                     <div id="knowledgeCarousel" class="carousel slide knowledge__picture" data-bs-ride="carousel">
@@ -163,7 +163,6 @@
         
             <section class="questions container" data-aos="fade-up">
                 <h2 class="subtitle">Preguntas frecuentes</h2>
-                <p class="questions__paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea, porro doloribus neque perspiciatis sapiente fuga.</p>
                 <section class="questions__container">
                     <article class="questions__padding">
                         <div class="questions__answer">
@@ -172,7 +171,7 @@
                                     <img src="/images/arrow.svg" class="questions__img">
                                 </span>
                             </h3>
-                            <p class="questions__show">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos facere, quidem eum id excepturi assumenda explicabo nam accusamus veritatis voluptates eveniet adipisci, dicta nihil nemo modi possimus officiis quam atque? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos facere, quidem eum id excepturi assumenda explicabo nam accusamus veritatis voluptates eveniet adipisci, dicta nihil nemo modi possimus officiis quam atque?</p>
+                            <p class="questions__show">Aquí, las organizaciones y municipalidades pueden registrar sus eventos de voluntariado de manera fácil y efectiva. Nuestro objetivo es conectar a las personas interesadas en contribuir con su tiempo y esfuerzo a diversas causas comunitarias.</p>
                         </div>
                     </article>
                     <article class="questions__padding">
@@ -182,7 +181,7 @@
                                     <img src="/images/arrow.svg" class="questions__img">
                                 </span>
                             </h3>
-                            <p class="questions__show">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos facere, quidem eum id excepturi assumenda explicabo nam accusamus veritatis voluptates eveniet adipisci, dicta nihil nemo modi possimus officiis quam atque? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos facere, quidem eum id excepturi assumenda explicabo nam accusamus veritatis voluptates eveniet adipisci, dicta nihil nemo modi possimus officiis quam atque?</p>
+                            <p class="questions__show">Estamos asociados con diversas empresas y organizaciones que comparten nuestro compromiso con el voluntariado y el impacto social positivo. Estas asociaciones nos permiten ampliar nuestro alcance y maximizar el impacto de nuestros esfuerzos voluntarios en diversas áreas.</p>
                         </div>
                     </article>
                     <article class="questions__padding">
@@ -192,13 +191,23 @@
                                     <img src="/images/arrow.svg" class="questions__img">
                                 </span>
                             </h3>
-                            <p class="questions__show">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos facere, quidem eum id excepturi assumenda explicabo nam accusamus veritatis voluptates eveniet adipisci, dicta nihil nemo modi possimus officiis quam atque? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos facere, quidem eum id excepturi assumenda explicabo nam accusamus veritatis voluptates eveniet adipisci, dicta nihil nemo modi possimus officiis quam atque?</p>
+                            <p class="questions__show">Sí, nuestras actividades de voluntariado se llevan a cabo en todo Chile. Colaboramos con diversas organizaciones y comunidades a lo largo del país para asegurar que nuestro impacto sea amplio y significativo, abarcando desde las grandes ciudades hasta las áreas rurales. Puedes unirte a nuestros esfuerzos desde cualquier parte de Chile y contribuir a hacer del mundo un lugar mejor.</p>
+                        </div>
+                    </article>
+                    <article class="questions__padding">
+                        <div class="questions__answer">
+                            <h3 class="questions__title">¿Son seguras las organizaciones registradas?
+                                <span class="questions__arrow">
+                                    <img src="/images/arrow.svg" class="questions__img">
+                                </span>
+                            </h3>
+                            <p class="questions__show">Garantizamos a nuestros voluntarios la mayor seguridad, ya que a través de nuestro sistema de verificación de organizaciones nos aseguramos de que todos los datos que esta proporciona sean legítimos.</p>
                         </div>
                     </article>
                 </section>
                 <section class="questions__offer">
                     <h2 class="subtitle">¿Estás listo para unirte a nosotros?</h2>
-                    <p class="questions__copy">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet ratione architecto magnam, officiis ex porro vero est voluptates quaerat quibusdam illo veniam reprehenderit eius atque tempora iure ab non autem.</p>
+                    <p class="questions__copy">¡Estamos listos para darte la bienvenida a nuestra comunidad de voluntarios! Únete a nosotros y juntos trabajaremos para hacer del mundo un lugar mejor, apoyando a quienes más lo necesitan, protegiendo el medio ambiente y cuidando a los animales. ¡Tu contribución puede marcar la diferencia!</p>
                     <a href="/registro/usuario" class="cta">Regístrate ahora</a>
                 </section>
             </section>
@@ -214,10 +223,10 @@
                             <a href="/" class="nav__links">Inicio</a>
                         </li>
                         <li class="nav__items">
-                            <a href="#" class="nav__links">Acerca de nosotros</a>
+                            <a href="/nosotros" class="nav__links">Acerca de nosotros</a>
                         </li>
                         <li class="nav__items">
-                            <a href="#" class="nav__links">Contacto</a>
+                            <a href="/contacto" class="nav__links">Contacto</a>
                         </li>
                         <li class="nav__items">
                             <a href="/registro/usuario" class="nav__links">Registrarse</a>
