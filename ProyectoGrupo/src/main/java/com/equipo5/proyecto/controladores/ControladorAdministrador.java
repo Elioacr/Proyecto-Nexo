@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.equipo5.proyecto.modelos.EmailBody;
 import com.equipo5.proyecto.modelos.Organizacion;
 import com.equipo5.proyecto.modelos.Usuario;
+import com.equipo5.proyecto.servicios.EmailService;
 import com.equipo5.proyecto.servicios.ServicioOrganizacion;
 import com.equipo5.proyecto.servicios.ServicioUsuario;
 
@@ -24,6 +26,8 @@ public class ControladorAdministrador {
 
     @Autowired
     private ServicioUsuario servicioUsuario;
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/admin/organizaciones")
     public String listarOrganizaciones(Model model, HttpSession sesion) {
@@ -61,6 +65,19 @@ public class ControladorAdministrador {
         Organizacion organizacion = servicioOrganizacion.obtenerPorId(organizacionId);
         organizacion.setVerificado(true);
         servicioOrganizacion.actualizarOrganizacion(organizacion);
+        
+        EmailBody emailBody = new EmailBody();
+        emailBody.setEmail(organizacion.getCorreo());
+        emailBody.setSubject("Verificación de Organización");
+        emailBody.setContent("Tu cuenta ha sido verificada con éxito.");
+
+        boolean enviado = emailService.sendEmail(emailBody);
+
+        if (enviado) {
+            System.out.println("Correo de verificación enviado a la organización.");
+        } else {
+            System.out.println("Error al enviar el correo de verificación.");
+        }
 
         return "redirect:/admin/organizaciones";
     }
