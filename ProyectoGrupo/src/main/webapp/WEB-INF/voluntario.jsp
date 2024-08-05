@@ -47,8 +47,9 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="row">
+    
+    <main class="container py-2">
+        <section class="row">
 		    <h2 class="my-4 col-12 col-sm-6 text-light">Eventos Disponibles</h2>
 		    <div class="ms-auto col-12 col-sm-3">
 				<select class="form-select my-4" id="selectFiltroOrganizacion">
@@ -68,71 +69,71 @@
 				    </c:forEach>
 				</select>
 		    </div>
-		</div>
-        <div class="row eventosDisponibles">
-    <c:choose>
-        <c:when test="${eventos == null || eventos.size() == 0}">
-            <p>No hay eventos...</p>
-        </c:when>
-        <c:otherwise>
-            <c:forEach var="evento" items="${eventos}">
-                <c:if test="${!eventosUsuario.contains(evento) && evento.organizacion.verificado}">
-                    <div class="col-12 col-sm-6 col-md-4 mb-2">
-                        <div class="event-card p-3 border rounded h-100">
-                            <h5><a href="/eventos/${evento.id}" class="text-decoration-none">${evento.nombre}</a></h5>
-                            <p>${evento.descripcion}</p>
-                            <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
-                            <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
-                            <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
-                            <p><strong>Voluntarios:</strong> ${evento.getVoluntariosRegistrados()}/${evento.limiteVoluntarios}</p>
-                            <form action="/eventos/participar/${evento.id}" method="post">
-                                <c:if test="${evento.getVoluntariosRegistrados() lt evento.limiteVoluntarios}">
-                                    <button type="submit" class="btn btn-participar">Participar</button>
-                                </c:if>
-                                <c:if test="${evento.getVoluntariosRegistrados() ge evento.limiteVoluntarios}">
-                                    <p>El máximo de voluntarios ha sido alcanzado.</p>
-                                </c:if>
-                            </form>
-                        </div>
-                    </div>
-                </c:if>
-            </c:forEach>
-        </c:otherwise>
-    </c:choose>
-</div>
+		</section>
+        <section class="row eventosDisponibles">
+	    	<c:choose>
+	        	<c:when test="${eventos == null || eventos.size() == 0}">
+	            	<p>No hay eventos...</p>
+	        	</c:when>
+		        <c:otherwise>
+		            <c:forEach var="evento" items="${eventos}">
+		                <c:if test="${!eventosUsuario.contains(evento) && evento.organizacion.verificado}">
+		                    <div class="col-12 col-sm-6 col-md-4 mb-2">
+		                        <div class="event-card p-3 border rounded h-100">
+		                            <h5><a href="/eventos/${evento.id}" class="text-decoration-none">${evento.nombre}</a></h5>
+		                            <p>${evento.descripcion}</p>
+		                            <p><strong>Ciudad:</strong> ${evento.ciudad}</p>
+		                            <p><strong>Categoría:</strong> ${evento.categoria.categoria}</p>
+		                            <p><strong>Fecha:</strong> ${evento.getFechaHoraFormateada()}</p>
+		                            <p><strong>Voluntarios:</strong> ${evento.getVoluntariosRegistrados()}/${evento.limiteVoluntarios}</p>
+		                            <form action="/eventos/participar/${evento.id}" method="post">
+		                                <c:if test="${evento.getVoluntariosRegistrados() lt evento.limiteVoluntarios}">
+		                                    <button type="submit" class="btn btn-participar">Participar</button>
+		                                </c:if>
+		                                <c:if test="${evento.getVoluntariosRegistrados() ge evento.limiteVoluntarios}">
+		                                    <p>El máximo de voluntarios ha sido alcanzado.</p>
+		                                </c:if>
+		                            </form>
+		                        </div>
+		                    </div>
+		                </c:if>
+		            </c:forEach>
+	        	</c:otherwise>
+	    	</c:choose>
+		</section>
         <h2 class="my-4 text-light">Eventos a Participar</h2>
 	    <div class="calendar-container mt-5 list-group-item event-card">
 	        <div id="calendar"></div>
 	    </div>
-    </div>
+    </main>
 
 
-        <footer class="footer">
-            <section class="footer__container container">
-                <nav class="nav nav--footer">
-                    <h2 class="footer__title">Nexo</h2>
-                    <ul class="nav__link nav__link--footer">
-                        <li class="nav__items">
-                            <a href="/" class="nav__links">Inicio</a>
-                        </li>
-                        <li class="nav__items">
-                            <a href="#" class="nav__links">Acerca de nosotros</a>
-                        </li>
-                        <li class="nav__items">
-                            <a href="#" class="nav__links">Contacto</a>
-                        </li>
-                    </ul>
-                </nav>
-                <section class="footer__copy container">
-                    <div class="footer__social">
-                        <a href="#" class="footer__icons"><img src="/images/facebook.svg" class="footer__img"></a>
-                        <a href="#" class="footer__icons"><img src="/images/twitter.svg" class="footer__img"></a>
-                        <a href="#" class="footer__icons"><img src="/images/youtube.svg" class="footer__img"></a>
-                    </div>
-                    <h3 class="footer__copyright">Derechos reservados &copy; Fundación Forge grupo 5 c:</h3>
-                </section>
+    <footer class="footer">
+        <section class="footer__container container py-2">
+            <nav class="nav nav--footer">
+                <h2 class="footer__title">Nexo</h2>
+                <ul class="nav__link nav__link--footer">
+                    <li class="nav__items">
+                        <a href="/" class="nav__links">Inicio</a>
+                    </li>
+                    <li class="nav__items">
+                        <a href="#" class="nav__links">Acerca de nosotros</a>
+                    </li>
+                    <li class="nav__items">
+                        <a href="#" class="nav__links">Contacto</a>
+                    </li>
+                </ul>
+            </nav>
+            <section class="footer__copy container">
+                <div class="footer__social">
+                    <a href="#" class="footer__icons"><img src="/images/facebook.svg" class="footer__img"></a>
+                    <a href="#" class="footer__icons"><img src="/images/twitter.svg" class="footer__img"></a>
+                    <a href="#" class="footer__icons"><img src="/images/youtube.svg" class="footer__img"></a>
+                </div>
+                <h3 class="footer__copyright">Derechos reservados &copy; Fundación Forge grupo 5 c:</h3>
             </section>
-        </footer>
+        </section>
+    </footer>
 
     <script>
     var eventos = [];
