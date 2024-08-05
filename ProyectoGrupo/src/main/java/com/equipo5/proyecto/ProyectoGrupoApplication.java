@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.equipo5.proyecto.clientes.SSLUtils;
 import com.equipo5.proyecto.modelos.Categoria;
 import com.equipo5.proyecto.servicios.ServicioCategoria;
 
@@ -16,6 +17,7 @@ public class ProyectoGrupoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoGrupoApplication.class, args);
+		SSLUtils.disableCertificateValidation();
 	}
 	
 	//Añadir categorias por defecto, Solo para las pruebas
