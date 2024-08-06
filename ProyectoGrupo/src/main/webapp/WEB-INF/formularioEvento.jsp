@@ -11,9 +11,45 @@
     <title>Nuevo Evento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/estilos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script>
+        console.log("anime.js loaded", anime);
+    </script>
+
 </head>
 <body>
-    <div class="container mt-5">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+           <div class="container-fluid">
+               <a class="navbar-brand" href="/inicio">
+                   <img src="/images/minilogo.png" alt="Bootstrap" width="50" height="">
+               </a>
+               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                   <span class="navbar-toggler-icon"></span>
+               </button>
+               <div class="collapse navbar-collapse" id="navbarText">
+                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                       <li class="nav-item">
+                           <a class="nav-link active" aria-current="page" href="/inicio">Inicio</a>
+                       </li>
+                       <li class="nav-item">
+                           <a class="nav-link" href="/topvoluntarios">Top Voluntarios</a>
+                       </li>
+                   </ul>
+                   <c:if test="${id_organizacion == null && id_usuario == null}">
+                       <a class="navbar-brand" href="/registro/organizacion">Quiero ser Empresa aliada</a>
+                   </c:if>
+                   <c:if test="${id_usuario != null || id_organizacion != null}">
+                       <form action="/logout" method="post">
+                           <button type="submit" class="navbar-brand btn btn-link">Cerrar Sesión</button>
+                       </form>
+                   </c:if>
+               </div>
+           </div>
+       </nav>
+
+   </header>
+    <div class="container mt-5" id="evento">
         <h1 class="text-center mb-4">Crear Nuevo Evento</h1>
         <form:form action="/eventos/nuevo" method="Post" modelAttribute="evento">
             <div class="form-group mt-4">
@@ -61,7 +97,11 @@
                 </form:select>
                 <form:errors class="alert alert-danger" path="categoria"/>
             </div>
-            <button class="btn btn-success mt-4">Crear Evento</button>
+            <div class="button">
+                <button type="submit" id="boton" class="btn btn-primary btn-block">Submit</button>
+
+            </div>
+             
         </form:form>
     </div>
 	<footer class="footer">
@@ -92,5 +132,6 @@
 	</footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
