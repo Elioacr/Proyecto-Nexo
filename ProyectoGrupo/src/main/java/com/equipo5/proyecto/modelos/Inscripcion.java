@@ -33,6 +33,12 @@ public class Inscripcion {
 		this.evento = evento;
 		this.asistenciaConfirmada = false;
 	}
+	
+	public Inscripcion(Usuario usuario, Evento evento, Boolean asistenciaConfirmada) {
+		this.usuario = usuario;
+		this.evento = evento;
+		this.asistenciaConfirmada = asistenciaConfirmada;
+	}
 
 	public Long getId() {
 		return id;

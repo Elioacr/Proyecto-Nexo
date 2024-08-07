@@ -31,11 +31,11 @@ public class Organizacion {
     private String rut;
     
     @NotBlank
-    @Size(min = 2, max = 30, message = "El nombre tiene que tener al menos 2 dígitos")
+    @Size(min = 2, max = 50, message = "El nombre tiene que tener entre 2 y 50 dígitos")
     private String nombreOrganizacion;  
     
     @NotBlank
-    @Size(min = 6, max = 30, message = "El correo tiene que tener al menos 6 dígitos")
+    @Size(min = 6, max = 40, message = "El correo tiene que tener entre 6 y 40 dígitos")
     private String correo;  
     
     @NotBlank
@@ -68,6 +68,18 @@ public class Organizacion {
 		this.correo = correo;
 		this.telefono = telefono;
 		this.contraseña = contraseña;
+	}
+
+
+	public Organizacion(String rut, String nombreOrganizacion, String correo, String contraseña, String telefono, String webLink,
+			boolean verificado) {
+		this.rut = rut;
+		this.nombreOrganizacion = nombreOrganizacion;
+		this.correo = correo;
+		this.contraseña = contraseña;
+		this.telefono = telefono;
+		this.webLink = webLink;
+		this.verificado = verificado;
 	}
 
 

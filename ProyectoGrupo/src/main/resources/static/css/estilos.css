@@ -8,6 +8,95 @@
 body {
     font-family: 'Poppins', sans-serif;
 }
+#evento{
+    box-shadow: 8px 13px 19px -1px #000;
+    background-color: #063be4c4;
+    padding: 70px;
+    color: #ffffff;
+    
+
+}
+.button {
+    background: #2B2D2F;
+    height: 80px;
+    text-align: center;
+    transform: translateY(-50%);
+    margin: 61px 0px auto;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .text {
+    font: bold 1.25rem/1 poppins;
+    color: #71DFBE;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-52%);
+    left: 0;
+    right: 0;
+  }
+  
+  .progress-bar {
+    position: absolute;
+    height: 10px;
+    width: 0;
+    right: 0;
+    left: 50%;
+    border-radius: 200px;
+    transform: translateY(-50%) translateX(-50%);
+    background: lighten(#2B2D2F, 15%);
+  }
+  
+  svg {
+    width: 30px;
+    position: absolute;
+    transform: translateY(-50%) translateX(-50%);
+    left: 50%;
+    right: 0;
+  }
+  #boton{
+    width: 80%;
+    margin-top: 20px;
+  }
+  
+  .check {
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  @keyframes progress {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes checkmark {
+    from {
+        stroke-dashoffset: 50;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.button.active .progress-bar {
+    animation: progress 2s ease-out forwards;
+}
+
+.button.active svg {
+    animation: checkmark 1s ease-out 2s forwards;
+}
+
+.button.active .text {
+    display: none;
+}
+
+  
 
 .container {
     width: 90%;
@@ -562,7 +651,7 @@ body {
 
     .price__price{
         font-size: 2rem;
-    }
+    } q
 
     .testimony{
         --padding-container: 60px 0;

@@ -13,4 +13,5 @@ public interface RepositorioEvento extends CrudRepository<Evento, Long>{
 	List<Evento> findAll();
 	List<Evento> findByCategoria(Categoria categoria);
 	List<Evento> findByOrganizacionId(Long organizacionId);
+	Evento findByNombreAndCiudadAndDescripcion(String nombre, String ciudad, String Descripcion);
 }

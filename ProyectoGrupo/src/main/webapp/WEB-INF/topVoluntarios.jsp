@@ -75,10 +75,10 @@
 					</select>
 			    </div>
 			</div>
-			<c:if test="${topVoluntarios.size() == 0}">
+			<c:if test="${topVoluntarios == null || topVoluntarios.size() == 0}">
 				<p>No hay voluntarios...</p>
 			</c:if>
-			<c:if test="${topVoluntarios.size() > 0}">
+			<c:if test="${topVoluntarios != null && topVoluntarios.size() > 0}">
 				<ol class="list-group list-group-numbered">
 					<c:forEach var="voluntario" items="${topVoluntarios}">
 						<c:if test="${categoria != null}">

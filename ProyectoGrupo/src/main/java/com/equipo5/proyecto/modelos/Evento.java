@@ -75,13 +75,14 @@ public class Evento {
 	public Evento() {}
 	
 	
-	public Evento(String nombre, String ciudad, String ubicacion, String descripcion, LocalDateTime fechaHora,
+	public Evento(String nombre, String ciudad, String ubicacion, String descripcion, LocalDateTime fechaHora, LocalDateTime fechaTermino,
 			Organizacion organizacion, Categoria categoria, Integer limiteVoluntarios) {
 		this.nombre = nombre;
 		this.ciudad = ciudad;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
 		this.fechaHora = fechaHora;
+		this.fechaTermino = fechaTermino;
 		this.organizacion = organizacion;
 		this.categoria = categoria;
 		this.limiteVoluntarios = limiteVoluntarios;

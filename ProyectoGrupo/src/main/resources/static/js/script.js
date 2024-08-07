@@ -1,3 +1,17 @@
+
+document.addEventListener('DOMContentLoaded', () => {
+    const button = document.querySelector('.button');
+
+    button.addEventListener('click', () => {
+        button.classList.add('active');
+
+        // Simulate a process completion after 3 seconds
+        setTimeout(() => {
+            button.classList.remove('active');
+        }, 4000); // 2s for progress + 1s delay + 1s checkmark animation
+    });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const navbarLinks = document.querySelectorAll('.nav-link');
     navbarLinks.forEach(link => {
@@ -9,15 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const voluntariosSection = document.querySelector('.voluntarios-section');
-    window.addEventListener('scroll', () => {
-        const sectionTop = voluntariosSection.getBoundingClientRect().top;
-        const viewportHeight = window.innerHeight;
-        if (sectionTop <= viewportHeight * 0.75) {
-            voluntariosSection.style.display = 'block';
-            setTimeout(() => {
-                voluntariosSection.style.opacity = 1;
-            }, 100);
-        }
-    });
-});
+    
+    
+    
