@@ -32,6 +32,9 @@ public class ServicioEventos {
 	public List<Evento> obtenerEventosPorCategoria(Categoria categoria) {
 		return this.repositorioEvento.findByCategoria(categoria);
 	}
+	public Evento obtenerPorNombreCiudadYDescripcion(String nombre, String ciudad, String descripcion) {
+		return this.repositorioEvento.findByNombreAndCiudadAndDescripcion(nombre, ciudad, descripcion);
+	}
 	public Evento obtenerEventoPorId(Long id) {
 		return this.repositorioEvento.findById(id).orElse(null);
 	}

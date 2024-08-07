@@ -79,6 +79,31 @@ public class Usuario {
     
 	public Usuario() {}
 	
+	
+	public Usuario(String rut, String nombre, String apellido, String correo, Integer telefono, String ciudad, 
+				LocalDate fechaNacimiento, String contraseña) {
+		this.rut = rut;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.ciudad = ciudad;
+		this.fechaNacimiento = fechaNacimiento;
+		this.contraseña = contraseña;
+	}
+	public Usuario(String rut, String nombre, String apellido, String correo, Integer telefono, String ciudad, 
+				LocalDate fechaNacimiento, String contraseña, boolean esAdministrador) {
+		this.rut = rut;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.correo = correo;
+		this.telefono = telefono;
+		this.ciudad = ciudad;
+		this.fechaNacimiento = fechaNacimiento;
+		this.contraseña = contraseña;
+		this.esAdministrador = esAdministrador;
+	}
+
 
 	public Usuario(Long id, String rut, String nombre, String apellido, String correo, Integer telefono, String ciudad,
 			String contraseña, String confirmarContraseña, List<Evento> eventos, LocalDate fechaNacimiento, Integer edad, boolean esAdministrador) {
