@@ -88,51 +88,53 @@
 							<c:if test="${evento.usuarios.size() == 0}">
 								<p>Aun no hay voluntarios registrados...</p>
 							</c:if>
-							<table class="table">
-								<thead>
-									<tr>
-										<th>Nombre</th>
-										<th>Apellido</th>
-										<c:if test="${id_organizacion != null}">
-											<th>Detalles</th>
-										</c:if>
-										<c:if test="${evento.estaActivo() && id_organizacion != null}">
-											<th>Asistencia</th>
-										</c:if>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="voluntario" items="${voluntarios}">
+							<c:if test="${eventos.usuarios.size() > 0 }">
+								<table class="table">
+									<thead>
 										<tr>
-											<td>${voluntario.nombre}</td>
-											<td>${voluntario.apellido}</td>
+											<th>Nombre</th>
+											<th>Apellido</th>
 											<c:if test="${id_organizacion != null}">
-												<td>
-													<div class="eye-icon" data-usuario-id="${voluntario.id}">
-														<i class="fas fa-eye"></i>
-														<div class="user-details">
-															<p>Correo: ${voluntario.correo}</p>
-															<p>Teléfono: ${voluntario.telefono}</p>
-															<p>Ciudad: ${voluntario.ciudad}</p>
-															<p>Edad: ${voluntario.edad}</p>
-														</div>
-													</div>
-												</td>
+												<th>Detalles</th>
 											</c:if>
-											<c:if test="${evento.estaActivo() && !voluntario.asistenciaConfirmada(evento) && id_organizacion != null}">
-												<td>
-													<a href="/eventos/${evento.id}/confirmarAsistencia/${voluntario.id}" class="d-block col-auto ms-auto">Confirmar</a>
-												</td>
-											</c:if>
-											<c:if test="${evento.estaActivo() && voluntario.asistenciaConfirmada(evento) && id_organizacion != null}">
-												<td>
-													<a href="/eventos/${evento.id}/negarAsistencia/${voluntario.id}" class="d-block col-auto ms-auto">Negar</a>
-												</td>
+											<c:if test="${evento.estaActivo() && id_organizacion != null}">
+												<th>Asistencia</th>
 											</c:if>
 										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+									</thead>
+									<tbody>
+										<c:forEach var="voluntario" items="${voluntarios}">
+											<tr>
+												<td>${voluntario.nombre}</td>
+												<td>${voluntario.apellido}</td>
+												<c:if test="${id_organizacion != null}">
+													<td>
+														<div class="eye-icon" data-usuario-id="${voluntario.id}">
+															<i class="fas fa-eye"></i>
+															<div class="user-details">
+																<p>Correo: ${voluntario.correo}</p>
+																<p>Teléfono: ${voluntario.telefono}</p>
+																<p>Ciudad: ${voluntario.ciudad}</p>
+																<p>Edad: ${voluntario.edad}</p>
+															</div>
+														</div>
+													</td>
+												</c:if>
+												<c:if test="${evento.estaActivo() && !voluntario.asistenciaConfirmada(evento) && id_organizacion != null}">
+													<td>
+														<a href="/eventos/${evento.id}/confirmarAsistencia/${voluntario.id}" class="d-block col-auto ms-auto">Confirmar</a>
+													</td>
+												</c:if>
+												<c:if test="${evento.estaActivo() && voluntario.asistenciaConfirmada(evento) && id_organizacion != null}">
+													<td>
+														<a href="/eventos/${evento.id}/negarAsistencia/${voluntario.id}" class="d-block col-auto ms-auto">Negar</a>
+													</td>
+												</c:if>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</c:if>
 						</div>
 					</div>
 				</div>
