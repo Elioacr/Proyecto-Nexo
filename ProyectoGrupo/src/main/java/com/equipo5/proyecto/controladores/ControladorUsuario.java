@@ -1,6 +1,8 @@
 package com.equipo5.proyecto.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -152,7 +154,14 @@ public class ControladorUsuario {
 	@GetMapping("/topvoluntarios")
 	public String topVoluntarios(Model model) {
 		List<Usuario> voluntarios = this.servicioUsuario.obtenerTodos();
-		voluntarios = voluntarios.stream().filter(v -> v.obtenerAsistenciasConfirmadas() > 0).toList();
+		List<Categoria> categorias = this.servicioCategoria.obtenerCategorias();
+		model.addAttribute("categorias", categorias);
+		if(voluntarios == null) {
+			return "topVoluntarios.jsp";
+		}
+		
+		voluntarios = voluntarios.stream().filter(v -> v.obtenerAsistenciasConfirmadas() > 0)
+										.collect(Collectors.toCollection(ArrayList::new));;
 		
 		if(voluntarios.size() > 1) {
 			voluntarios.sort((v1, v2) -> Integer.compare(v2.obtenerAsistenciasConfirmadas(), v1.obtenerAsistenciasConfirmadas()));
@@ -160,15 +169,13 @@ public class ControladorUsuario {
 		
 		List<Usuario> topVoluntarios;
 		if(voluntarios.size() > 10) {
-			topVoluntarios = voluntarios.subList(0, 9);
+			topVoluntarios = voluntarios.subList(0, 10);
 		}
 		else {
 			topVoluntarios = voluntarios;
 		}
-		List<Categoria> categorias = this.servicioCategoria.obtenerCategorias();
 		
 		model.addAttribute("topVoluntarios", topVoluntarios);
-		model.addAttribute("categorias", categorias);
 		return "topVoluntarios.jsp";
 	}
 	@GetMapping("/topvoluntarios/{categoria}")
