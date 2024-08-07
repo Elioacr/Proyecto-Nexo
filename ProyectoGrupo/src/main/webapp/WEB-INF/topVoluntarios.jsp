@@ -79,16 +79,29 @@
 				<p>No hay voluntarios...</p>
 			</c:if>
 			<c:if test="${topVoluntarios != null && topVoluntarios.size() > 0}">
-				<ol class="list-group list-group-numbered">
-					<c:forEach var="voluntario" items="${topVoluntarios}">
-						<c:if test="${categoria != null}">
-						  	<li class="list-group-item">${voluntario.nombre} <span class=" ms-auto text-end">${voluntario.obtenerAsistenciasConfirmadas(categoria)}</span></li>
-						</c:if>
-						<c:if test="${categoria == null}">
-						  	<li class="list-group-item">${voluntario.nombre} <span class=" ms-auto text-end">${voluntario.obtenerAsistenciasConfirmadas()}</span></li>
-						</c:if>
-					</c:forEach>
-				</ol>
+				<table class="table table-striped">
+			    <thead>
+			        <tr>
+			            <th scope="col" class="text-center">Posición</th>
+			            <th scope="col" class="text-center">Nombre</th>
+			            <th scope="col" class="text-center">Asistencias Confirmadas</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <c:forEach var="voluntario" items="${topVoluntarios}" varStatus="status">
+			            <tr>
+			                <td class="text-center">${status.index + 1}</td>
+			                <td class="text-center">${voluntario.nombre}</td>
+			                <c:if test="${categoria != null}">
+			                    <td class="text-center">${voluntario.obtenerAsistenciasConfirmadas(categoria)}</td>
+			                </c:if>
+			                <c:if test="${categoria == null}">
+			                    <td class="text-center">${voluntario.obtenerAsistenciasConfirmadas()}</td>
+			                </c:if>
+			            </tr>
+			        </c:forEach>
+			    </tbody>
+			</table>
 			</c:if>
 		</main>
 		

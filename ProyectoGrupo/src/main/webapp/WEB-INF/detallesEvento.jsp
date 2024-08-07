@@ -55,7 +55,7 @@
 
 			<div class="container">
 				<div class="row">
-					<h2 class="my-4 col12 col-sm-9">Detalles del Evento</h2>
+					<h2 class="my-0 col12 col-sm-9">Detalles del Evento</h2>
 					<div class="ms-auto col-12 col-sm-3 text-center">
 						<form action="/eventos/participar/${evento.id}" method="post">
 							<c:if
@@ -88,7 +88,7 @@
 							<c:if test="${evento.usuarios.size() == 0}">
 								<p>Aun no hay voluntarios registrados...</p>
 							</c:if>
-							<c:if test="${eventos.usuarios.size() > 0 }">
+							<c:if test="${evento.usuarios.size() > 0 }">
 								<table class="table">
 									<thead>
 										<tr>
