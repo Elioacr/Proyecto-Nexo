@@ -6,6 +6,16 @@ body {
     padding: 20px;
 }
 
+.cta {
+    display: inline-block;
+    background-color: #2091F9;
+    justify-self: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 13px 30px;
+    border-radius: 32px;
+}
+
 h2 {
     color: #333;
     text-align: center;

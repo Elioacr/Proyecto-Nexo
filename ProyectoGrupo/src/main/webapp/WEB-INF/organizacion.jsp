@@ -105,10 +105,10 @@
 	                            <a href="/" class="nav__links">Inicio</a>
 	                        </li>
 	                        <li class="nav__items">
-	                            <a href="#" class="nav__links">Acerca de nosotros</a>
+	                            <a href="/nosotros" class="nav__links">Acerca de nosotros</a>
 	                        </li>
 	                        <li class="nav__items">
-	                            <a href="#" class="nav__links">Contacto</a>
+	                            <a href="/contacto" class="nav__links">Contacto</a>
 	                        </li>
 	   
 	                    </ul>
