@@ -96,7 +96,7 @@
 										<c:if test="${id_organizacion != null}">
 											<th>Detalles</th>
 										</c:if>
-										<c:if test="${evento.estaActivo()}">
+										<c:if test="${evento.estaActivo() && id_organizacion != null}">
 											<th>Asistencia</th>
 										</c:if>
 									</tr>
@@ -119,12 +119,12 @@
 													</div>
 												</td>
 											</c:if>
-											<c:if test="${evento.estaActivo() && !voluntario.asistenciaConfirmada(evento)}">
+											<c:if test="${evento.estaActivo() && !voluntario.asistenciaConfirmada(evento) && id_organizacion != null}">
 												<td>
 													<a href="/eventos/${evento.id}/confirmarAsistencia/${voluntario.id}" class="d-block col-auto ms-auto">Confirmar</a>
 												</td>
 											</c:if>
-											<c:if test="${evento.estaActivo() && voluntario.asistenciaConfirmada(evento)}">
+											<c:if test="${evento.estaActivo() && voluntario.asistenciaConfirmada(evento) && id_organizacion != null}">
 												<td>
 													<a href="/eventos/${evento.id}/negarAsistencia/${voluntario.id}" class="d-block col-auto ms-auto">Negar</a>
 												</td>

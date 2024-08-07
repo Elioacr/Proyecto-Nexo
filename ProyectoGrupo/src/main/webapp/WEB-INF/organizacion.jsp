@@ -49,7 +49,10 @@
 		    	<c:choose>
 					<c:when test="${!organizacion.verificado}">
 						<div class="noVerificado">
-							<h5 class="mt-2">${nombreOrganizacion} en un lapso de 24 horas tus Eventos podran ser vistos por los Voluntarios</h5>
+							<h5 class="mt-2">${nombreOrganizacion}, tus eventos estarán ocultos para los voluntarios durante las próximas 24 horas.</h5>
+						</div>
+						<div class="noVerificado">
+							<h6>O hasta que la organización sea verificada</h6>
 						</div>
 				    </c:when>
 				     <c:otherwise>
